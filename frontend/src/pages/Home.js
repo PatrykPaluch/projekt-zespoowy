@@ -1,11 +1,15 @@
 import React from 'react';
-import Main from '../components/Main';
+import Announcements from '../components/Announcements';
+import Timetables from '../components/Timetables';
+import Squares from '../components/Squares';
 
 function Home() {
     return (
-        <>
-            <Main/>
-        </>
+        <div className='content'>
+            <Announcements/>
+            <Squares/>
+            <Timetables />
+        </div>
     )
 }
 
