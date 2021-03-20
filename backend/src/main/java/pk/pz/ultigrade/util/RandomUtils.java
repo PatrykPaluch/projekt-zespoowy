@@ -1,5 +1,7 @@
 package pk.pz.ultigrade.util;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 public class RandomUtils {
@@ -9,6 +11,11 @@ public class RandomUtils {
     public static <T> T randomElement(T[] list){
         int randomIndex = random.nextInt(list.length);
         return list[randomIndex];
+    }
+
+    public static <T> T randomElement(List<T> list){
+        int randomIndex = random.nextInt(list.size());
+        return list.get(randomIndex);
     }
 
     public static int randomInt(int max){
