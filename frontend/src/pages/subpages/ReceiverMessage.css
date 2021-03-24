@@ -1,0 +1,39 @@
+.rec{
+    display: flex;
+}
+
+.receiver-messages{
+    margin: 0 0 0 18vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 40vw;
+    height: 86vh;
+}
+
+.trash{
+    margin: 0 0 0 18vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 90vw;
+    height: 86vh;
+}
+
+.receiver-message{
+    margin: 0 0 0 1vw;
+    background-color: white;
+    width: 40vw;
+    height: 86vh;
+}
+
+.receiver-message > p, .receiver-message > h2, .receiver-message >h4 {
+    margin-left: 1em;
+}
+
+.rec-messages-list>li{
+    border-bottom: 0.01em solid;
+    width: 33vw;
+}

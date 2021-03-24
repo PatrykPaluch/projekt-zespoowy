@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Messages from './pages/Messages';
+import NewMessage from './pages/subpages/NewMessage';
+import ReceiverMessage from './pages/subpages/ReceiverMessage';
+import SendMessage from './pages/subpages/SendMessage';
+import Trash from './pages/subpages/Trash';
+import Navbar from './components/Navbar';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar/>
+        <Switch>
+            <Route exact path="/" component={Home}/> 
+            <Route exact path="/messages" component={Messages}/> 
+            <Route path="/messages/newmessage" component={NewMessage}/> 
+            <Route path="/messages/receivermessage" component={ReceiverMessage}/> 
+            <Route path="/messages/sendmessage" component={SendMessage}/> 
+            <Route path="/messages/trash" component={Trash}/> 
+        </Switch>
+    </Router>
   );
 }
 
