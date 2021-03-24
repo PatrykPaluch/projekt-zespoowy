@@ -80,7 +80,7 @@
     background:#85E18B;
     border: 0.1em solid #85E18B;
     margin: 0.1em;
-    box-shadow: 3px 3px 10px 2px white;
+    box-shadow: 1px 1px 20px 2px #13131382;
 }
 
 .square > i{
