@@ -3,7 +3,7 @@ import "./GradesStudent.css";
 import GradesRow from "../../components/GradesRow";
 
 const GradesStudent = () => {
-    const oceny = [["angielski", [1, 2, 3]], ["chemia", [3, 2, 1]]];
+    const oceny = [["angielski", [1, 2, 3,1]], ["chemia", [3, 2, 1]]];
     return (
         <div className="content">
             <ClassRegisterStudentNav/>
@@ -17,12 +17,49 @@ const GradesStudent = () => {
                             okres2
                         </button>
                     </div>
-                    {/*{oceny.forEach(subject => {*/}
-                    {/*    <GradesRow name={subject[0]} grades=subject{[1]}/>*/}
-                    {/*})}*/}
-                    <GradesRow/>
-                    <GradesRow/>
-                    <GradesRow/>
+
+                    <div className="grades">
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+                        <GradesRow oceny={oceny[0]}/>
+
+                    </div>
 
                 </div>
             </div>

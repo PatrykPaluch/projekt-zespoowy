@@ -1,6 +1,21 @@
-.content{
+.content-gr{
     display: flex;
-    height: 5vh;
+    height: 2em;
     width: 100%;
-    background-color: #85E18B;
+    border-bottom: 1px solid black;
+
+
+}
+
+li{
+    list-style-type: none;
+}
+
+.subject-name-gr{
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.grades-gr{
+    margin-left: 1em;
 }
