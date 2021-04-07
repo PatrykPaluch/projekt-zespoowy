@@ -9,35 +9,57 @@
     display:flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 
 }
 .header-cal >h5{
-    margin: 0 1em;
+    margin: 0 2em;
     padding: 0;
+    line-height:2em;
+    font-size:1em;
+}
+.header-cal >button{
+    border:none;
+    background-color: transparent;
+    color:  #85E18B;
+    font-size:2em;
+    padding:0;
+    margin:0;
+    
 }
 .callendar{
    padding:0 1em;
 }
 
-.callendar-days-header{
-    grid-template-columns: 9vw repeat(7,13vw);
+.callendar-header-days{
+    display:grid;
+    grid-template-columns: 1fr repeat(7,2fr);
+    grid-template-rows: 1fr;
 }
 
 .day{
-    
+    padding:0.2em 0.5em;
+    /* border: 0.01em solid black;
+    border-top:none; */
 }
 
 .callendar-inner{
     display:grid;
     grid-template-columns: 1fr repeat(7,2fr);
-    grid-template-rows: repeat(20,1.5em);
+    grid-template-rows: repeat(50,1.5em);
     overflow-y: auto;
     
 }
 
 .callendar-inner-hours{
     grid-column:1;
-    grid-row: 1/21;
+    grid-row: 1/51;
+    display:grid;
+    grid-template-rows: repeat(50,1.5em);  
+    
+}
+.hour{
+    font-size:1em;
 }
 
 .card-callendar{

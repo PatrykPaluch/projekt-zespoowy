@@ -1,32 +1,31 @@
 import React from 'react'
 import CardCallendar from './CardCallendar';
+import HeaderDays from './HeaderDays'
+import Hours from './Hours'
 import './callendar.css';
 
 const Callendar = () => {
     return (
     <div className='callendar'>
-        <div className='callendar-header-days'>
-            dfgdgd
-        </div>
+            <HeaderDays/>
             <div className='callendar-inner'>
-            <div className='callendar-inner-hours'>
-                hhhh
-            </div>
+                <Hours/>
+                {/* TODO passing proper value to CardCallendar (id, date, time, school subject) */}
                 <CardCallendar column={2} color= 'rgb(255,255,255)' startRow={1} endRow={4}/>
-                <CardCallendar column={2} color='yellow' startRow={5} endRow={8}/>
-                <CardCallendar column={2} color='green' startRow={9} endRow={12}/>
-                <CardCallendar column={2} color='gray' startRow={13} endRow={16}/>
+                <CardCallendar column={2} color='#7B84DB' startRow={5} endRow={8}/>
+                <CardCallendar column={2} color='#7BC7DB' startRow={9} endRow={12}/>
+                <CardCallendar column={2} color='#81DB7B' startRow={13} endRow={16}/>
 
-                <CardCallendar column={3} color='yellow' startRow={4} endRow={7}/>
-                <CardCallendar column={3} color='red' startRow={8} endRow={12}/>
-                <CardCallendar column={3} color='green' startRow={13} endRow={16}/>
+                <CardCallendar column={3} color='#7BC7DB' startRow={4} endRow={7}/>
+                <CardCallendar column={3} color='#81DB7B' startRow={8} endRow={12}/>
+                <CardCallendar column={3} color='#DB7B7B' startRow={13} endRow={16}/>
 
-                <CardCallendar column={3} color='yellow' startRow={4} endRow={7}/>
-                <CardCallendar column={4} color='green' startRow={2} endRow={4}/>
-                <CardCallendar column={5} color='gray' startRow={1} endRow={4} />
-                <CardCallendar column={6} color='violet' startRow={2} endRow={5}/>
-                <CardCallendar column={7} color='white' startRow={4} endRow={7}/>
-                <CardCallendar column={8} color='blue' startRow={1} endRow={4}/>
+                <CardCallendar column={3} color='#B27BDB' startRow={4} endRow={7}/>
+                <CardCallendar column={4} color='#E0E03B' startRow={2} endRow={4}/>
+                <CardCallendar column={5} color='#B27BDB' startRow={1} endRow={4} />
+                <CardCallendar column={6} color='#81DB7B' startRow={2} endRow={5}/>
+                <CardCallendar column={7} color='#7BC7DB' startRow={4} endRow={7}/>
+                <CardCallendar column={8} color='#DB7B7B' startRow={1} endRow={4}/>
             </div> 
     </div>
         
