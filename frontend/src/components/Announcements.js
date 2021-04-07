@@ -1,47 +1,21 @@
-import './styles.css';
+import Annoucement from './Annoucement';
 import React from 'react'
 
 
-const Announcement = () => {
+const Announcements = () => {
     return (
         <div className='announcements'>
             <div className='title'>
                 Ogloszenia
             </div>
-            <div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
-
-            </div>
-            <div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
-
-            </div>
-            <div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
-
-            </div>
-            <div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
-
-            </div>
-            <div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
-
-            </div>
-            
+            <Annoucement/>            
+            <Annoucement/>            
+            <Annoucement/>            
+            <Annoucement/>            
+            <Annoucement/>            
             
         </div>
     )
 }
 
-export default Announcement
+export default Announcements
