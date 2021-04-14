@@ -3,61 +3,31 @@ import "./GradesStudent.css";
 import GradesRow from "../../components/GradesRow";
 
 const GradesStudent = () => {
-    const oceny = [["angielski", [1, 2, 3,1]], ["chemia", [3, 2, 1]]];
+    const oceny = [["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]]];
     return (
         <div className="content">
             <ClassRegisterStudentNav/>
             <div className="margin-grades">
                 <div className="grades-content">
                     <div className="period">
-                        <button>
+                        <div className="period1">
                             okres1
-                        </button>
-                        <button>
+                            <button>
+                            </button>
+                        </div>
+                        <div className="period2">
                             okres2
-                        </button>
+                            <button>
+                            </button>
+                        </div>
                     </div>
 
                     <div className="grades">
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
+                        {oceny.map((ocena, i) => {
+                            console.log("Entered");
+                            // Return the element. Also pass key
+                            return (<GradesRow oceny={ocena} key={i}/>)
+                        })}
 
                     </div>
 

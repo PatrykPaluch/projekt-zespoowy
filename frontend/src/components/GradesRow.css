@@ -2,9 +2,8 @@
     display: flex;
     height: 2em;
     width: 100%;
-    border-bottom: 1px solid black;
-
-
+    border-bottom: 1px solid grey;
+    margin-top: 1em;
 }
 
 li{
@@ -14,6 +13,7 @@ li{
 .subject-name-gr{
     margin-left: 1em;
     font-weight: bold;
+    width: 5vw;
 }
 
 .grades-gr{

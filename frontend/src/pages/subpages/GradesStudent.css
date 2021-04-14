@@ -8,31 +8,80 @@
 .grades-content {
     background-color: white;
     height: 78vh;
-    width: 90%;
+    width: 95%;
     margin: auto;
-    border: 2px solid #272d31;
-    border-radius: 2em ;
-    box-shadow: 10px 10px rgba(0,0,0,.15);
+    border: 0.1em solid grey;
+    border-radius: 1em;
     transition: all .4s ease;
     display: flex;
     flex-direction: column;
 }
 
-.grades-content:hover{
-    border-radius: 2em ;
-    box-shadow: 5px 5px rgba(0,0,0,.25);
+.grades-content:hover {
+    box-shadow: 5px 5px rgba(0, 0, 0, .1);
 }
 
-.margin-grades{
+.margin-grades {
     margin: 3vw 0 0 18vw;
     width: 100%;
     height: 100%;
 }
 
-.period{
-    margin: 0 0 1em 2em;
+.period {
+    margin: 0.3em 0 1em 2em;
+    display: flex;
 }
-.grades{
+
+.period1 {
+    margin: 0 0 1em 2em;
+    display: flex;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 5vw;
+    justify-content: space-around;
+    /*background-color: #272d31;*/
+    /*color: #85E18B;*/
+}
+
+.period2 {
+    margin: 0 0 1em 2em;
+    display: flex;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 5vw;
+    justify-content: space-around;
+    /*background-color: #272d31;*/
+    /*color: #85E18B;*/
+}
+
+.period1 > button {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.period1 > button:focus {
+    background-color: #85E18B;
+    outline: none
+}
+
+
+.period2 > button {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.period2 > button:focus {
+    background-color: #85E18B;
+    outline: none
+
+}
+
+
+.grades {
     width: 100%;
     height: 100%;
     overflow: auto;
