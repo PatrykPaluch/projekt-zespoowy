@@ -8,6 +8,8 @@ import ReceiverMessage from './pages/subpages/ReceiverMessage';
 import SendMessage from './pages/subpages/SendMessage';
 import Trash from './pages/subpages/Trash';
 import Navbar from './components/Navbar';
+import ClassRegisterStudent from "./pages/ClassRegisterStudent";
+import GradesStudent from "./pages/subpages/GradesStudent";
 
 
 function App() {
@@ -21,7 +23,11 @@ function App() {
             <Route path="/messages/newmessage" component={NewMessage}/> 
             <Route path="/messages/receivermessage" component={ReceiverMessage}/> 
             <Route path="/messages/sendmessage" component={SendMessage}/> 
-            <Route path="/messages/trash" component={Trash}/> 
+            <Route path="/messages/trash" component={Trash}/>
+
+            <Route path="/classregisterstudent" component={ClassRegisterStudent}/>
+            <Route path="/gradesstudent" component={GradesStudent}/>
+
         </Switch>
     </Router>
   );
