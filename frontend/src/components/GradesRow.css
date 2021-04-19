@@ -1,0 +1,21 @@
+.content-gr{
+    display: flex;
+    height: 2em;
+    width: 100%;
+    border-bottom: 1px solid black;
+
+
+}
+
+li{
+    list-style-type: none;
+}
+
+.subject-name-gr{
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.grades-gr{
+    margin-left: 1em;
+}
