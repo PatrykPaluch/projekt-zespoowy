@@ -1,11 +1,11 @@
-.App-log{
+.App-log {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.Logo-place-register{
+.Logo-place-register {
     display: flex;
     justify-content: center;
     background-color: #272d31;
@@ -13,7 +13,7 @@
     padding: 0.5em;
 }
 
-.Register-form{
+.Register-form {
     display: flex;
     flex-direction: column;
     border-radius: 0 0 1em 1em;
@@ -22,7 +22,7 @@
     padding: 0.9em 10em 0.9em 10em;
 }
 
-.Login-form{
+.Login-form {
     display: flex;
     flex-direction: column;
     background-color: #85E18B;
@@ -32,21 +32,21 @@
     border-radius: 0 0 1em 1em;
 }
 
-.Register-form>input, .Login-form>input {
+.Register-form > input, .Login-form > input {
     height: 2em;
 }
 
-.Register-form>select, .Login-form>select{
+.Register-form > select, .Login-form > select {
     height: 2.5em;
 }
 
-.Register-form>select, .Register-form>input, .Register-button, .Login-form>input, .Login-form>select{
-    
+.Register-form > select, .Register-form > input, .Register-button, .Login-form > input, .Login-form > select {
+
     border-radius: 1em;
     border: none;
 }
 
-.Register-button{
+.Register-button {
     height: 2.5em;
     margin-top: 1em;
     width: 20em;
@@ -54,6 +54,17 @@
 }
 
 
-text{
+text {
     color: black;
+}
+
+.choose {
+    display: flex;
+}
+
+.choose > div {
+    display: flex;
+    margin: auto 1vw auto 1vw;
+    border: 1px solid white;
+    cursor: pointer;
 }
