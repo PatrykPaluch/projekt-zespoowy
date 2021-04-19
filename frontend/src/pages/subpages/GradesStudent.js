@@ -1,10 +1,13 @@
 import ClassRegisterStudentNav from "../../components/ClassRegisterStudentNav";
 import "./GradesStudent.css";
 import GradesRow from "../../components/GradesRow";
+import Navbar from "../../components/Navbar";
 
 const GradesStudent = () => {
     const oceny = [["angielski", [1, 2, 3,1]], ["chemia", [3, 2, 1]]];
     return (
+        <>
+        <Navbar/>
         <div className="content">
             <ClassRegisterStudentNav/>
             <div className="margin-grades">
@@ -64,6 +67,7 @@ const GradesStudent = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

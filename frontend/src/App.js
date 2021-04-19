@@ -3,11 +3,12 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import CallendarPage from './pages/CallendarPage';
 import Messages from './pages/Messages';
+import Register from './pages/Register';
+import Login from './pages/Login';
 import NewMessage from './pages/subpages/NewMessage';
 import ReceiverMessage from './pages/subpages/ReceiverMessage';
 import SendMessage from './pages/subpages/SendMessage';
 import Trash from './pages/subpages/Trash';
-import Navbar from './components/Navbar';
 import ClassRegisterStudent from "./pages/ClassRegisterStudent";
 import GradesStudent from "./pages/subpages/GradesStudent";
 
@@ -15,9 +16,10 @@ import GradesStudent from "./pages/subpages/GradesStudent";
 function App() {
   return (
     <Router>
-      <Navbar/>
         <Switch>
             <Route exact path="/" component={Home}/> 
+            <Route exact path="/login" component={Login}/> 
+            <Route exact path="/register" component={Register}/> 
             <Route exact path="/callendar" component={CallendarPage}/> 
             <Route exact path="/messages" component={Messages}/> 
             <Route path="/messages/newmessage" component={NewMessage}/> 

@@ -1,0 +1,59 @@
+.App-log{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.Logo-place-register{
+    display: flex;
+    justify-content: center;
+    background-color: #272d31;
+    border-radius: 1em 1em 0 0;
+    padding: 0.5em;
+}
+
+.Register-form{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 1em 1em;
+    background-color: #85E18B;
+    width: 40vw;
+    padding: 0.9em 10em 0.9em 10em;
+}
+
+.Login-form{
+    display: flex;
+    flex-direction: column;
+    background-color: #85E18B;
+    width: 40vw;
+    height: 20vh;
+    padding: 0.9em 2em 0.9em 2em;
+    border-radius: 0 0 1em 1em;
+}
+
+.Register-form>input, .Login-form>input {
+    height: 2em;
+}
+
+.Register-form>select, .Login-form>select{
+    height: 2.5em;
+}
+
+.Register-form>select, .Register-form>input, .Register-button, .Login-form>input, .Login-form>select{
+    
+    border-radius: 1em;
+    border: none;
+}
+
+.Register-button{
+    height: 2.5em;
+    margin-top: 1em;
+    width: 20em;
+    align-self: center;
+}
+
+
+text{
+    color: black;
+}
