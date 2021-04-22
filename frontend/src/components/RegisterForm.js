@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import Select from 'react-select';
 import './RegisterForm.css';
 import logo from '../image/LogoGreen.png';
+
 
 const RegisterForm = () => {
 
@@ -39,9 +41,9 @@ const RegisterForm = () => {
                 <form className="Register-form" onSubmit={handleSubmit(onSubmit)}>
                     <text>Rola</text>
                     <div className={'choose'}>
-                        <div className="btn-choose" onClick={handleSelectPupil}>uczen</div>
-                        <div className="btn-choose" onClick={handleSelectTeacher}>nauczyciel</div>
-                        <div className="btn-choose" onClick={handleSelectParent}>rodzic</div>
+                        <button className="btn-choose" onClick={handleSelectPupil}>Uczeń</button>
+                        <button className="btn-choose" onClick={handleSelectTeacher}>Nauczyciel</button>
+                        <button className="btn-choose" onClick={handleSelectParent}>Rodzic</button>
                     </div>
                     <text>Imię</text>
                     <input
@@ -94,12 +96,22 @@ const RegisterForm = () => {
                     {
                         isTeacher ?
                             <>
-                                <text type>Przedmioty</text>
-                                <select
+                                <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
+                                <select className="subjects" multiple
                                     {...register("subjects")}>
+                                    <option value="biology">biologia</option>
+                                    <option value="chemistry">chemia</option>
+                                    <option value="geography">geografia</option>
+                                    <option value="history">historia</option>
+                                    <option value="computerScience">informatyka</option>
                                     <option value="english">język angielski</option>
                                     <option value="polish">język polski</option>
                                     <option value="maths">matematyka</option>
+                                    <option value="music">muzyka</option>
+                                    <option value="plasticity">plastyka</option>
+                                    <option value="religion">religia</option>
+                                    <option value="technique">technika</option>
+                                    <option value="physicalEducation">wychowanie fizyczne</option>
                                 </select>
                             </> : null
                     }

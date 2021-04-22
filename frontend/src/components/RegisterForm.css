@@ -62,9 +62,25 @@ text {
     display: flex;
 }
 
-.choose > div {
+.btn-choose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15em;
+    height: 1.5em;
     display: flex;
     margin: auto 1vw auto 1vw;
-    border: 1px solid white;
     cursor: pointer;
+    background-color: white;
+    border-radius: 1em;
+    border: none;
+}
+
+.btn-choose:focus {
+    background-color: #272d31;
+    color: #85E18B;
+}
+
+select.subjects{
+    height: 8em;
 }
