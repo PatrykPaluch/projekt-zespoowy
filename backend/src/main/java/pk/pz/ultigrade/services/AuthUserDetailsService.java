@@ -13,19 +13,16 @@ import pk.pz.ultigrade.repositories.UserEntityRepository;
 import java.util.Optional;
 
 public class AuthUserDetailsService implements UserDetailsService {
-Logger logger = LoggerFactory.getLogger(AuthUserDetailsService.class);
 
     @Autowired
     private UserEntityRepository userEntityRepository;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        logger.info("Looking for {}", login);
         Optional<UsersEntity> user = userEntityRepository.findByLogin(login);
         if(user.isPresent())
             return new UserDetailsImpl(user.get());
 
-        logger.info("is not present");
         throw new UsernameNotFoundException("User not found");
     }
 
