@@ -2,11 +2,14 @@ package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import pk.pz.ultigrade.configurations.SecurityConfig;
 import pk.pz.ultigrade.models.UsersEntity;
 import pk.pz.ultigrade.repositories.UserEntityRepository;
 import pk.pz.ultigrade.requests.RegisterRequest;
+import pk.pz.ultigrade.util.JsonResponse;
 
 @RestController
 @CrossOrigin(value = "*", maxAge = 3600)
@@ -19,14 +22,14 @@ public class AuthController {
     PasswordEncoder encoder;
 
 
-    @PostMapping("/signup")
+    @PostMapping(SecurityConfig.SIGNUP_PAGE)
     public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest){
         if(userEntityRepository.existsByPesel(registerRequest.getPesel())){
-            return ResponseEntity.badRequest().body("user with this pesel already exists!");
+            return JsonResponse.badRequest("user with this pesel already exists!");
         }
 
         if(!registerRequest.getPassword().equals(registerRequest.getConfirmedPassword()) ){
-            return ResponseEntity.badRequest().body("passwords dont match!");
+            return JsonResponse.badRequest("passwords dont match!");
         }
 
         UsersEntity usersEntity = new UsersEntity(
@@ -41,7 +44,24 @@ public class AuthController {
 
 
         userEntityRepository.save(usersEntity);
-        return ResponseEntity.ok("User Registrated!");
+        return JsonResponse.ok("User Registrated!");
+    }
+
+
+
+    @RequestMapping(value = SecurityConfig.SIGNIN_SUCCESS_PAGE,  method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<?> signinSuccess(){
+        return JsonResponse.ok("sign in successful");
+    }
+
+    @RequestMapping(value = SecurityConfig.SIGNIN_FAILED_PAGE, method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<?> signinFailed(){
+        return JsonResponse.forbidden("Wrong login or password");
+    }
+
+    @RequestMapping(value = SecurityConfig.SIGNOUT_DONE_PAGE, method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<?> signoutDone(){
+        return JsonResponse.ok("sign out done");
     }
 
     @GetMapping("/test")
