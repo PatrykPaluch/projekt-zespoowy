@@ -1,6 +1,6 @@
-import ClassRegisterStudentNav from "../../components/ClassRegisterStudentNav";
+import ClassRegisterStudentNav from "../../components/ClassRegister/ClassRegisterStudentNav";
 import "./GradesStudent.css";
-import GradesRow from "../../components/GradesRow";
+import GradesRow from "../../components/ClassRegister/GradesRow";
 
 const GradesStudent = () => {
     const oceny = [["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]],["Polski", [1, 2, 3, 1]], ["Chemia", [3, 2, 1]]];
@@ -28,7 +28,6 @@ const GradesStudent = () => {
                             // Return the element. Also pass key
                             return (<GradesRow oceny={ocena} key={i}/>)
                         })}
-
                     </div>
 
                 </div>
