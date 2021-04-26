@@ -28,6 +28,7 @@ const GradesStudent = () => {
                             // Return the element. Also pass key
                             return (<GradesRow oceny={ocena} key={i}/>)
                         })}
+
                     </div>
 
                 </div>
