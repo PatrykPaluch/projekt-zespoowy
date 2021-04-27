@@ -29,7 +29,7 @@ function Navbar() {
                             <Link to="/Messages" onClick={closeMobileMenu} className='nav-links'>Wiadomości</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/classregisterstudent" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
+                            <Link to="/gradesstudent" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
                         </li>
                         <li className='nav-item'>
                             <Link to="/profile" onClick={closeMobileMenu} className='nav-links'>Profil</Link>

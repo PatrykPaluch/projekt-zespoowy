@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
-import Select from 'react-select';
+// import Select from 'react-select';
 import './RegisterForm.css';
 import logo from '../image/LogoGreen.png';
 

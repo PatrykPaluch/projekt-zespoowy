@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink} from 'react-router-dom';
 import './LeftNavBar.css';
 
-function MessageNav() {
+const CallenderFormNav = () => {
     return (
-        <div className='nav-container'>
+<div className='nav-container'>
             <ul className='nav-menu'>
               <li className='nav-item'>
                 <NavLink to="/messages/newmessage" className='nav-links'>Nowa Wiadomość</NavLink>
@@ -23,4 +23,4 @@ function MessageNav() {
     )
 }
 
-export default MessageNav;
+export default CallenderFormNav

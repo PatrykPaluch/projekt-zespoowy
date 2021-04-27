@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import CallendarPage from './pages/CallendarPage';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
+// import Profile from './pages/Profile';
 import Data from './pages/subpages/Data';
 import Children from './pages/subpages/Children';
 import Parent from './pages/subpages/Parent';
@@ -37,7 +37,7 @@ function App() {
             <Route path="/messages/receivermessage" component={ReceiverMessage}/> 
             <Route path="/messages/sendmessage" component={SendMessage}/> 
             <Route path="/messages/trash" component={Trash}/>
-            <Route path="/classregisterstudent" component={GradesStudent}/>
+            <Route path="/classregisterstudent" component={ClassRegisterStudent}/>
             <Route path="/gradesstudent" component={GradesStudent}/>
 
         </Switch>

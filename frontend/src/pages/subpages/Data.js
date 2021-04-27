@@ -42,11 +42,7 @@ function Data() {
                 </div>
                 <div className="Photo">
                     <div className="Data-item">
-                        <img 
-                            className="Photo-avatar" 
-                            src={photo} 
-                            alt={"This is User photo"}
-                        />
+                    <img className="Photo-avatar" src={photo} alt={"User avatar"}/>
                     </div>
                 </div>
             </div>
