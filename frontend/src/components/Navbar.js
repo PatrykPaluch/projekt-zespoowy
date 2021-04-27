@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Link} from 'react-router-dom';
 import './Navbar.css';
 import {ImCross, ImMenu} from 'react-icons/im';
-
+import logo from '../image/LogoGreen.png'; 
 function Navbar() {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
@@ -12,7 +12,8 @@ function Navbar() {
         <>
             <nav className="navbar">
                 <div className='navbar-container'>
-                    <Link to="/" onClick={closeMobileMenu} ><img className="Logo" alt="Uptive-logo" src="LogoGreen.png"></img></Link>
+                    <Link to="/" onClick={closeMobileMenu} ><img className="Logo" src={logo} alt={"this is logo"}/></Link>
+
                     <div className='menu-icon' onClick={handleClick}>
                         {click ? <ImCross/> : <ImMenu/>}
                     </div>
