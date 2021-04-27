@@ -12,7 +12,7 @@ function Navbar() {
         <>
             <nav className="navbar">
                 <div className='navbar-container'>
-                    <Link to="/" onClick={closeMobileMenu} ><img className="Logo" src="LogoGreen.png"></img></Link>
+                    <Link to="/" onClick={closeMobileMenu} ><img className="Logo" alt="Uptive-logo" src="LogoGreen.png"></img></Link>
                     <div className='menu-icon' onClick={handleClick}>
                         {click ? <ImCross/> : <ImMenu/>}
                     </div>
