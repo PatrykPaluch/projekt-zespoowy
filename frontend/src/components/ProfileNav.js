@@ -4,22 +4,22 @@ import './LeftNavBar.css';
 
 function ProfileNav() {
     return (
-        <div className='nav-container'>
-            <ul className='nav-menu'>
+        <div className='left-nav-container'>
+            <ul className='left-nav-menu'>
               <li className='nav-item'>
-                <NavLink to="/profile/data" className='nav-links'>Dane</NavLink>
+                <NavLink to="/profile/data" className='left-nav-links'>Dane</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/profile/subjects" className='nav-links'>Przedmioty</NavLink>
+                <NavLink to="/profile/subjects" className='left-nav-links'>Przedmioty</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/profile/teachers" className='nav-links'>Nauczyciele</NavLink>
+                <NavLink to="/profile/teachers" className='left-nav-links'>Nauczyciele</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/profile/children" className='nav-links'>Dzieci</NavLink>
+                <NavLink to="/profile/children" className='left-nav-links'>Dzieci</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/profile/parent" className='nav-links'>Rodzic</NavLink>
+                <NavLink to="/profile/parent" className='left-nav-links'>Rodzic</NavLink>
               </li>
             </ul>
         </div>

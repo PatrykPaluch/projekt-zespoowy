@@ -4,19 +4,19 @@ import './LeftNavBar.css';
 
 function MessageNav() {
     return (
-        <div className='nav-container'>
-            <ul className='nav-menu'>
+        <div className='left-nav-container'>
+            <ul className='left-nav-menu'>
               <li className='nav-item'>
-                <NavLink to="/messages/newmessage" className='nav-links'>Nowa Wiadomość</NavLink>
+                <NavLink to="/messages/newmessage" className='left-nav-links'>Nowa Wiadomość</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/messages/receivermessage" className='nav-links'>Skrzynka odbiorcza</NavLink>
+                <NavLink to="/messages/receivermessage" className='left-nav-links'>Skrzynka odbiorcza</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/messages/sendmessage" className='nav-links'>Wiadomości wysłane</NavLink>
+                <NavLink to="/messages/sendmessage" className='left-nav-links'>Wiadomości wysłane</NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to="/messages/trash" className='nav-links'>Kosz</NavLink>
+                <NavLink to="/messages/trash" className='left-nav-links'>Kosz</NavLink>
               </li>
             </ul>
         </div>

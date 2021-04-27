@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import CallendarPage from './pages/CallendarPage';
+import CallendarFormPage from './pages/CallendarFormPage';
 import Register from './pages/Register';
 import Login from './pages/Login';
 // import Profile from './pages/Profile';
@@ -39,6 +40,7 @@ function App() {
             <Route path="/messages/trash" component={Trash}/>
             <Route path="/classregisterstudent" component={ClassRegisterStudent}/>
             <Route path="/gradesstudent" component={GradesStudent}/>
+            <Route path="/callendarform" component={CallendarFormPage}/>
 
         </Switch>
     </Router>
