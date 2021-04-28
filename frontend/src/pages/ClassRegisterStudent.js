@@ -1,5 +1,6 @@
-import ClassRegisterStudentNav from "../components/ClassRegisterStudentNav";
 import Navbar from "../components/Navbar";
+import ClassRegisterStudentNav from "../components/ClassRegister/ClassRegisterStudentNav";
+
 
 const ClassRegisterStudent = () => {
     return (

@@ -1,9 +1,7 @@
 import "./GradesRow.css"
+import Grade from "./Grade";
 
 const GradesRow = (props) => {
-    function isOne(grade, i) {
-        return grade > 1 ? grade + ', ' : <span key={i} style={{color: 'red'}}> {grade},  </span>;
-    }
 
     return (
         <div className="content-gr">
@@ -12,11 +10,10 @@ const GradesRow = (props) => {
             </div>
             <div className="grades-gr">
                 {props.oceny[1].map((grade, i) => {
-                        return isOne(grade, i)
+                        return <Grade key={i} subject={props.oceny[0]} grade={grade}/>
                     }
                 )}
             </div>
-
         </div>
     );
 };

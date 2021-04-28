@@ -31,7 +31,7 @@
     padding:1em 0 1em 5em;
 }
 
-select, input{
+.callendar-form-container >select, .callendar-form-container >input{
     border-radius: 0.5em;
     height: 2.5em;
     width: 15em;
@@ -39,7 +39,7 @@ select, input{
     background-color: white;
     border: solid 0.01em rgb(199, 199, 199);
 }
-input{
+.callendar-form-container > input{
     height:2.3em;
     
 }
@@ -54,7 +54,7 @@ input{
     justify-content:center;
 
 }
-button{
+.callendar-form-container > button{
 
     border-radius: 0.5em;
     line-height: 3em;
