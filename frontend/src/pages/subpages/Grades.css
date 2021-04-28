@@ -87,3 +87,25 @@
     overflow: auto;
     margin-bottom: 1em;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #85E18B;
+    border-radius: 1em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #63C069;
+    border-radius: 1em;
+}
