@@ -1,0 +1,45 @@
+.Children{
+    overflow: auto;
+    height: 86vh;
+}
+
+.User-data, .Subject-data{
+    margin: 3vw 0 0 18vw;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: white;
+    justify-content: space-around;
+}
+
+.Teachers > .User-data, .Subjects > .Subject-data{
+    justify-content: flex-start;
+}
+
+.Children > .User-data{
+    margin: 1vw 0 0 18vw;
+}
+
+
+.Data-item{
+    display: flex;
+    align-items: flex-start;
+}
+
+.Data-item>h4{
+    background-color: #85E18B;
+    padding: 0.3em 2em 0.3em;
+    width: 8em;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 1em;
+    margin: auto 1em auto 1em;
+}
+.Photo{
+    display: flex;
+    align-self: center;
+}
+
+.Photo-avatar{
+    width: 15em;
+}

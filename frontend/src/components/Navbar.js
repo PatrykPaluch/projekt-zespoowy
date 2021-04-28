@@ -13,6 +13,7 @@ function Navbar() {
             <nav className="navbar">
                 <div className='navbar-container'>
                     <Link to="/" onClick={closeMobileMenu} ><img className="Logo" src={logo} alt={"this is logo"}/></Link>
+
                     <div className='menu-icon' onClick={handleClick}>
                         {click ? <ImCross/> : <ImMenu/>}
                     </div>
@@ -28,10 +29,10 @@ function Navbar() {
                             <Link to="/Messages" onClick={closeMobileMenu} className='nav-links'>Wiadomości</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/classregisterstudent" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
+                            <Link to="/gradesstudent" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/" onClick={closeMobileMenu} className='nav-links'>Profil</Link>
+                            <Link to="/profile" onClick={closeMobileMenu} className='nav-links'>Profil</Link>
                         </li>
                     </ul>
                 </div>

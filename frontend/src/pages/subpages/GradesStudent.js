@@ -1,66 +1,38 @@
-import ClassRegisterStudentNav from "../../components/ClassRegisterStudentNav";
-import "./GradesStudent.css";
-import GradesRow from "../../components/GradesRow";
+
 import Navbar from "../../components/Navbar";
+import ClassRegisterStudentNav from "../../components/ClassRegister/ClassRegisterStudentNav";
+import "./Grades.css";
+import GradesRow from "../../components/ClassRegister/GradesRow";
+
 
 const GradesStudent = () => {
-    const oceny = [["angielski", [1, 2, 3,1]], ["chemia", [3, 2, 1]]];
+    const oceny = [["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]]];
     return (
-        <>
+    <>
         <Navbar/>
         <div className="content">
             <ClassRegisterStudentNav/>
             <div className="margin-grades">
                 <div className="grades-content">
                     <div className="period">
-                        <button>
+                        <div className="period1">
                             okres1
-                        </button>
-                        <button>
+                            <button>
+                            </button>
+                        </div>
+                        <div className="period2">
                             okres2
-                        </button>
+                            <button>
+                            </button>
+                        </div>
                     </div>
 
                     <div className="grades">
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
-                        <GradesRow oceny={oceny[0]}/>
+                        {oceny.map((ocena, i) => {
+                            console.log("Entered");
+                            // Return the element. Also pass key
+                            return (<GradesRow oceny={ocena} key={i}/>)
+                        })}
 
                     </div>
 

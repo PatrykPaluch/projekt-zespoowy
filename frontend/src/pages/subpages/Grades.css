@@ -1,0 +1,111 @@
+.content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+/*todo scrollbar*/
+.grades-content {
+    background-color: white;
+    height: 78vh;
+    width: 95%;
+    margin: auto;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    transition: all .4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.grades-content:hover {
+    box-shadow: 5px 5px rgba(0, 0, 0, .1);
+}
+
+.margin-grades {
+    margin: 3vw 0 0 18vw;
+    width: 100%;
+    height: 100%;
+}
+
+.period {
+    margin: 0.3em 0 1em 2em;
+    display: flex;
+}
+
+.period1 {
+    margin: 0 0 1em 2em;
+    display: flex;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 5vw;
+    justify-content: space-around;
+    /*background-color: #272d31;*/
+    /*color: #85E18B;*/
+}
+
+.period2 {
+    margin: 0 0 1em 2em;
+    display: flex;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 5vw;
+    justify-content: space-around;
+    /*background-color: #272d31;*/
+    /*color: #85E18B;*/
+}
+
+.period1 > button {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.period1 > button:focus {
+    background-color: #85E18B;
+    outline: none
+}
+
+
+.period2 > button {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.period2 > button:focus {
+    background-color: #85E18B;
+    outline: none
+
+}
+
+
+.grades {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin-bottom: 1em;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #85E18B;
+    border-radius: 1em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #63C069;
+    border-radius: 1em;
+}

@@ -1,0 +1,23 @@
+.grade-content {
+    width: 1em;
+    height: auto;
+}
+
+.grade-content:hover {
+    background-color: #EEEEEE;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 2em;
+    height: 1.4em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.swal-button {
+    background-color: #85E18B;
+    max-width:10em;
+}
+
+.swal-button:hover {
+    background-color: #85E18B;
+}

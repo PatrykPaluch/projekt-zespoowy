@@ -1,0 +1,12 @@
+.subject-name-gr {
+    display: flex;
+}
+
+.name:hover {
+    background-color: #EEEEEE;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 1.4em;
+    text-align: center;
+    cursor: pointer;
+}

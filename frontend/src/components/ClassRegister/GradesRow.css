@@ -1,0 +1,22 @@
+.content-gr{
+    display: flex;
+    height: 2em;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    margin-top: 1em;
+}
+
+li{
+    list-style-type: none;
+}
+
+.subject-name-gr{
+    margin-left: 1em;
+    font-weight: bold;
+    width: 5vw;
+}
+
+.grades-gr{
+    margin-left: 1em;
+    display: flex;
+}
