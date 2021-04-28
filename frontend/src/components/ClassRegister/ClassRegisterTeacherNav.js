@@ -1,11 +1,12 @@
 import {NavLink} from "react-router-dom";
 import "./ClassRegisterNav.css"
-const ClassRegisterStudentNav = () => {
+
+const ClassRegisterTeacherNav = () => {
     return (
         <div className='nav-register'>
             <ul className='nav-menu-register'>
                 <li className='oceny'>
-                    <NavLink to="/gradesstudent" className='nav-register-links'>Oceny</NavLink>
+                    <NavLink to="/gradesteacher" className='nav-register-links'>Oceny</NavLink>
                 </li>
                 <li className='nav-item'>
                     <NavLink to="/classregisterstudent/gradesstudent" className='nav-register-links'>Frekwencja</NavLink>
@@ -15,4 +16,4 @@ const ClassRegisterStudentNav = () => {
     );
 };
 
-export default ClassRegisterStudentNav;
+export default ClassRegisterTeacherNav;

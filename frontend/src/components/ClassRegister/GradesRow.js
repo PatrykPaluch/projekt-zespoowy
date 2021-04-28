@@ -10,7 +10,7 @@ const GradesRow = (props) => {
             </div>
             <div className="grades-gr">
                 {props.oceny[1].map((grade, i) => {
-                        return <Grade key={i} grade={grade}/>
+                        return <Grade key={i} subject={props.oceny[0]} grade={grade}/>
                     }
                 )}
             </div>

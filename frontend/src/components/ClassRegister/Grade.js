@@ -6,9 +6,15 @@ const Grade = (props) => {
 
     let f = (e) => {
         e.preventDefault();
-        swal({
-            text: `ocena wystawiona:data\n nauczyciel wystawiający:Mariusz Walczyk\nocena: ${props.grade}`
-        });
+        if (props.grade.length === 5) {
+            swal({
+                text: `ocena wystawiona: ${props.grade[1]}\n nauczyciel wystawiający: ${props.grade[2]}\nprzedmiot: ${props.grade[4]}\nza co: ${props.grade[3]}\nocena: ${props.grade[0]}`
+            });
+        } else {
+            swal({
+                text: `ocena wystawiona: ${props.grade[1]}\n nauczyciel wystawiający: ${props.grade[2]}\nprzedmiot: ${props.subject}\nza co: ${props.grade[3]}\nocena: ${props.grade[0]}`
+            });
+        }
 
     }
 
@@ -18,7 +24,7 @@ const Grade = (props) => {
 
     return (
         <div className="grade-content" onClick={f}>
-            {isOne(props.grade)}
+            {isOne(props.grade[0])}
         </div>
     );
 };
