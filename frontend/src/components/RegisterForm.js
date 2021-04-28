@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm} from "react-hook-form";
 // import Select from 'react-select';
 import './RegisterForm.css';
 import logo from '../image/LogoGreen.png';
-
+import axios from "axios";
 
 const RegisterForm = () => {
 
@@ -14,23 +14,49 @@ const RegisterForm = () => {
     const [isParent, setIsParent] = useState(false);
     const [isPupil, setIsPupil] = useState(false);
 
+    const [user,setUser] = useState({
+        role: '',
+    });
+
     const handleSelectTeacher = () => {
         setIsTeacher(true);
         setIsParent(false);
         setIsPupil(false);
+        setUser(user => user.role = "teacher");
     }
 
     const handleSelectParent = () => {
         setIsTeacher(false);
         setIsParent(true);
         setIsPupil(false);
+        setUser(user => user.role = "parent");
     }
 
     const handleSelectPupil = () => {
         setIsTeacher(false);
         setIsParent(false);
         setIsPupil(true);
+        setUser(user => user.role = "pupil");
     }
+
+    useEffect(() =>{
+        axios.post(`http://localhost/8000/signup`,{
+            role: user.role,
+            name: onSubmit.name, 
+            surname: onSubmit.surname,
+            pesel:  onSubmit.pesel,
+            password: onSubmit.password,
+            confirmPassword: onSubmit.confirmPassword,
+            address: onSubmit.address,
+            dateOfBirth: onSubmit.dateOfBirth,
+            class: onSubmit.class,
+            childrenPesel: onSubmit.childrenPesel,
+            subjects: onSubmit.subjects
+        }).then(function(response){
+            console.log(response);
+        });
+    });
+
 
     return (
         <div className="App-log">
@@ -65,7 +91,7 @@ const RegisterForm = () => {
                     <text>Powtórz hasło</text>
                     <input
                         type="password"
-                        {...register("confirmed-password")}
+                        {...register("confirmedPassword")}
                     />
                     <text>Adres</text>
                     <input
@@ -74,7 +100,7 @@ const RegisterForm = () => {
                     <text>Data urodzenia</text>
                     <input
                         type="date"
-                        {...register("date-of-birth")}
+                        {...register("dateOfBirth")}
                     />
                     {
                         isPupil ?
@@ -121,7 +147,7 @@ const RegisterForm = () => {
                                 <text>Pesel dziecka</text>
                                 <input
                                     type="number"
-                                    {...register("children-pesel")}>
+                                    {...register("childrenPesel")}>
                                 </input>
                             </> : null
                     }
