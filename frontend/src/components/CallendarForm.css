@@ -30,8 +30,7 @@
     width: auto ;
     padding:1em 0 1em 5em;
 }
-
-.callendar-form-container >select, .callendar-form-container >input{
+.lesson-form >select, .lesson-form >input{
     border-radius: 0.5em;
     height: 2.5em;
     width: 15em;
@@ -39,10 +38,11 @@
     background-color: white;
     border: solid 0.01em rgb(199, 199, 199);
 }
-.callendar-form-container > input{
+.lesson-form > input{
     height:2.3em;
     
 }
+
 .label{
     border-bottom: solid 0.01em rgb(199, 199, 199);
     max-width: 20em;
@@ -54,7 +54,7 @@
     justify-content:center;
 
 }
-.callendar-form-container > button{
+.button-container > button{
 
     border-radius: 0.5em;
     line-height: 3em;
