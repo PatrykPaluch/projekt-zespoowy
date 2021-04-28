@@ -1,0 +1,20 @@
+.left-nav-container{
+    background-color: #272d31;
+    width: 18vw;
+    height: 86vh;
+    position: absolute;
+}
+
+.left-nav-links{
+    color: #85E18B;
+}
+
+li{
+    list-style-type: none;
+}
+
+.left-nav-menu{
+    display: grid;
+    grid-template-rows: repeat(8, 8vh);
+    margin-top: 6vh;
+}

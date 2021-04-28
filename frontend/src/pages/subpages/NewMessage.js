@@ -1,10 +1,12 @@
 import React from 'react';
 import MessageNav from '../../components/MessageNav';
 import './NewMessage.css';
+import Navbar from "../../components/Navbar";
 
 function NewMessage() {
     return (
        <>
+        <Navbar/>
         <MessageNav/>
             <form className="message-form">
                 <input className="receiver" placeholder="Do"></input>
