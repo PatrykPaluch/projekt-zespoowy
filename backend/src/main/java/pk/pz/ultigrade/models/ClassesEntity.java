@@ -1,27 +1,44 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "classes", schema = "public", catalog = "d5qp4l763upedh")
+@Table(name = "classes")
 public class ClassesEntity {
-    private int idClass;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_class")
+    private int id;
+
+    @Column
     private String name;
+    @Column
     private String schoolYear;
 
-    @Id
-    @Column(name = "id_class")
-    public int getIdClass() {
-        return idClass;
+
+    @JsonIgnoreProperties("studentClass")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "class_student",
+            joinColumns = {@JoinColumn(name = "id_class")},
+            inverseJoinColumns = {@JoinColumn(name = "id_student")})
+    private Set<StudentEntity> students;
+//
+//    @OneToOne(fetch = FetchType.EAGER)
+//    private Teacher pricipal;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void setIdClass(int idClass) {
-        this.idClass = idClass;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -30,8 +47,6 @@ public class ClassesEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "school_year")
     public String getSchoolYear() {
         return schoolYear;
     }
@@ -40,16 +55,11 @@ public class ClassesEntity {
         this.schoolYear = schoolYear;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ClassesEntity that = (ClassesEntity) o;
-        return idClass == that.idClass && Objects.equals(name, that.name) && Objects.equals(schoolYear, that.schoolYear);
+    public Set<StudentEntity> getStudents() {
+        return students;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idClass, name, schoolYear);
+    public void setStudents(Set<StudentEntity> students) {
+        this.students = students;
     }
 }

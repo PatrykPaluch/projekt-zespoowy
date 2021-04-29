@@ -1,18 +1,23 @@
 package pk.pz.ultigrade.models;
 
 
+import com.fasterxml.jackson.annotation.*;
+import pk.pz.ultigrade.Views;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class UsersEntity {
-
+public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user", unique = true, nullable = false)
-    private int idUser;
-    @Column(name = "id_role")
-    private int idRole;
+    @Column(name = "id_user")
+    private Integer id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_role", referencedColumnName = "id_role")
+    private RoleEntity role;
+
     @Column
     private String name;
     @Column
@@ -30,10 +35,19 @@ public class UsersEntity {
     @Column
     private String email;
 
-    public UsersEntity(){}
+    @JsonIgnoreProperties("students")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "class_student",
+            joinColumns = {@JoinColumn(name = "id_student")},
+            inverseJoinColumns = {@JoinColumn(name = "id_class")})
+    private ClassesEntity studentClass;
 
-    public UsersEntity(int idRole, String name, String surname, String login, String password, String pesel, String adress, String phone, String email) {
-        this.idRole = idRole;
+
+    public StudentEntity(){}
+
+    public StudentEntity(RoleEntity role, String name, String surname, String login, String password, String pesel, String adress, String phone, String email) {
+        this.role = role;
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -44,20 +58,21 @@ public class UsersEntity {
         this.email = email;
     }
 
-    public int getIdUser() {
-        return idUser;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getIdRole() {
-        return idRole;
+    public RoleEntity getRole() {
+        return role;
     }
 
-    public void setIdRole(int idRole) {
-        this.idRole = idRole;
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     public String getName() {
@@ -122,5 +137,13 @@ public class UsersEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ClassesEntity getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(ClassesEntity studentClass) {
+        this.studentClass = studentClass;
     }
 }

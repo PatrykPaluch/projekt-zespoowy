@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.configurations.SecurityConfig;
-import pk.pz.ultigrade.models.UsersEntity;
 import pk.pz.ultigrade.repositories.UserEntityRepository;
 import pk.pz.ultigrade.requests.RegisterRequest;
 import pk.pz.ultigrade.util.JsonResponse;
@@ -14,8 +13,8 @@ import pk.pz.ultigrade.util.JsonResponse;
 @CrossOrigin(value = "*", maxAge = 3600)
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    UserEntityRepository userEntityRepository;
+//    @Autowired
+//    UserEntityRepository userEntityRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -23,26 +22,26 @@ public class AuthController {
 
     @PostMapping(SecurityConfig.SIGNUP_PAGE)
     public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest){
-        if(userEntityRepository.existsByPesel(registerRequest.getPesel())){
-            return JsonResponse.badRequest("user with this pesel already exists!");
-        }
+//        if(userE/*ntityRepository.existsByPesel(registerRequest.getPesel())){
+//            return JsonResponse.badRequest("user with this pesel already exists!");
+//        }
+//
+//        if(!registerRequest.getPassword().equals(registerRequest.getConfirmedPassword()) ){
+//            return JsonResponse.badRequest("passwords dont match!");
+//        }*/
 
-        if(!registerRequest.getPassword().equals(registerRequest.getConfirmedPassword()) ){
-            return JsonResponse.badRequest("passwords dont match!");
-        }
-
-        UsersEntity usersEntity = new UsersEntity(
-                registerRequest.getIdRole(),
-            registerRequest.getName(),
-            registerRequest.getSurname(),
-            registerRequest.getPesel(),
-            encoder.encode(registerRequest.getPassword()),
-            registerRequest.getPesel(),
-            registerRequest.getAdress(),
-        "");
+//        UsersEntity usersEntity = new UsersEntity(
+//                registerRequest.getIdRole(),
+//            registerRequest.getName(),
+//            registerRequest.getSurname(),
+//            registerRequest.getPesel(),
+//            encoder.encode(registerRequest.getPassword()),
+//            registerRequest.getPesel(),
+//            registerRequest.getAdress(),
+//        "");
 
 
-        userEntityRepository.save(usersEntity);
+//        userEntityRepository.save(usersEntity);
         return JsonResponse.ok("User Registrated!");
     }
 
