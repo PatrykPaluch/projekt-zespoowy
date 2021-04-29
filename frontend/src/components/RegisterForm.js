@@ -8,15 +8,33 @@ import axios from "axios";
 const RegisterForm = () => {
 
     const {register, handleSubmit} = useForm();
-    const onSubmit = formData => console.log(formData);
 
     const [isTeacher, setIsTeacher] = useState(true);
     const [isParent, setIsParent] = useState(false);
     const [isPupil, setIsPupil] = useState(false);
 
-    const [user,setUser] = useState({
+    const [user, setUser] = useState({
         role: '',
     });
+
+    const onSubmit = formData => {
+        console.log(formData);
+        // axios.post(`http://localhost/8000/signup`, {
+        //     role: user.role,
+        //     name: onSubmit.name,
+        //     surname: onSubmit.surname,
+        //     pesel: onSubmit.pesel,
+        //     password: onSubmit.password,
+        //     confirmPassword: onSubmit.confirmPassword,
+        //     address: onSubmit.address,
+        //     dateOfBirth: onSubmit.dateOfBirth,
+        //     class: onSubmit.class,
+        //     childrenPesel: onSubmit.childrenPesel,
+        //     subjects: onSubmit.subjects
+        // }).then(function (response) {
+        //     console.log(response);
+        // });
+    };
 
     const handleSelectTeacher = () => {
         setIsTeacher(true);
@@ -38,25 +56,6 @@ const RegisterForm = () => {
         setIsPupil(true);
         setUser(user => user.role = "pupil");
     }
-
-    useEffect(() =>{
-        axios.post(`http://localhost/8000/signup`,{
-            role: user.role,
-            name: onSubmit.name, 
-            surname: onSubmit.surname,
-            pesel:  onSubmit.pesel,
-            password: onSubmit.password,
-            confirmPassword: onSubmit.confirmPassword,
-            address: onSubmit.address,
-            dateOfBirth: onSubmit.dateOfBirth,
-            class: onSubmit.class,
-            childrenPesel: onSubmit.childrenPesel,
-            subjects: onSubmit.subjects
-        }).then(function(response){
-            console.log(response);
-        });
-    });
-
 
     return (
         <div className="App-log">
@@ -124,7 +123,7 @@ const RegisterForm = () => {
                             <>
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
-                                    {...register("subjects")}>
+                                        {...register("subjects")}>
                                     <option value="biology">biologia</option>
                                     <option value="chemistry">chemia</option>
                                     <option value="geography">geografia</option>
