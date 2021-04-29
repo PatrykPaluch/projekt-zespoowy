@@ -7,6 +7,6 @@ import pk.pz.ultigrade.models.StudentEntity;
 import java.util.Optional;
 
 @Repository
-public interface StudentEntityRepository extends JpaRepository<StudentEntity, Integer> {
+public interface StudentEntityRepository extends UserEntityBaseRepository<StudentEntity> {
 
 }
