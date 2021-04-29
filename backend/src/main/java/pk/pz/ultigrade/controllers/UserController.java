@@ -5,14 +5,13 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import pk.pz.ultigrade.models.ClassesEntity;
-import pk.pz.ultigrade.models.StudentEntity;
-import pk.pz.ultigrade.models.UsersBaseEntity;
-import pk.pz.ultigrade.models.UsersEntity;
+import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.ClassesEntityRepository;
 import pk.pz.ultigrade.repositories.StudentEntityRepository;
+import pk.pz.ultigrade.repositories.TeacherEntityRepository;
 import pk.pz.ultigrade.repositories.UserEntityRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +26,26 @@ public class UserController {
 
     @Autowired
     ClassesEntityRepository classesRepo;
+
+    @Autowired
+    TeacherEntityRepository teacherRepo;
+
+    // get all users
+    @GetMapping("/api/users")
+    public List<UsersEntity> getUsers(){
+        return userRepo.findAll();
+    }
+    // get all students
+    @GetMapping("/api/students")
+    public List<StudentEntity> getStudents(){
+        return studentRepo.findAll();
+    }
+
+    // get all teachers
+    @GetMapping("/api/teachers")
+    public List<TeacherEntity> getTeachers(){
+        return teacherRepo.findAll();
+    }
 
     @GetMapping("/public/students/{id}")
     public StudentEntity getStudent(@PathVariable int id){
