@@ -33,7 +33,12 @@
     margin-left: 1em;
 }
 
+.rec-messages-list{
+    overflow: auto;
+}
+
 .rec-messages-list>li{
     border-bottom: 0.01em solid;
     width: 33vw;
+    cursor: pointer;
 }
