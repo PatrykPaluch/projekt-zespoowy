@@ -9,6 +9,7 @@ const RegisterForm = () => {
 
     const {register, handleSubmit} = useForm();
     const [subjects, setSubjects] = useState([]);
+    const [classes, setClasses] = useState([]);
 
     const [user, setUser] = useState({
         role: '',
@@ -33,8 +34,10 @@ const RegisterForm = () => {
         //     console.log(response);
         // });
     };
-    let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka'];
+    let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński', 'biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński'];
+    let tmp2 = ['pierwsza', 'druga', 'trzecia', 'czwarta', 'piąta', 'szósta', 'siódma', 'ósma'];
     useEffect(() => {
+        setUser({role: 'pupil'});
         //     let tmpSubjects = [];
         //     axios.get('url to get subjects')
         //         .then(response => {
@@ -43,23 +46,31 @@ const RegisterForm = () => {
         //             })
         //         })
         //     setSubjects(tmpSubjects);
-    })
+
+        //     let tmpClasses = [];
+        //     axios.get('url to get classes')
+        //         .then(response => {
+        //             response.forEach(c => {
+        //                 tmpClasses.push(c);
+        //             })
+        //         })
+        //     setClasses(tmpClasses);
+
+    },[])
 
 
-    const handleSelectTeacher = () => {
-        console.log(user.role)
-
+    const handleSelectTeacher = (e) => {
+        e.preventDefault();
         setUser({role: 'teacher'});
     }
 
-    const handleSelectParent = () => {
-        console.log(user.role)
-
+    const handleSelectParent = (e) => {
+        e.preventDefault();
         setUser({role: 'parent'});
     }
 
-    const handleSelectPupil = () => {
-        console.log(user.role)
+    const handleSelectPupil = (e) => {
+        e.preventDefault();
         setUser({role: 'pupil'});
     }
 
@@ -113,14 +124,9 @@ const RegisterForm = () => {
                                 <text>Klasa</text>
                                 <select
                                     {...register("class")}>
-                                    <option value="first">pierwsza</option>
-                                    <option value="second">druga</option>
-                                    <option value="third">trzecia</option>
-                                    <option value="fourth">czwarta</option>
-                                    <option value="fifth">piata</option>
-                                    <option value="sixth">szósta</option>
-                                    <option value="seventh">siódma</option>
-                                    <option value="eighth">ósma</option>
+                                    {tmp2.map((c, key) => {
+                                        return <option value={c} key={key}>{c}</option>
+                                    })}
                                 </select>
                             </> : null
                     }
