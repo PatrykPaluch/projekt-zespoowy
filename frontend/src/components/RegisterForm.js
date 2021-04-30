@@ -8,10 +8,6 @@ import axios from "axios";
 const RegisterForm = () => {
 
     const {register, handleSubmit} = useForm();
-
-    const [isTeacher, setIsTeacher] = useState(true);
-    const [isParent, setIsParent] = useState(false);
-    const [isPupil, setIsPupil] = useState(false);
     const [subjects, setSubjects] = useState([]);
 
     const [user, setUser] = useState({
@@ -20,6 +16,7 @@ const RegisterForm = () => {
 
     const onSubmit = formData => {
         console.log(formData);
+        console.log('submitting');
         // axios.post(`http://localhost/8000/signup`, {
         //     role: user.role,
         //     name: onSubmit.name,
@@ -37,37 +34,33 @@ const RegisterForm = () => {
         // });
     };
     let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka'];
-    // useEffect(() => {
-    //     let tmpSubjects = [];
-    //     axios.get('url to get subjects')
-    //         .then(response => {
-    //             response.forEach(s => {
-    //                 tmpSubjects.push(s);
-    //             })
-    //         })
-    //     setSubjects(tmpSubjects);
-    // })
+    useEffect(() => {
+        //     let tmpSubjects = [];
+        //     axios.get('url to get subjects')
+        //         .then(response => {
+        //             response.forEach(s => {
+        //                 tmpSubjects.push(s);
+        //             })
+        //         })
+        //     setSubjects(tmpSubjects);
+    })
 
 
     const handleSelectTeacher = () => {
-        setIsTeacher(true);
-        setIsParent(false);
-        setIsPupil(false);
-        setUser(user => user.role = "teacher");
+        console.log(user.role)
+
+        setUser({role: 'teacher'});
     }
 
     const handleSelectParent = () => {
-        setIsTeacher(false);
-        setIsParent(true);
-        setIsPupil(false);
-        setUser(user => user.role = "parent");
+        console.log(user.role)
+
+        setUser({role: 'parent'});
     }
 
     const handleSelectPupil = () => {
-        setIsTeacher(false);
-        setIsParent(false);
-        setIsPupil(true);
-        setUser(user => user.role = "pupil");
+        console.log(user.role)
+        setUser({role: 'pupil'});
     }
 
     return (
@@ -115,7 +108,7 @@ const RegisterForm = () => {
                         {...register("dateOfBirth")}
                     />
                     {
-                        isPupil ?
+                        (user.role === "pupil") ?
                             <>
                                 <text>Klasa</text>
                                 <select
@@ -132,7 +125,7 @@ const RegisterForm = () => {
                             </> : null
                     }
                     {
-                        isTeacher ?
+                        (user.role === "teacher") ?
                             <>
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
@@ -145,7 +138,7 @@ const RegisterForm = () => {
                             </> : null
                     }
                     {
-                        isParent ?
+                        (user.role === "parent") ?
                             <>
                                 <text>Pesel dziecka</text>
                                 <input
