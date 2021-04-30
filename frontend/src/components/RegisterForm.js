@@ -12,6 +12,7 @@ const RegisterForm = () => {
     const [isTeacher, setIsTeacher] = useState(true);
     const [isParent, setIsParent] = useState(false);
     const [isPupil, setIsPupil] = useState(false);
+    const [subjects, setSubjects] = useState([]);
 
     const [user, setUser] = useState({
         role: '',
@@ -35,6 +36,18 @@ const RegisterForm = () => {
         //     console.log(response);
         // });
     };
+    let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka'];
+    // useEffect(() => {
+    //     let tmpSubjects = [];
+    //     axios.get('url to get subjects')
+    //         .then(response => {
+    //             response.forEach(s => {
+    //                 tmpSubjects.push(s);
+    //             })
+    //         })
+    //     setSubjects(tmpSubjects);
+    // })
+
 
     const handleSelectTeacher = () => {
         setIsTeacher(true);
@@ -124,19 +137,10 @@ const RegisterForm = () => {
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
                                         {...register("subjects")}>
-                                    <option value="biology">biologia</option>
-                                    <option value="chemistry">chemia</option>
-                                    <option value="geography">geografia</option>
-                                    <option value="history">historia</option>
-                                    <option value="computerScience">informatyka</option>
-                                    <option value="english">język angielski</option>
-                                    <option value="polish">język polski</option>
-                                    <option value="maths">matematyka</option>
-                                    <option value="music">muzyka</option>
-                                    <option value="plasticity">plastyka</option>
-                                    <option value="religion">religia</option>
-                                    <option value="technique">technika</option>
-                                    <option value="physicalEducation">wychowanie fizyczne</option>
+                                    {/*todo instead of tmp subjects*/}
+                                    {tmp.map((subject, key) => {
+                                        return <option value={subject} key={key}>{subject}</option>
+                                    })}
                                 </select>
                             </> : null
                     }
