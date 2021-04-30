@@ -136,7 +136,6 @@ const RegisterForm = () => {
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
                                         {...register("subjects")}>
-                                    {/*todo instead of tmp subjects*/}
                                     {tmp.map((subject, key) => {
                                         return <option value={subject} key={key}>{subject}</option>
                                     })}
