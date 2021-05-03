@@ -3,23 +3,22 @@ package pk.pz.ultigrade.details;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pk.pz.ultigrade.models.UsersEntity;
-import pk.pz.ultigrade.util.Roles;
+import pk.pz.ultigrade.models.RoleEntity;
+import pk.pz.ultigrade.models.UsersBaseEntity;
 
 import java.util.Collection;
 import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final UsersEntity user;
+    private final UsersBaseEntity user;
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UsersEntity user){
+    public UserDetailsImpl(UsersBaseEntity user){
         this.user = user;
 
-        Roles userRole = Roles.fromNumber(user.getIdRole());
         authorities = List.of(
-                new SimpleGrantedAuthority(userRole.getName())
+                new SimpleGrantedAuthority(user.getRole().getRole())
         );
     }
 
@@ -35,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return user.getPesel();
     }
 
     @Override
@@ -67,18 +66,12 @@ public class UserDetailsImpl implements UserDetails {
         return user.getAdress();
     }
 
-
     public String getPhone() {
         return user.getPhone();
     }
 
-
-    public String getEmail() {
-        return user.getEmail();
-    }
-
-    public int getIdRole() {
-        return user.getIdRole();
+    public RoleEntity getRole() {
+        return user.getRole();
     }
 
     public Integer getIdUser() {
@@ -91,9 +84,5 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getSurname() {
         return user.getSurname();
-    }
-
-    public String getLogin() {
-        return user.getLogin();
     }
 }

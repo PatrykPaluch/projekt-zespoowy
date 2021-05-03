@@ -6,10 +6,7 @@ public class RegisterRequest {
     private String surname;
     private String pesel;
     private String password;
-    private String confirmedPassword;
     private String adress;
-    private String birthDate;
-    private long classN;
 
     public int getIdRole() {
         return idRole;
@@ -51,14 +48,6 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getConfirmedPassword() {
-        return confirmedPassword;
-    }
-
-    public void setConfirmedPassword(String confirmedPassword) {
-        this.confirmedPassword = confirmedPassword;
-    }
-
     public String getAdress() {
         return adress;
     }
@@ -67,21 +56,6 @@ public class RegisterRequest {
         this.adress = adress;
     }
 
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public long getClassN() {
-        return classN;
-    }
-
-    public void setClassN(long classN) {
-        this.classN = classN;
-    }
 
     @Override
     public String toString() {
@@ -91,10 +65,7 @@ public class RegisterRequest {
                 ", surname='" + surname + '\'' +
                 ", pesel='" + pesel + '\'' +
                 ", password='" + password + '\'' +
-                ", confirmedPassword='" + confirmedPassword + '\'' +
                 ", adress='" + adress + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", classN=" + classN +
                 '}';
     }
 }
