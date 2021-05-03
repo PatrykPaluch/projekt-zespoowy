@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "subjects")
-public class SubjectEntity {
+public class SubjectsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,10 @@ public class SubjectEntity {
             inverseJoinColumns = {@JoinColumn(name = "id_teacher")})
     private Set<TeacherEntity> teachers;
 
-    public SubjectEntity() {
+    public SubjectsEntity() {
     }
 
-    public SubjectEntity(String name) {
+    public SubjectsEntity(String name) {
         this.name = name;
     }
 

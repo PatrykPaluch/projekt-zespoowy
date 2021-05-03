@@ -26,9 +26,12 @@ public class ClassesEntity {
             joinColumns = {@JoinColumn(name = "id_class")},
             inverseJoinColumns = {@JoinColumn(name = "id_student")})
     private Set<StudentEntity> students;
-//
-//    @OneToOne(fetch = FetchType.EAGER)
-//    private Teacher pricipal;
+
+
+    @JsonIgnoreProperties("subjects")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tutor")
+    private TeacherEntity principal;
 
 
     public int getId() {
@@ -61,5 +64,13 @@ public class ClassesEntity {
 
     public void setStudents(Set<StudentEntity> students) {
         this.students = students;
+    }
+
+    public TeacherEntity getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(TeacherEntity principal) {
+        this.principal = principal;
     }
 }
