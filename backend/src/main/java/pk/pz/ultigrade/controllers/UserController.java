@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
+import pk.pz.ultigrade.responses.StudentGradesResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,8 +58,8 @@ public class UserController {
     }
 
     @GetMapping("/api/students/{id}/grades")
-    public List<GradesEntity> getStudentGrades(@PathVariable int id){
-        return gradesRepo.findByStudent_idUser(id);
+    public StudentGradesResponse getStudentGrades(@PathVariable int id){
+        return new StudentGradesResponse(gradesRepo.findByStudent_idUser(id));
     }
 
     @GetMapping("/api/users/{id}")

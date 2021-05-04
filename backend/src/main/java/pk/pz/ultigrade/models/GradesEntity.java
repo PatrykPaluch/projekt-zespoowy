@@ -34,7 +34,7 @@ public class GradesEntity {
     @JsonProperty("subject")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_teacher_subject", referencedColumnName = "id_teacher_subject", nullable = false)
-    private TeacherSubjectEntity teacherSubjectByIdTeacherSubject;
+    private TeacherSubjectEntity teacherSubject;
 
 
     public int getIdGrade() {
@@ -77,12 +77,12 @@ public class GradesEntity {
         this.student = student;
     }
 
-   public TeacherSubjectEntity getTeacherSubjectByIdTeacherSubject() {
-        return teacherSubjectByIdTeacherSubject;
+   public TeacherSubjectEntity getTeacherSubject() {
+        return teacherSubject;
     }
 
-    public void setTeacherSubjectByIdTeacherSubject(TeacherSubjectEntity teacherSubject) {
-        this.teacherSubjectByIdTeacherSubject = teacherSubject;
+    public void setTeacherSubject(TeacherSubjectEntity teacherSubject) {
+        this.teacherSubject = teacherSubject;
     }
 
     @Override

@@ -13,5 +13,5 @@ public interface GradesEntityRepository extends JpaRepository<GradesEntity, Inte
 
 //    List<GradesEntity> findBySpecificSubject_id(int specificSubjectId);
 //
-//    List<GradesEntity> findBySpecificSubject_Teacher_IdUserAndSpecificSubject_Subject_id(int teacherId, int subjectId);
+    List<GradesEntity> findByTeacherSubject_Teacher_IdUserAndTeacherSubject_Subject_id(int teacherId, int subjectId);
 }
