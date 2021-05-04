@@ -10,6 +10,7 @@ import pk.pz.ultigrade.repositories.GradesEntityRepository;
 import pk.pz.ultigrade.repositories.SubjectEntityRepository;
 import pk.pz.ultigrade.responses.SubjectGradesResponse;
 import pk.pz.ultigrade.util.JsonResponse;
+import pk.pz.ultigrade.util.OptionalEntityResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +25,13 @@ public class SubjectController {
     GradesEntityRepository gradesRepo;
 
     @GetMapping("/api/subjects")
-    public List<SubjectsEntity> getSubjects(){
-        return subjectRepo.findAll();
+    public JsonResponse.Wrapper<SubjectsEntity> getSubjects(){
+        return JsonResponse.listObject(subjectRepo.findAll());
     }
 
     @GetMapping("/api/subjects/{id}")
-    public Optional<SubjectsEntity> getSubjectsById(@PathVariable int id){
-        return subjectRepo.findById(id);
+    public SubjectsEntity getSubjectsById(@PathVariable int id){
+        return OptionalEntityResponse.get(subjectRepo.findById(id));
     }
 
     @GetMapping({
@@ -45,6 +46,4 @@ public class SubjectController {
         return JsonResponse.notFound("No grades for this (subject, teacher) pair");
     }
 
-//    @GetMapping("/api/specificSubject/")
-//    public Op
 }

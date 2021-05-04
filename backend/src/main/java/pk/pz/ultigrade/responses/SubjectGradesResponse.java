@@ -2,7 +2,10 @@ package pk.pz.ultigrade.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import pk.pz.ultigrade.models.*;
+import pk.pz.ultigrade.models.GradesEntity;
+import pk.pz.ultigrade.models.StudentEntity;
+import pk.pz.ultigrade.models.SubjectsEntity;
+import pk.pz.ultigrade.models.TeacherSubjectEntity;
 
 import java.util.ArrayList;
 import java.util.List;

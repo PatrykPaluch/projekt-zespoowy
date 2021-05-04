@@ -1,16 +1,16 @@
 package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import pk.pz.ultigrade.models.*;
+import pk.pz.ultigrade.models.ClassesEntity;
+import pk.pz.ultigrade.models.StudentEntity;
+import pk.pz.ultigrade.models.UsersBaseEntity;
 import pk.pz.ultigrade.repositories.*;
 import pk.pz.ultigrade.responses.StudentGradesResponse;
-
-import java.util.List;
-import java.util.Optional;
+import pk.pz.ultigrade.util.JsonResponse;
+import pk.pz.ultigrade.util.OptionalEntityResponse;
 
 @RestController
 public class UserController {
@@ -33,28 +33,24 @@ public class UserController {
 
     // get all users
     @GetMapping("/api/users")
-    public List<UsersEntity> getUsers(){
-        return userRepo.findAll();
+    public JsonResponse.Wrapper<?> getUsers(){
+        return JsonResponse.listObject(userRepo.findAll());
     }
     // get all students
     @GetMapping("/api/students")
-    public List<StudentEntity> getStudents(){
-        return studentRepo.findAll();
+    public JsonResponse.Wrapper<?> getStudents(){
+        return JsonResponse.listObject(studentRepo.findAll());
     }
 
     // get all teachers
     @GetMapping("/api/teachers")
-    public List<TeacherEntity> getTeachers(){
-        return teacherRepo.findAll();
+    public JsonResponse.Wrapper<?> getTeachers(){
+        return JsonResponse.listObject(teacherRepo.findAll());
     }
 
     @GetMapping("/api/students/{id}")
     public StudentEntity getStudent(@PathVariable int id){
-        Optional<StudentEntity> user = studentRepo.findByIdUser(id);
-        if(user.isPresent())
-            return user.get();
-
-        throw new ResourceNotFoundException();
+        return OptionalEntityResponse.get(studentRepo.findByIdUser(id));
     }
 
     @GetMapping("/api/students/{id}/grades")
@@ -64,21 +60,13 @@ public class UserController {
 
     @GetMapping("/api/users/{id}")
     public UsersBaseEntity getUser(@PathVariable int id){
-        Optional<UsersEntity> user = userRepo.findByIdUser(id);
-        if(user.isPresent())
-            return user.get();
-
-        throw new ResourceNotFoundException();
+        return OptionalEntityResponse.get(userRepo.findByIdUser(id));
     }
 
 
     @GetMapping("/api/classes/{id}")
     public ClassesEntity getClass(@PathVariable int id){
-        Optional<ClassesEntity> klass = classesRepo.findById(id);
-        if(klass.isPresent())
-            return klass.get();
-
-        throw new ResourceNotFoundException();
+        return OptionalEntityResponse.get(classesRepo.findById(id));
     }
 
 }
