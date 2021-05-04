@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "teacher_subject", schema = "public", catalog = "d5qp4l763upedh")
@@ -14,26 +15,23 @@ public class TeacherSubjectEntity {
     @Column(name = "id_teacher_subject", unique = true, nullable = false)
     private int idTeacherSubject;
 
-//    @Basic
-//    @Column(name = "id_subject")
-//    private int idSubject;
-//    @Basic
-//    @Column(name = "id_teacher")
-//    private int idTeacher;
-
     @JsonIgnoreProperties("teachers")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_subject")
     private SubjectsEntity subject;
-//
-//
+
     @JsonIgnoreProperties("subjects")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_teacher")
     private TeacherEntity teacher;
 
-//    @Id
-//    @Column(name = "id_teacher_subject")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "timetable",
+            joinColumns = {@JoinColumn(name = "id_teacher_subject")},
+            inverseJoinColumns = {@JoinColumn(name = "id_class")})
+    private Set<ClassesEntity> classes;
+
     public int getIdTeacherSubject() {
         return idTeacherSubject;
     }
@@ -56,6 +54,14 @@ public class TeacherSubjectEntity {
 
     public void setTeacher(TeacherEntity teacher) {
         this.teacher = teacher;
+    }
+
+    public Set<ClassesEntity> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<ClassesEntity> classes) {
+        this.classes = classes;
     }
 
     @Override

@@ -15,13 +15,13 @@ public class TeacherEntity extends UsersBaseEntity {
             name = "teacher_subject",
             joinColumns = {@JoinColumn(name = "id_teacher")},
             inverseJoinColumns = {@JoinColumn(name = "id_subject")})
-    private Set<SubjectsEntity> subjects;
+    private Set<TeacherSubjectEntity> subjects;
 
-    public Set<SubjectsEntity> getSubjects() {
+    public Set<TeacherSubjectEntity> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(Set<SubjectsEntity> subjects) {
+    public void setSubjects(Set<TeacherSubjectEntity> subjects) {
         this.subjects = subjects;
     }
 }

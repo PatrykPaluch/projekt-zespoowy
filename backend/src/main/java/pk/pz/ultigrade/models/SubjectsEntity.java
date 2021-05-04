@@ -24,6 +24,7 @@ public class SubjectsEntity {
             inverseJoinColumns = {@JoinColumn(name = "id_teacher")})
     private Set<TeacherEntity> teachers;
 
+
     public SubjectsEntity() {
     }
 

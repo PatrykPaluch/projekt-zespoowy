@@ -3,11 +3,14 @@ package pk.pz.ultigrade.details;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pk.pz.ultigrade.models.RoleEntity;
-import pk.pz.ultigrade.models.UsersBaseEntity;
+import pk.pz.ultigrade.models.*;
+import pk.pz.ultigrade.responses.PublicUserResponse;
+import pk.pz.ultigrade.util.Roles;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -74,6 +77,10 @@ public class UserDetailsImpl implements UserDetails {
         return user.getRole();
     }
 
+    public Roles getRoleEnum() {
+        return Roles.fromNumber(user.getRole().getId());
+    }
+
     public Integer getIdUser() {
         return user.getIdUser();
     }
@@ -84,5 +91,37 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getSurname() {
         return user.getSurname();
+    }
+
+    public Set<PublicUserResponse> parentGetChildren(){
+        if(user instanceof ParentEntity)
+           return ((ParentEntity)user).getChildren().stream().map(PublicUserResponse::new).collect(Collectors.toSet());
+
+        throw new IllegalStateException("This user is not a parent");
+    }
+
+    public Set<PublicUserResponse> studentGetParents(){
+        if(user instanceof StudentEntity)
+            return ((StudentEntity)user).getParents().stream().map(PublicUserResponse::new).collect(Collectors.toSet());
+
+        throw new IllegalStateException("This user is not a student");
+    }
+
+    public ClassesEntity studentGetClass(){
+        if(user instanceof StudentEntity)
+            return ((StudentEntity)user).getStudentClass();
+
+        throw new IllegalStateException("This user is not a student");
+    }
+
+    public Set<TeacherSubjectEntity> teacherGetSubjects(){
+        if(user instanceof TeacherEntity)
+            return ((TeacherEntity)user).getSubjects();
+
+        throw new IllegalStateException("This user is not a teacher");
+    }
+
+    public boolean isAdmin(){
+        return getRoleEnum() == Roles.ADMIN;
     }
 }
