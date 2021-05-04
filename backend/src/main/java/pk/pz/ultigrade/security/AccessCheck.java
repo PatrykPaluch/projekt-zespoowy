@@ -103,6 +103,34 @@ public class AccessCheck {
         return isTeacherInTeacherSubject(userDetails, requestedTeacherSubjectId);
     }
 
+    // ====================================================================== Timetable
+    public static boolean getTimetableForStudent(Authentication auth, int requestedTimetable){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+        return userDetails.studentGetClass().getTimetable()
+                .stream().anyMatch(tt -> tt.getId() == requestedTimetable);
+    }
+
+    public static boolean getTimetableForTeacher(Authentication auth, int requestedTimetable){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+        return userDetails.teacherGetSubjects()
+                .stream().anyMatch(
+                        s -> s.getTimetable()
+                                .stream().anyMatch(tt -> tt.getId() == requestedTimetable)
+                );
+    }
+
     // ====================================================================== Others
     public static boolean hasParentAChild(UserDetailsImpl userDetails, int childId){
         return userDetails.parentGetChildren()

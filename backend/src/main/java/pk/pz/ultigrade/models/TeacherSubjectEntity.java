@@ -1,5 +1,6 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -32,6 +33,12 @@ public class TeacherSubjectEntity {
             inverseJoinColumns = {@JoinColumn(name = "id_class")})
     private Set<ClassesEntity> classes;
 
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_teacher_subject")
+    private Set<TimetableEntity> timetable;
+
     public int getIdTeacherSubject() {
         return idTeacherSubject;
     }
@@ -62,6 +69,14 @@ public class TeacherSubjectEntity {
 
     public void setClasses(Set<ClassesEntity> classes) {
         this.classes = classes;
+    }
+
+    public Set<TimetableEntity> getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(Set<TimetableEntity> timetable) {
+        this.timetable = timetable;
     }
 
     @Override
