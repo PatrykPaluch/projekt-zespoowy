@@ -2,18 +2,37 @@ import React, {useState} from 'react';
 import './RegisterForm.css';
 import logo from '../image/LogoGreen.png';
 import {useForm} from "react-hook-form";
+import axios from "axios";
 
 function LoginForm() {
     const {register, handleSubmit} = useForm();
 
+
+
     const onSubmit = formData => {
         console.log(formData);
-        // axios.post(`http://localhost/8000/signin`, {
-        //     role: user.role,
-        //     name: onSubmit.name,
-        // }).then(function (response) {
-        //     console.log(response);
-        // });
+
+        const bodyFormData = new FormData();
+        bodyFormData.append('login', formData.pesel)
+        bodyFormData.append('password', formData.password)
+
+        axios({
+            method: "post",
+            url: "http://localhost:8080/api/auth/signin",
+            data: bodyFormData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+
+        })
+            .then(function (response) {
+                console.log(response.headers)
+                //axios.get('http://localhost:8080/api/users', {withCredentials: true}).then(console.log).catch(console.log)
+                console.log(response)
+            })
+            .catch(function (response) {
+                console.log(response)
+            })
     };
 
 
