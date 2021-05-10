@@ -17,11 +17,11 @@ const RegisterForm = () => {
 
     const onSubmit = formData => {
         axios.post(`http://localhost:8080/api/auth/signup`, {
-            role: user.role,
+            idRole: user.role,
             name: formData.name,
             surname: formData.surname,
             password: formData.password,
-            login: formData.login,
+            pesel: formData.pesel,
             address: formData.address,
 
             // dateOfBirth: onSubmit.dateOfBirth,
@@ -75,7 +75,7 @@ const RegisterForm = () => {
                     />
                     <text>Pesel</text>
                     <input
-                        {...register("login")}
+                        {...register("pesel")}
                     />
                     <text>Hasło</text>
                     <input
