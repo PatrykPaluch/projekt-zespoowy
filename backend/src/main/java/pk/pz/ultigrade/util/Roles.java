@@ -1,9 +1,10 @@
 package pk.pz.ultigrade.util;
 
 public enum Roles {
-    PUPIL(1, "pupil"),
-    TEACHER(1, "teacher"),
-    PARENT(1, "parent");
+    STUDENT(1, "student"),
+    TEACHER(2, "teacher"),
+    PARENT(3, "parent"),
+    ADMIN(4, "admin");
 
 
     private final int numVal;
@@ -24,17 +25,19 @@ public enum Roles {
 
     public static Roles fromNumber(int num) {
         return switch (num) {
-            case 1 -> PUPIL;
+            case 1 -> STUDENT;
             case 2 -> TEACHER;
             case 3 -> PARENT;
+            case 4 -> ADMIN;
             default -> null;
         };
     }
     public static Roles fromName(String name) {
         return switch (name.toLowerCase()) {
-            case "pupil" -> PUPIL;
+            case "student" -> STUDENT;
             case "teacher" -> TEACHER;
             case "parent" -> PARENT;
+            case "admin" -> ADMIN;
             default -> null;
         };
     }

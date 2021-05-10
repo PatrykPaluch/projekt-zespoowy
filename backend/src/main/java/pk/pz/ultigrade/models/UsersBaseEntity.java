@@ -1,6 +1,7 @@
 package pk.pz.ultigrade.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -96,4 +97,16 @@ public abstract class UsersBaseEntity {
         this.phone = phone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsersBaseEntity that = (UsersBaseEntity) o;
+        return idUser == that.idUser;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idUser);
+    }
 }
