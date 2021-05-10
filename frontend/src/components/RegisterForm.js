@@ -23,7 +23,7 @@ const RegisterForm = () => {
             password: formData.password,
             pesel: formData.pesel,
             address: formData.address,
-
+            phoneNumber: formData.phoneNumber,
             // dateOfBirth: onSubmit.dateOfBirth,
             // class: onSubmit.class,
             // childrenPesel: onSubmit.childrenPesel,
@@ -111,6 +111,10 @@ const RegisterForm = () => {
                     {
                         (user.role === 2) ?
                             <>
+                                <text type>Numer Telefonu</text>
+                                <input
+                                    {...register("phoneNumber")}
+                                />
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
                                         {...register("subjects")}>
@@ -123,6 +127,10 @@ const RegisterForm = () => {
                     {
                         (user.role === 3) ?
                             <>
+                                <text type>Numer Telefonu</text>
+                                <input
+                                    {...register("phoneNumber")}
+                                />
                                 <text>Pesel dziecka</text>
                                 <input
                                     type="number"
