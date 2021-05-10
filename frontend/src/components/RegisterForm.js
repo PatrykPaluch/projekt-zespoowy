@@ -16,63 +16,41 @@ const RegisterForm = () => {
     });
 
     const onSubmit = formData => {
-        console.log(formData);
-        console.log('submitting');
-        // axios.post(`http://localhost/8000/signup`, {
-        //     role: user.role,
-        //     name: onSubmit.name,
-        //     surname: onSubmit.surname,
-        //     pesel: onSubmit.pesel,
-        //     password: onSubmit.password,
-        //     confirmPassword: onSubmit.confirmPassword,
-        //     address: onSubmit.address,
-        //     dateOfBirth: onSubmit.dateOfBirth,
-        //     class: onSubmit.class,
-        //     childrenPesel: onSubmit.childrenPesel,
-        //     subjects: onSubmit.subjects
-        // }).then(function (response) {
-        //     console.log(response);
-        // });
+        axios.post(`http://localhost:8080/api/auth/signup`, {
+            role: user.role,
+            name: formData.name,
+            surname: formData.surname,
+            password: formData.password,
+            login: formData.login,
+            address: formData.address,
+
+            // dateOfBirth: onSubmit.dateOfBirth,
+            // class: onSubmit.class,
+            // childrenPesel: onSubmit.childrenPesel,
+            // subjects: onSubmit.subjects
+        }).then(function (response) {
+            console.log(response);
+        });
     };
+
     let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński', 'biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński'];
     let tmp2 = ['pierwsza', 'druga', 'trzecia', 'czwarta', 'piąta', 'szósta', 'siódma', 'ósma'];
-    useEffect(() => {
-        setUser({role: 'pupil'});
-        //     let tmpSubjects = [];
-        //     axios.get('url to get subjects')
-        //         .then(response => {
-        //             response.forEach(s => {
-        //                 tmpSubjects.push(s);
-        //             })
-        //         })
-        //     setSubjects(tmpSubjects);
 
-        //     let tmpClasses = [];
-        //     axios.get('url to get classes')
-        //         .then(response => {
-        //             response.forEach(c => {
-        //                 tmpClasses.push(c);
-        //             })
-        //         })
-        //     setClasses(tmpClasses);
-
-    },[])
-
+    const handleSelectPupil = (e) => {
+        e.preventDefault();
+        setUser({role: 1});
+    }
 
     const handleSelectTeacher = (e) => {
         e.preventDefault();
-        setUser({role: 'teacher'});
+        setUser({role: 2});
     }
 
     const handleSelectParent = (e) => {
         e.preventDefault();
-        setUser({role: 'parent'});
+        setUser({role: 3});
     }
 
-    const handleSelectPupil = (e) => {
-        e.preventDefault();
-        setUser({role: 'pupil'});
-    }
 
     return (
         <div className="App-log">
@@ -97,7 +75,7 @@ const RegisterForm = () => {
                     />
                     <text>Pesel</text>
                     <input
-                        {...register("pesel")}
+                        {...register("login")}
                     />
                     <text>Hasło</text>
                     <input
@@ -119,7 +97,7 @@ const RegisterForm = () => {
                         {...register("dateOfBirth")}
                     />
                     {
-                        (user.role === "pupil") ?
+                        (user.role === 1) ?
                             <>
                                 <text>Klasa</text>
                                 <select
@@ -131,7 +109,7 @@ const RegisterForm = () => {
                             </> : null
                     }
                     {
-                        (user.role === "teacher") ?
+                        (user.role === 2) ?
                             <>
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
@@ -143,7 +121,7 @@ const RegisterForm = () => {
                             </> : null
                     }
                     {
-                        (user.role === "parent") ?
+                        (user.role === 3) ?
                             <>
                                 <text>Pesel dziecka</text>
                                 <input
