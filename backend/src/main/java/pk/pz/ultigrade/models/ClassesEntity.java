@@ -1,6 +1,6 @@
 package pk.pz.ultigrade.models;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,10 +26,17 @@ public class ClassesEntity {
             joinColumns = {@JoinColumn(name = "id_class")},
             inverseJoinColumns = {@JoinColumn(name = "id_student")})
     private Set<StudentEntity> students;
-//
-//    @OneToOne(fetch = FetchType.EAGER)
-//    private Teacher pricipal;
 
+
+    @JsonIgnoreProperties("subjects")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tutor")
+    private TeacherEntity principal;
+
+    @JsonIgnoreProperties("classes")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn( name = "id_class" )
+    private Set<TimetableEntity> timetable;
 
     public int getId() {
         return id;
@@ -61,5 +68,21 @@ public class ClassesEntity {
 
     public void setStudents(Set<StudentEntity> students) {
         this.students = students;
+    }
+
+    public TeacherEntity getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(TeacherEntity principal) {
+        this.principal = principal;
+    }
+
+    public Set<TimetableEntity> getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(Set<TimetableEntity> timetable) {
+        this.timetable = timetable;
     }
 }

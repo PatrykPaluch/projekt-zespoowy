@@ -6,10 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.configurations.SecurityConfig;
 import pk.pz.ultigrade.models.InsertUserEntity;
-import pk.pz.ultigrade.models.RoleEntity;
-import pk.pz.ultigrade.models.UsersEntity;
 import pk.pz.ultigrade.repositories.InsertUserEntityRepository;
-import pk.pz.ultigrade.repositories.UserEntityRepository;
 import pk.pz.ultigrade.requests.RegisterRequest;
 import pk.pz.ultigrade.util.JsonResponse;
 

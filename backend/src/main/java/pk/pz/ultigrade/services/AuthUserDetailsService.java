@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pk.pz.ultigrade.details.UserDetailsImpl;
-import pk.pz.ultigrade.models.UsersBaseEntity;
 import pk.pz.ultigrade.models.UsersEntity;
 import pk.pz.ultigrade.repositories.UserEntityRepository;
 
