@@ -1,5 +1,7 @@
 package pk.pz.ultigrade.util;
 
+import pk.pz.ultigrade.models.UsersBaseEntity;
+
 public enum Roles {
     STUDENT(1, "student"),
     TEACHER(2, "teacher"),
@@ -40,5 +42,9 @@ public enum Roles {
             case "admin" -> ADMIN;
             default -> null;
         };
+    }
+
+    public static Roles fromUser(UsersBaseEntity userEntity){
+        return fromNumber(userEntity.getRole().getId());
     }
 }
