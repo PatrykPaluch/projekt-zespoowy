@@ -1,5 +1,6 @@
 package pk.pz.ultigrade.details;
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -73,7 +74,7 @@ public class UserDetailsImpl implements UserDetails {
         return user.getPhone();
     }
 
-    public RoleEntity getRole() {
+    public @NotNull RoleEntity getRole() {
         return user.getRole();
     }
 
@@ -123,5 +124,17 @@ public class UserDetailsImpl implements UserDetails {
 
     public boolean isAdmin(){
         return getRoleEnum() == Roles.ADMIN;
+    }
+
+    public boolean isTeacher(){
+        return getRoleEnum() == Roles.TEACHER;
+    }
+
+    public boolean isStudent(){
+        return getRoleEnum() == Roles.STUDENT;
+    }
+
+    public boolean isParent(){
+        return getRoleEnum() == Roles.PARENT;
     }
 }
