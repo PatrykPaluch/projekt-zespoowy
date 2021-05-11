@@ -1,4 +1,4 @@
-.Children{
+.Children, .Teachers, .Subjects{
     overflow: auto;
     height: 86vh;
 }
