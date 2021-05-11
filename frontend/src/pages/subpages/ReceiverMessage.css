@@ -33,7 +33,38 @@
     margin-left: 1em;
 }
 
+.rec-messages-list{
+    overflow: auto;
+}
+
 .rec-messages-list>li{
     border-bottom: 0.01em solid;
     width: 33vw;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px){
+    .receiver-messages{
+        margin: 0 0 0 25vw;
+        width: 80vw;
+        height: 50vh;
+    }
+
+    .receiver-message{
+        margin: 0 0 0 25vw;
+        width: 80vw;
+        height: 40vh;
+    }
+
+    .rec{
+        flex-direction: column;
+    }
+
+    .rec-messages-list>li{
+        width: 68vw;
+    }
+
+    ul.rec-messages-list{
+        padding: 0;
+    }
 }
