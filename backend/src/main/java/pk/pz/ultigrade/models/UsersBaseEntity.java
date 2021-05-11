@@ -1,12 +1,17 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 @Inheritance
 @DiscriminatorColumn(name = "id_role", discriminatorType = DiscriminatorType.INTEGER)
+@JsonIgnoreProperties({ "password" })
 public abstract class UsersBaseEntity {
 
     @Id
@@ -23,6 +28,7 @@ public abstract class UsersBaseEntity {
     @Column
     private String surname;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String pesel;
@@ -30,6 +36,8 @@ public abstract class UsersBaseEntity {
     private String adress;
     @Column
     private String phone;
+    @Column
+    private Date birthDate;
 
     public UsersBaseEntity(){}
 
@@ -65,6 +73,7 @@ public abstract class UsersBaseEntity {
         this.surname = surname;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -95,6 +104,14 @@ public abstract class UsersBaseEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Override

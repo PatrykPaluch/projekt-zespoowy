@@ -91,6 +91,24 @@ public class AccessCheck {
         return false;
     }
 
+    public static boolean getTeacherSubjectGrades(Authentication auth, int requestedTeacherId, int requestedSubjectId) {
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+
+        Roles role = userDetails.getRoleEnum();
+
+        if(role == Roles.TEACHER)
+            return isTeacherInTeacherSubject(userDetails, requestedTeacherId, requestedSubjectId);
+
+        // role == Roles.STUDENT || role == Roles.PARENT
+        return false;
+    }
+
     // ====================================================================== Subjects
     public static boolean getTeacherSubject(Authentication auth, int requestedTeacherSubjectId) {
         UserDetailsImpl userDetails = userDetails(auth);
@@ -147,6 +165,10 @@ public class AccessCheck {
     public static boolean isTeacherInTeacherSubject(UserDetailsImpl userDetails, int teacherSubjectId) {
         return userDetails.teacherGetSubjects()
                 .stream().anyMatch(s -> s.getIdTeacherSubject() == teacherSubjectId);
+    }
+    public static boolean isTeacherInTeacherSubject(UserDetailsImpl userDetails, int requestedTeacherId, int requestedSubjectId) {
+        return userDetails.teacherGetSubjects()
+                .stream().anyMatch(s -> s.getTeacher().getIdUser() == requestedTeacherId && s.getSubject().getId() == requestedSubjectId);
     }
 
 

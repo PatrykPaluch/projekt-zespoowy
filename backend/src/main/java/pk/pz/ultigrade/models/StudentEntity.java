@@ -57,4 +57,6 @@ public class StudentEntity extends UsersBaseEntity {
     public int hashCode() {
         return Objects.hash(getIdUser());
     }
+
+
 }

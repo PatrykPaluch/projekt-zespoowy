@@ -7,6 +7,7 @@ import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.responses.PublicUserResponse;
 import pk.pz.ultigrade.util.Roles;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -123,5 +124,13 @@ public class UserDetailsImpl implements UserDetails {
 
     public boolean isAdmin(){
         return getRoleEnum() == Roles.ADMIN;
+    }
+
+    public UsersBaseEntity getUser() {
+        return user;
+    }
+
+    public Date getBirthDate() {
+        return user.getBirthDate();
     }
 }
