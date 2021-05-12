@@ -1,44 +1,58 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "subjects", schema = "public", catalog = "d5qp4l763upedh")
+@Table(name = "subjects")
 public class SubjectsEntity {
-    private int idSubject;
-    private String subjectName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_subject")
-    public int getIdSubject() {
-        return idSubject;
-    }
-
-    public void setIdSubject(int idSubject) {
-        this.idSubject = idSubject;
-    }
-
-    @Basic
+    private int id;
     @Column(name = "subject_name")
-    public String getSubjectName() {
-        return subjectName;
+    private String name;
+
+    @JsonIgnoreProperties("subjects")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "teacher_subject",
+            joinColumns = {@JoinColumn(name = "id_subject")},
+            inverseJoinColumns = {@JoinColumn(name = "id_teacher")})
+    private Set<TeacherEntity> teachers;
+
+
+    public SubjectsEntity() {
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public SubjectsEntity(String name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SubjectsEntity that = (SubjectsEntity) o;
-        return idSubject == that.idSubject && Objects.equals(subjectName, that.subjectName);
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idSubject, subjectName);
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<TeacherEntity> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<TeacherEntity> teachers) {
+        this.teachers = teachers;
     }
 }

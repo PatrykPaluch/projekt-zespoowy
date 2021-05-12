@@ -1,4 +1,4 @@
-.Children{
+.Children, .Teachers, .Subjects{
     overflow: auto;
     height: 86vh;
 }
@@ -42,4 +42,28 @@
 
 .Photo-avatar{
     width: 15em;
+}
+
+@media only screen and (max-width: 1200px){
+    .User-data, .Subject-data{
+        margin: 3vw 0 0 24vw;
+        flex-direction: column-reverse;
+    }
+
+    .Data-item>h4{
+        font-size: smaller;
+        padding: 0.3em 1em 0.3em;
+    }
+
+    .Data-item>h3{
+        font-size: medium
+    }
+
+    .Photo-avatar{
+        width: 8em;
+    }
+    
+    .Children > .User-data{
+        margin: 1vw 0 0 24vw;
+    }
 }

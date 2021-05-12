@@ -1,7 +1,5 @@
 package pk.pz.ultigrade.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +17,7 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<UsersEntity> user = userEntityRepository.findByLogin(login);
+        Optional<UsersEntity> user = userEntityRepository.findByPesel(login);
         if(user.isPresent())
             return new UserDetailsImpl(user.get());
 

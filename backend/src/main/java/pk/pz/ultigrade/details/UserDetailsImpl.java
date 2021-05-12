@@ -3,23 +3,25 @@ package pk.pz.ultigrade.details;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pk.pz.ultigrade.models.UsersEntity;
+import pk.pz.ultigrade.models.*;
+import pk.pz.ultigrade.responses.PublicUserResponse;
 import pk.pz.ultigrade.util.Roles;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final UsersEntity user;
+    private final UsersBaseEntity user;
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UsersEntity user){
+    public UserDetailsImpl(UsersBaseEntity user){
         this.user = user;
 
-        Roles userRole = Roles.fromNumber(user.getIdRole());
         authorities = List.of(
-                new SimpleGrantedAuthority(userRole.getName())
+                new SimpleGrantedAuthority(user.getRole().getRole())
         );
     }
 
@@ -35,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return user.getPesel();
     }
 
     @Override
@@ -67,18 +69,16 @@ public class UserDetailsImpl implements UserDetails {
         return user.getAdress();
     }
 
-
     public String getPhone() {
         return user.getPhone();
     }
 
-
-    public String getEmail() {
-        return user.getEmail();
+    public RoleEntity getRole() {
+        return user.getRole();
     }
 
-    public int getIdRole() {
-        return user.getIdRole();
+    public Roles getRoleEnum() {
+        return Roles.fromNumber(user.getRole().getId());
     }
 
     public Integer getIdUser() {
@@ -93,7 +93,35 @@ public class UserDetailsImpl implements UserDetails {
         return user.getSurname();
     }
 
-    public String getLogin() {
-        return user.getLogin();
+    public Set<PublicUserResponse> parentGetChildren(){
+        if(user instanceof ParentEntity)
+           return ((ParentEntity)user).getChildren().stream().map(PublicUserResponse::new).collect(Collectors.toSet());
+
+        throw new IllegalStateException("This user is not a parent");
+    }
+
+    public Set<PublicUserResponse> studentGetParents(){
+        if(user instanceof StudentEntity)
+            return ((StudentEntity)user).getParents().stream().map(PublicUserResponse::new).collect(Collectors.toSet());
+
+        throw new IllegalStateException("This user is not a student");
+    }
+
+    public ClassesEntity studentGetClass(){
+        if(user instanceof StudentEntity)
+            return ((StudentEntity)user).getStudentClass();
+
+        throw new IllegalStateException("This user is not a student");
+    }
+
+    public Set<TeacherSubjectEntity> teacherGetSubjects(){
+        if(user instanceof TeacherEntity)
+            return ((TeacherEntity)user).getSubjects();
+
+        throw new IllegalStateException("This user is not a teacher");
+    }
+
+    public boolean isAdmin(){
+        return getRoleEnum() == Roles.ADMIN;
     }
 }
