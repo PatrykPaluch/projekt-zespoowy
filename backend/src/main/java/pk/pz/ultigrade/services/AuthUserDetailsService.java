@@ -4,29 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.UsersBaseEntity;
 import pk.pz.ultigrade.models.UsersEntity;
-import pk.pz.ultigrade.repositories.UserEntityBaseRepository;
-import pk.pz.ultigrade.repositories.UserEntityRepository;
+import pk.pz.ultigrade.repositories.*;
 import pk.pz.ultigrade.util.Roles;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Service
 public class AuthUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserEntityRepository userEntityRepository;
 
     @Autowired
-    private UserEntityRepository studentEntityRepository;
+    private StudentEntityRepository studentEntityRepository;
 
     @Autowired
-    private UserEntityRepository teacherEntityRepository;
+    private TeacherEntityRepository teacherEntityRepository;
 
     @Autowired
-    private UserEntityRepository parentEntityRepository;
+    private ParentEntityRepository parentEntityRepository;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -35,7 +36,7 @@ public class AuthUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         UsersEntity usersEntity = user.get();
-        int userId = usersEntity.getIdUser();
+        int userId = usersEntity.getId();
         Roles role = Roles.fromUser(usersEntity);
 
         UsersBaseEntity finalUserEntity = getByRole(role, userId);
@@ -49,9 +50,9 @@ public class AuthUserDetailsService implements UserDetailsService {
     private UsersBaseEntity getByRole(Roles role, int userId){
         try {
             return switch (role) {
-                case PARENT -> parentEntityRepository.findByIdUser(userId).get();
-                case STUDENT -> studentEntityRepository.findByIdUser(userId).get();
-                case TEACHER -> teacherEntityRepository.findByIdUser(userId).get();
+                case PARENT -> parentEntityRepository.findById(userId).get();
+                case STUDENT -> studentEntityRepository.findById(userId).get();
+                case TEACHER -> teacherEntityRepository.findById(userId).get();
                 default -> null;
             };
         }

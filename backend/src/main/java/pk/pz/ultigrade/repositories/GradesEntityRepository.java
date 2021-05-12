@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface GradesEntityRepository extends JpaRepository<GradesEntity, Integer> {
 
-    List<GradesEntity> findByStudent_idUser(int idStudent);
+    List<GradesEntity> findByStudent_id(int idStudent);
 
 //    List<GradesEntity> findBySpecificSubject_id(int specificSubjectId);
 //
-    List<GradesEntity> findByTeacherSubject_Teacher_IdUserAndTeacherSubject_Subject_id(int teacherId, int subjectId);
+    List<GradesEntity> findByTeacherSubject_Teacher_IdAndTeacherSubject_Subject_id(int teacherId, int subjectId);
 }

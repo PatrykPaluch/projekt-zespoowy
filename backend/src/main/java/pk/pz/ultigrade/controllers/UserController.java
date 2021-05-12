@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
+import pk.pz.ultigrade.responses.ClassResponse;
 import pk.pz.ultigrade.responses.PublicUserResponse;
 import pk.pz.ultigrade.responses.StudentGradesResponse;
 import pk.pz.ultigrade.responses.TeacherOfClassResponse;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
-import pk.pz.ultigrade.util.OptionalEntityResponse;
 import pk.pz.ultigrade.util.Roles;
 
 import java.util.List;
@@ -40,19 +40,11 @@ public class UserController {
 
     // get all users
     @GetMapping("/api/users")
-    public JsonResponse.Wrapper<?> getUsers(){
-        return JsonResponse.listObject(userRepo.findAll());
-    }
-    // get all students
-    @GetMapping("/api/students")
-    public JsonResponse.Wrapper<?> getStudents(){
-        return JsonResponse.listObject(studentRepo.findAll());
-    }
+    public Object getUsers(Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("you are not admin!");
 
-    // get all teachers
-    @GetMapping("/api/teachers")
-    public JsonResponse.Wrapper<?> getTeachers(){
-        return JsonResponse.listObject(teacherRepo.findAll());
+        return JsonResponse.listObject(userRepo.findAll());
     }
 
     @GetMapping("/api/students/{id}")
@@ -61,7 +53,7 @@ public class UserController {
             return JsonResponse.unauthorized("no permissions!");
         }
 
-        Optional<StudentEntity> student = studentRepo.findByIdUser(id);
+        Optional<StudentEntity> student = studentRepo.findById(id);
         if(student.isEmpty()){
             return JsonResponse.notFound("user with {" + id + "} not found");
         }
@@ -73,8 +65,6 @@ public class UserController {
 
     @GetMapping("/api/parents")
     public Object getStudentParents(Authentication auth){
-
-
         UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
         System.out.println(userDetails.getUser().getClass());
 
@@ -90,13 +80,13 @@ public class UserController {
             return JsonResponse.unauthorized("no permissions!");
         }
 
-        List<GradesEntity> gradesEntityList = gradesRepo.findByStudent_idUser(id);
+        List<GradesEntity> gradesEntityList = gradesRepo.findByStudent_id(id);
         if(gradesEntityList.isEmpty()){
 
             return JsonResponse.notFound("brak ocen!");
         }
 
-        return new StudentGradesResponse(gradesRepo.findByStudent_idUser(id));
+        return new StudentGradesResponse(gradesRepo.findByStudent_id(id));
     }
 
     @GetMapping("/api/@me")
@@ -106,15 +96,13 @@ public class UserController {
         return JsonResponse.forbidden("you are not logged in!");
     }
 
-    @GetMapping("/api/users/{id}")
-    public UsersBaseEntity getUser(@PathVariable int id){
-
-        return OptionalEntityResponse.get(userRepo.findByIdUser(id));
-    }
 
     @GetMapping("/api/students/{id}/teachers")
     public Object getStudentTeachers(@PathVariable int id, Authentication auth){
-        Optional<ClassesEntity> classesEntity = classesRepo.findByStudents_IdUser(id);
+        if(!AccessCheck.getStudent(auth,id))
+            return JsonResponse.unauthorized("you are not a student!");
+
+        Optional<ClassesEntity> classesEntity = classesRepo.findByStudents_Id(id);
         if(classesEntity.isEmpty())
             return JsonResponse.notFound("no classes for this user!");
 
@@ -122,9 +110,18 @@ public class UserController {
 
     }
 
+
     @GetMapping("/api/classes/{id}")
-    public ClassesEntity getClass(@PathVariable int id){
-        return OptionalEntityResponse.get(classesRepo.findById(id));
+    public Object getClass(@PathVariable int id, Authentication auth){
+        if(!AccessCheck.getClass(auth,id))
+            return JsonResponse.unauthorized("this user is not in this class!");
+
+
+        Optional<ClassesEntity> classesEntity = classesRepo.findById(id);
+        if(classesEntity.isEmpty())
+            return JsonResponse.notFound("no classes for this user!");
+
+        return new ClassResponse(classesEntity.get());
     }
 
 }

@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface UserEntityBaseRepository<T extends UsersBaseEntity> extends JpaRepository<T, Integer> {
-    Optional<T> findByIdUser(Integer idUser);
     Optional<T> findByPesel(String pesel);
     List<T> findByNameAndSurname(String name, String surname);
     boolean existsByPesel(String pesel);

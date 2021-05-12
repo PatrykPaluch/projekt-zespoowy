@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pk.pz.ultigrade.models.GradesEntity;
 import pk.pz.ultigrade.models.SubjectsEntity;
+import pk.pz.ultigrade.models.TeacherSubjectEntity;
 import pk.pz.ultigrade.repositories.GradesEntityRepository;
+import pk.pz.ultigrade.repositories.SpecificSubjectEntityRepository;
 import pk.pz.ultigrade.repositories.SubjectEntityRepository;
 import pk.pz.ultigrade.responses.SubjectGradesResponse;
+import pk.pz.ultigrade.responses.TeacherSubjectListResponse;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
 import pk.pz.ultigrade.util.OptionalEntityResponse;
@@ -24,6 +27,9 @@ public class SubjectController {
     private SubjectEntityRepository subjectRepo;
 
     @Autowired
+    private SpecificSubjectEntityRepository specSubjectRepo;
+
+    @Autowired
     GradesEntityRepository gradesRepo;
 
     @GetMapping("/api/subjects")
@@ -32,7 +38,7 @@ public class SubjectController {
     }
 
     @GetMapping("/api/subjects/{id}")
-    public SubjectsEntity getSubjectsById(@PathVariable int id){
+    public Object getSubjectsById(@PathVariable int id){
         return OptionalEntityResponse.get(subjectRepo.findById(id));
     }
 
@@ -45,7 +51,7 @@ public class SubjectController {
             return JsonResponse.unauthorized("no permissions!");
         }
 
-        List<GradesEntity> grades = gradesRepo.findByTeacherSubject_Teacher_IdUserAndTeacherSubject_Subject_id(idTeacher, idSubject);
+        List<GradesEntity> grades = gradesRepo.findByTeacherSubject_Teacher_IdAndTeacherSubject_Subject_id(idTeacher, idSubject);
         if(grades.isEmpty()){
             return JsonResponse.notFound("No grades for this (subject, teacher) pair");
         }
@@ -54,6 +60,35 @@ public class SubjectController {
 
     }
 
+    @GetMapping({
+            "/api/subjects/{idSubject}/teachers/{idTeacher}",
+            "/api/teachers/{idTeacher}/subjects/{idSubject}"
+    })
+    public Object getTeacherSubject(@PathVariable int idSubject, @PathVariable int idTeacher, Authentication auth){
+        Optional<TeacherSubjectEntity> entity = specSubjectRepo.findByTeacher_IdAndSubject_Id(idTeacher, idSubject);
+        if(entity.isEmpty()){
+            return JsonResponse.notFound("no teacher-subject for this subject and teacher");
+        }
+        return entity;
+    }
 
+    @GetMapping({"/api/subjects/{idSubject}/teacherSubject"})
+    public Object getTeacherSubjectsForSubject(@PathVariable int idSubject){
+        List<TeacherSubjectEntity> subjects = specSubjectRepo.findBySubject_Id(idSubject);
+        if(subjects.isEmpty())
+            return JsonResponse.notFound("No teacher-subject for this subject");
+
+        return new TeacherSubjectListResponse(subjects);
+    }
+
+
+    @GetMapping({"/api/teachers/{idTeacher}/teacherSubject"})
+    public Object getTeacherSubjectsForTeacher(@PathVariable int idTeacher){
+        List<TeacherSubjectEntity> subjects = specSubjectRepo.findByTeacher_Id(idTeacher);
+        if(subjects.isEmpty())
+            return JsonResponse.notFound("No teacher-subject for this teacher");
+
+        return new TeacherSubjectListResponse(subjects);
+    }
 
 }

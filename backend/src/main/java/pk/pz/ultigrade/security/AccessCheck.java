@@ -170,6 +170,29 @@ public class AccessCheck {
                 );
     }
 
+    public static boolean getClass(Authentication auth, int requestedClassId){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+        Roles role = userDetails.getRoleEnum();
+
+        if(role == Roles.TEACHER)
+            return isTeacherInClass(userDetails, requestedClassId);
+
+        if(role == Roles.STUDENT){
+            return isStudentInClass(userDetails,requestedClassId);
+        }
+
+        // role == Roles.STUDENT
+        return false;
+    }
+
+
+
     // ====================================================================== Others
     public static boolean hasParentAChild(UserDetailsImpl userDetails, int childId){
         return userDetails.parentGetChildren()
@@ -185,7 +208,7 @@ public class AccessCheck {
         return userDetails.teacherGetSubjects()
                 .stream()
                 .flatMap(subjectsEntity -> subjectsEntity.getClasses().stream())
-                .anyMatch(c -> c.getStudents().stream().anyMatch(s -> s.getIdUser() == studentId));
+                .anyMatch(c -> c.getStudents().stream().anyMatch(s -> s.getId() == studentId));
     }
 
     public static boolean isTeacherSameClassStudentOfParent(UserDetailsImpl userDetails, int parentId){
@@ -194,7 +217,7 @@ public class AccessCheck {
                 .flatMap(subjectsEntity -> subjectsEntity.getClasses().stream())
                 .anyMatch(c ->
                         c.getStudents().stream().anyMatch(s ->
-                            s.getParents().stream().anyMatch(p -> p.getIdUser() == parentId)
+                            s.getParents().stream().anyMatch(p -> p.getId() == parentId)
                         )
                 );
     }
@@ -205,7 +228,17 @@ public class AccessCheck {
     }
     public static boolean isTeacherInTeacherSubject(UserDetailsImpl userDetails, int requestedTeacherId, int requestedSubjectId) {
         return userDetails.teacherGetSubjects()
-                .stream().anyMatch(s -> s.getTeacher().getIdUser() == requestedTeacherId && s.getSubject().getId() == requestedSubjectId);
+                .stream().anyMatch(s -> s.getTeacher().getId() == requestedTeacherId && s.getSubject().getId() == requestedSubjectId);
+    }
+
+    public static boolean isTeacherInClass(UserDetailsImpl userDetails, int classId){
+        return userDetails.teacherGetSubjects()
+                .stream().anyMatch(ts -> ts.getClasses()
+                        .stream().anyMatch(tc->tc.getId() == classId));
+    }
+
+    public static boolean isStudentInClass(UserDetailsImpl userDetails, int classId){
+        return userDetails.studentGetClass().getId()==classId;
     }
 
 
@@ -224,5 +257,13 @@ public class AccessCheck {
     public static boolean isSelfOrAdmin(UserDetailsImpl userDetails, int requestedUserId){
         return userDetails.getIdUser() == requestedUserId || userDetails.isAdmin();
     }
+
+    public static boolean isAdmin(Authentication auth){
+        UserDetailsImpl userDetails = userDetails(auth);
+
+        return userDetails!=null && userDetails.isAdmin();
+    }
+
+
 
 }

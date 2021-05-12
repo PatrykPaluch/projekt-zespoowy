@@ -19,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private final UsersBaseEntity user;
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UsersBaseEntity user){
+    public UserDetailsImpl(@NotNull UsersBaseEntity user){
         this.user = user;
 
         authorities = List.of(
@@ -84,7 +84,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public Integer getIdUser() {
-        return user.getIdUser();
+        return user.getId();
     }
 
     public String getName() {
@@ -127,7 +127,7 @@ public class UserDetailsImpl implements UserDetails {
         return getRoleEnum() == Roles.ADMIN;
     }
 
-    public UsersBaseEntity getUser() {
+    public @NotNull UsersBaseEntity getUser() {
         return user;
     }
 

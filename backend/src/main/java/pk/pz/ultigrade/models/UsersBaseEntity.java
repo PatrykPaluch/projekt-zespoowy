@@ -17,7 +17,7 @@ public abstract class UsersBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", unique = true, nullable = false)
-    private int idUser;
+    private int id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false, insertable = false, updatable = false)
@@ -41,12 +41,12 @@ public abstract class UsersBaseEntity {
 
     public UsersBaseEntity(){}
 
-    public int getIdUser() {
-        return idUser;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(int idUser) {
+        this.id = idUser;
     }
 
     public RoleEntity getRole() {
@@ -119,11 +119,11 @@ public abstract class UsersBaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersBaseEntity that = (UsersBaseEntity) o;
-        return idUser == that.idUser;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser);
+        return Objects.hash(id);
     }
 }

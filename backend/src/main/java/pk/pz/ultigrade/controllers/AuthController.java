@@ -59,10 +59,5 @@ public class AuthController {
         return JsonResponse.ok("sign out done");
     }
 
-    @GetMapping("/test")
-    @CrossOrigin("http://localhost:3000")
-    public String test(){
-        return "sasadsad";
-    }
 
 }
