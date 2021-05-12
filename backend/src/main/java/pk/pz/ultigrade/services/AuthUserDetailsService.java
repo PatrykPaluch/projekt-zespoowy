@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.UsersBaseEntity;
 import pk.pz.ultigrade.models.UsersEntity;
-import pk.pz.ultigrade.repositories.*;
+import pk.pz.ultigrade.repositories.ParentEntityRepository;
+import pk.pz.ultigrade.repositories.StudentEntityRepository;
+import pk.pz.ultigrade.repositories.TeacherEntityRepository;
+import pk.pz.ultigrade.repositories.UserEntityRepository;
 import pk.pz.ultigrade.util.Roles;
 
 import java.util.NoSuchElementException;

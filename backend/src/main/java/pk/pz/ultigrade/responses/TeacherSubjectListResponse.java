@@ -1,8 +1,6 @@
 package pk.pz.ultigrade.responses;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import pk.pz.ultigrade.models.TeacherSubjectEntity;
 
 import java.util.List;

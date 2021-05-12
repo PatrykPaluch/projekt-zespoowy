@@ -2,8 +2,6 @@ package pk.pz.ultigrade.responses;
 
 import net.minidev.json.annotate.JsonIgnore;
 import pk.pz.ultigrade.models.ClassesEntity;
-import pk.pz.ultigrade.models.StudentEntity;
-import pk.pz.ultigrade.models.TeacherEntity;
 
 import java.util.Objects;
 import java.util.Set;

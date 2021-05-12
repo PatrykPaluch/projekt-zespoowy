@@ -3,9 +3,7 @@ package pk.pz.ultigrade.responses;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pk.pz.ultigrade.models.ClassesEntity;
-import pk.pz.ultigrade.models.TeacherEntity;
 import pk.pz.ultigrade.models.TimetableEntity;
-import pk.pz.ultigrade.models.UsersBaseEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
