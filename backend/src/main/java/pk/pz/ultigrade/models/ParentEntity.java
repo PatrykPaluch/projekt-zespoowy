@@ -10,7 +10,7 @@ import java.util.Set;
 public class ParentEntity extends UsersBaseEntity {
 
     @JsonIgnoreProperties("parents")
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "parent_child",
             joinColumns = {@JoinColumn(name = "id_parent")},

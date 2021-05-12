@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.Collection;
 
 public class JsonResponse {
 
@@ -82,8 +82,8 @@ public class JsonResponse {
                 .body(getFullMessageJSon(message));
     }
 
-    public static <T> Wrapper<T> listObject(List<T> list){
-        return  new Wrapper<T>(list);
+    public static <T> Wrapper<T> listObject(Collection<T> collection){
+        return  new Wrapper<T>(collection);
     }
 
     private static String getFullMessageJSon(String message){
@@ -97,9 +97,9 @@ public class JsonResponse {
     }
 
     public static class Wrapper<T> {
-        public List<T> list;
-        public Wrapper(List<T> list){
-            this.list = list;
+        public Collection<T> list;
+        public Wrapper(Collection<T> collection){
+            this.list = collection;
         }
     }
 }

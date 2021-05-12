@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import pk.pz.ultigrade.models.RoleEntity;
 import pk.pz.ultigrade.models.UsersBaseEntity;
 
+import java.sql.Date;
+
 public class PublicUserResponse {
 
     @JsonIgnore
@@ -14,7 +16,7 @@ public class PublicUserResponse {
     }
 
     public int getId() {
-        return user.getIdUser();
+        return user.getId();
     }
 
     public RoleEntity getRole() {
@@ -39,5 +41,9 @@ public class PublicUserResponse {
 
     public String getPhone() {
         return user.getPhone();
+    }
+
+    public Date getBirthDate() {
+        return user.getBirthDate();
     }
 }

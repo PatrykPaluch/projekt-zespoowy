@@ -1,18 +1,23 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 @Inheritance
 @DiscriminatorColumn(name = "id_role", discriminatorType = DiscriminatorType.INTEGER)
+@JsonIgnoreProperties({ "password" })
 public abstract class UsersBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", unique = true, nullable = false)
-    private int idUser;
+    private int id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false, insertable = false, updatable = false)
@@ -23,6 +28,7 @@ public abstract class UsersBaseEntity {
     @Column
     private String surname;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String pesel;
@@ -30,15 +36,17 @@ public abstract class UsersBaseEntity {
     private String adress;
     @Column
     private String phone;
+    @Column
+    private Date birthDate;
 
     public UsersBaseEntity(){}
 
-    public int getIdUser() {
-        return idUser;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(int idUser) {
+        this.id = idUser;
     }
 
     public RoleEntity getRole() {
@@ -65,6 +73,7 @@ public abstract class UsersBaseEntity {
         this.surname = surname;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -97,16 +106,24 @@ public abstract class UsersBaseEntity {
         this.phone = phone;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersBaseEntity that = (UsersBaseEntity) o;
-        return idUser == that.idUser;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser);
+        return Objects.hash(id);
     }
 }

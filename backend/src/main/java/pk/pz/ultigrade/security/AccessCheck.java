@@ -25,6 +25,27 @@ public class AccessCheck {
     }
 
 
+    // ====================================================================== PARENT
+    public static boolean getParent(Authentication auth, int requestedParentId){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(isSelfOrAdmin(userDetails, requestedParentId))
+            return true;
+
+        Roles role = userDetails.getRoleEnum();
+
+        if(role == Roles.STUDENT)
+            return hasStudentAParent(userDetails, requestedParentId);
+
+        if(role == Roles.TEACHER)
+            return isTeacherSameClassStudentOfParent(userDetails, requestedParentId);
+
+        // role == Roles.PARENT
+        return false;
+    }
+
     // ====================================================================== STUDENT
     public static boolean getStudent(Authentication auth, int requestedStudentId){
         UserDetailsImpl userDetails = userDetails(auth);
@@ -91,6 +112,24 @@ public class AccessCheck {
         return false;
     }
 
+    public static boolean getTeacherSubjectGrades(Authentication auth, int requestedTeacherId, int requestedSubjectId) {
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+
+        Roles role = userDetails.getRoleEnum();
+
+        if(role == Roles.TEACHER)
+            return isTeacherInTeacherSubject(userDetails, requestedTeacherId, requestedSubjectId);
+
+        // role == Roles.STUDENT || role == Roles.PARENT
+        return false;
+    }
+
     // ====================================================================== Subjects
     public static boolean getTeacherSubject(Authentication auth, int requestedTeacherSubjectId) {
         UserDetailsImpl userDetails = userDetails(auth);
@@ -131,22 +170,75 @@ public class AccessCheck {
                 );
     }
 
+    public static boolean getClass(Authentication auth, int requestedClassId){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        if(userDetails.isAdmin())
+            return true;
+
+        Roles role = userDetails.getRoleEnum();
+
+        if(role == Roles.TEACHER)
+            return isTeacherInClass(userDetails, requestedClassId);
+
+        if(role == Roles.STUDENT){
+            return isStudentInClass(userDetails,requestedClassId);
+        }
+
+        // role == Roles.STUDENT
+        return false;
+    }
+
+
+
     // ====================================================================== Others
     public static boolean hasParentAChild(UserDetailsImpl userDetails, int childId){
         return userDetails.parentGetChildren()
                 .stream().anyMatch(u -> u.getId() == childId);
     }
 
+    public static boolean hasStudentAParent(UserDetailsImpl userDetails, int parentId){
+        return userDetails.studentGetParents()
+                .stream().anyMatch(u -> u.getId() == parentId);
+    }
+
     public static boolean isTeacherSameClassStudent(UserDetailsImpl userDetails, int studentId){
         return userDetails.teacherGetSubjects()
                 .stream()
                 .flatMap(subjectsEntity -> subjectsEntity.getClasses().stream())
-                .anyMatch(c -> c.getStudents().stream().anyMatch(s -> s.getIdUser() == studentId));
+                .anyMatch(c -> c.getStudents().stream().anyMatch(s -> s.getId() == studentId));
+    }
+
+    public static boolean isTeacherSameClassStudentOfParent(UserDetailsImpl userDetails, int parentId){
+        return userDetails.teacherGetSubjects()
+                .stream()
+                .flatMap(subjectsEntity -> subjectsEntity.getClasses().stream())
+                .anyMatch(c ->
+                        c.getStudents().stream().anyMatch(s ->
+                            s.getParents().stream().anyMatch(p -> p.getId() == parentId)
+                        )
+                );
     }
 
     public static boolean isTeacherInTeacherSubject(UserDetailsImpl userDetails, int teacherSubjectId) {
         return userDetails.teacherGetSubjects()
                 .stream().anyMatch(s -> s.getIdTeacherSubject() == teacherSubjectId);
+    }
+    public static boolean isTeacherInTeacherSubject(UserDetailsImpl userDetails, int requestedTeacherId, int requestedSubjectId) {
+        return userDetails.teacherGetSubjects()
+                .stream().anyMatch(s -> s.getTeacher().getId() == requestedTeacherId && s.getSubject().getId() == requestedSubjectId);
+    }
+
+    public static boolean isTeacherInClass(UserDetailsImpl userDetails, int classId){
+        return userDetails.teacherGetSubjects()
+                .stream().anyMatch(ts -> ts.getClasses()
+                        .stream().anyMatch(tc->tc.getId() == classId));
+    }
+
+    public static boolean isStudentInClass(UserDetailsImpl userDetails, int classId){
+        return userDetails.studentGetClass().getId()==classId;
     }
 
 
@@ -165,5 +257,13 @@ public class AccessCheck {
     public static boolean isSelfOrAdmin(UserDetailsImpl userDetails, int requestedUserId){
         return userDetails.getIdUser() == requestedUserId || userDetails.isAdmin();
     }
+
+    public static boolean isAdmin(Authentication auth){
+        UserDetailsImpl userDetails = userDetails(auth);
+
+        return userDetails!=null && userDetails.isAdmin();
+    }
+
+
 
 }
