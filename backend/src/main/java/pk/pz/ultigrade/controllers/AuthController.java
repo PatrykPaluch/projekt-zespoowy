@@ -11,7 +11,7 @@ import pk.pz.ultigrade.requests.RegisterRequest;
 import pk.pz.ultigrade.util.JsonResponse;
 
 @RestController
-@CrossOrigin(value = "*", maxAge = 3600)
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/auth")
 public class AuthController {
 
