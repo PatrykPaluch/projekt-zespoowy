@@ -19,6 +19,7 @@ public class AdditionalEntity {
     @Column
     private Date data;
 
+    @JsonProperty("class")
     @JsonIgnoreProperties({"students", "principal", "timetable"})
     @ManyToOne
     @JoinColumn(name = "id_class")
