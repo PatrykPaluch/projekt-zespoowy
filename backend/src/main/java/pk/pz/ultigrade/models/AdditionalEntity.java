@@ -1,6 +1,7 @@
 package pk.pz.ultigrade.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,6 +15,7 @@ public class AdditionalEntity {
     @Column(name = "id_additional")
     private int id;
 
+    @JsonProperty("date")
     @Column
     private Date data;
 
