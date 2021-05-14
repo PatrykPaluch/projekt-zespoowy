@@ -1,17 +1,18 @@
 package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.models.GradesEntity;
+import pk.pz.ultigrade.models.InsertSubjectEntity;
 import pk.pz.ultigrade.models.SubjectsEntity;
 import pk.pz.ultigrade.models.TeacherSubjectEntity;
 import pk.pz.ultigrade.repositories.GradesEntityRepository;
+import pk.pz.ultigrade.repositories.InsertSubjectEntityRepository;
 import pk.pz.ultigrade.repositories.SpecificSubjectEntityRepository;
 import pk.pz.ultigrade.repositories.SubjectEntityRepository;
+import pk.pz.ultigrade.requests.InsertSubjectRequest;
 import pk.pz.ultigrade.responses.SubjectGradesResponse;
 import pk.pz.ultigrade.responses.TeacherSubjectListResponse;
 import pk.pz.ultigrade.security.AccessCheck;
@@ -33,6 +34,9 @@ public class SubjectController {
 
     @Autowired
     GradesEntityRepository gradesRepo;
+
+    @Autowired
+    InsertSubjectEntityRepository insertSubjectRepo;
 
     @GetMapping("/api/subjects")
     public JsonResponse.Wrapper<SubjectsEntity> getSubjects(){
@@ -93,4 +97,20 @@ public class SubjectController {
         return new TeacherSubjectListResponse(subjects);
     }
 
+    @PostMapping("/api/subjects")
+    public Object addSubject(@RequestBody InsertSubjectRequest request, Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("you are not an admin!");
+
+        InsertSubjectEntity insertSubjectEntity = new InsertSubjectEntity(request.getSubjectName());
+
+        try {
+            return insertSubjectRepo.save(insertSubjectEntity);
+        }
+        catch (DataAccessException er){
+            er.printStackTrace();
+            return JsonResponse.badRequest("Data integrity error");
+        }
+
+    }
 }

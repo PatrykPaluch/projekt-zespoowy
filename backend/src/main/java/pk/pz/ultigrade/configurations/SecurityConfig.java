@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             SIGNUP_PATH, SIGNIN_PATH, SIGNOUT_PATH, SIGNIN_SUCCESS_PATH, SIGNIN_FAILED_PATH, SIGNOUT_DONE_PATH
     };
     public static final String[] NO_AUTH_PERMIT_PAGES = {
-             "/public/**", SIGNUP_PATH, SIGNIN_PATH, SIGNIN_FAILED_PATH, SIGNOUT_DONE_PATH
+             "/public/**", SIGNUP_PATH, SIGNIN_PATH, SIGNIN_FAILED_PATH, SIGNOUT_DONE_PATH, "/api/teapot"
     };
 
     @Bean

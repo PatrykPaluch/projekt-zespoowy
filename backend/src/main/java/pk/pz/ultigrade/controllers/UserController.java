@@ -1,6 +1,7 @@
 package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.details.UserDetailsImpl;
@@ -17,6 +18,7 @@ import pk.pz.ultigrade.util.Roles;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     TeacherEntityRepository teacherRepo;
+
+    @Autowired
+    ParentEntityRepository parentRepo;
 
     @Autowired
     SpecificSubjectEntityRepository specificSubjectEntityRepo;
@@ -72,7 +77,6 @@ public class UserController {
     @GetMapping("/api/parents")
     public Object getStudentParents(Authentication auth){
         UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
-        System.out.println(userDetails.getUser().getClass());
 
         if(userDetails.getRole().getId() != Roles.STUDENT.getNumVal()){
             return JsonResponse.badRequest("you are not a student!");
@@ -149,6 +153,28 @@ public class UserController {
             return JsonResponse.notFound("no classes for this user!");
 
         return new ClassResponse(classesEntity.get());
+    }
+
+    @GetMapping("/api/students/{id}/parents")
+    public Object getStudentParents(@PathVariable int id, Authentication auth){
+        UserDetailsImpl userDetails =  AccessCheck.userDetails(auth);
+
+        if(! (AccessCheck.isSelfOrAdmin(userDetails,id) || userDetails.isTeacher()))
+            return JsonResponse.unauthorized("no permissions!");
+
+
+        List<ParentEntity> parents = parentRepo.findByChildren_Id(id);
+
+        if(parents.isEmpty())
+            return JsonResponse.notFound("this student does not have parents :( ");
+
+        return parents.stream().map(PublicUserResponse::new).collect(Collectors.toList());
+
+    }
+
+    @GetMapping("/api/teapot")
+    public ResponseEntity<?> iAmTeapot(){
+        return JsonResponse.imATeapot();
     }
 
 }
