@@ -1,7 +1,6 @@
 import React from 'react'
 
 const CardCallendar = (props) => {
-    let colorPool=[];
     
     let calcHour = (hour) =>{
         let hourNumber =hour.split(':')[0];
@@ -31,7 +30,7 @@ const CardCallendar = (props) => {
 
     return (
         <div className='card-callendar' style={{
-            gridColumnStart:columnCheck(props.dayOfWeek), backgroundColor: props.color, gridRowStart: calcHour(props.time), gridRowEnd: calcHour(props.time)+4}}>
+            gridColumnStart:columnCheck(props.dayOfWeek), backgroundColor: props.color, gridRowStart: calcHour(props.time), gridRowEnd: calcHour(props.time)+3}}>
             <h5>{props.subject}</h5>
             <h6>{props.time} - {props.time.split(':')[0]}:45</h6>
             
