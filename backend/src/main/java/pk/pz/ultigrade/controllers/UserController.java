@@ -2,15 +2,11 @@ package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.details.UserDetailsImpl;
-import pk.pz.ultigrade.models.ClassesEntity;
-import pk.pz.ultigrade.models.GradesEntity;
-import pk.pz.ultigrade.models.StudentEntity;
+import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
+import pk.pz.ultigrade.requests.InsertGradeRequest;
 import pk.pz.ultigrade.responses.ClassResponse;
 import pk.pz.ultigrade.responses.PublicUserResponse;
 import pk.pz.ultigrade.responses.StudentGradesResponse;
@@ -40,7 +36,13 @@ public class UserController {
     TeacherEntityRepository teacherRepo;
 
     @Autowired
+    SpecificSubjectEntityRepository specificSubjectEntityRepo;
+
+    @Autowired
     GradesEntityRepository gradesRepo;
+
+    @Autowired
+    InsertGradesEntityRepository insertGradesRepo;
 
     // get all users
     @GetMapping("/api/users")
@@ -91,6 +93,27 @@ public class UserController {
         }
 
         return new StudentGradesResponse(gradesRepo.findByStudent_id(id));
+    }
+
+    @PostMapping("/api/students/{id}/grades")
+    public Object addStudentGrade(@PathVariable int id, @RequestBody InsertGradeRequest gradeRequest, Authentication auth){
+        Optional<TeacherSubjectEntity> teacherSubject = specificSubjectEntityRepo.findByTeacher_IdAndSubject_Id(
+                gradeRequest.getIdTeacher(),
+                gradeRequest.getIdSubject());
+
+        if(teacherSubject.isEmpty())
+            return JsonResponse.badRequest("no subject for this teacher");
+
+
+        InsertGradeEntity grade = new InsertGradeEntity(
+                id,
+                teacherSubject.get().getIdTeacherSubject(),
+                gradeRequest.getGrade(),
+                gradeRequest.getDescription()
+            );
+
+        insertGradesRepo.save(grade);
+        return grade;
     }
 
     @GetMapping("/api/@me")
