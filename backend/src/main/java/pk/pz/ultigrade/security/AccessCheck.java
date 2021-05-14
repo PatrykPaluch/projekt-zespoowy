@@ -192,6 +192,14 @@ public class AccessCheck {
     }
 
 
+    // ====================================================================== Announcements
+    public static boolean postAnnouncements(Authentication auth){
+        UserDetailsImpl userDetails = userDetails(auth);
+        if(userDetails == null)
+            return false;
+
+        return userDetails.isAdmin() || userDetails.isTeacher();
+    }
 
     // ====================================================================== Others
     public static boolean hasParentAChild(UserDetailsImpl userDetails, int childId){
@@ -240,7 +248,6 @@ public class AccessCheck {
     public static boolean isStudentInClass(UserDetailsImpl userDetails, int classId){
         return userDetails.studentGetClass().getId()==classId;
     }
-
 
     // ====================================================================== UTILS
     public static UserDetailsImpl userDetails(Authentication auth){
