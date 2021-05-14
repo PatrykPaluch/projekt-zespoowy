@@ -35,7 +35,7 @@ public class PublicUserResponse {
         return user.getPesel();
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return user.getAdress();
     }
 

@@ -11,6 +11,7 @@ import java.util.Objects;
 @Table(name = "grades")
 public class GradesEntity {
 
+    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grade", unique = true, nullable = false)

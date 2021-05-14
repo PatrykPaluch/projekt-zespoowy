@@ -1,13 +1,12 @@
 package pk.pz.ultigrade.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.minidev.json.annotate.JsonIgnore;
 import pk.pz.ultigrade.models.SubjectsEntity;
 import pk.pz.ultigrade.models.TeacherEntity;
 import pk.pz.ultigrade.models.TeacherSubjectEntity;
 
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TeacherSubjectResponse {
 
@@ -22,16 +21,13 @@ public class TeacherSubjectResponse {
         return teacherSubjectEntity.getIdTeacherSubject();
     }
 
+    @JsonIgnoreProperties("teachers")
     public SubjectsEntity getSubject() {
         return teacherSubjectEntity.getSubject();
     }
 
-    public TeacherEntity getTeacher() {
-        return teacherSubjectEntity.getTeacher();
-    }
-
-    public Set<ClassResponse> getClasses() {
-        return teacherSubjectEntity.getClasses().stream().map(ClassResponse::new).collect(Collectors.toSet());
+    public PublicUserResponse getTeacher() {
+        return new PublicUserResponse(teacherSubjectEntity.getTeacher());
     }
 
     @Override

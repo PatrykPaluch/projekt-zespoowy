@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ClassesEntityRepository extends JpaRepository<ClassesEntity, Integer> {
 
     Optional<ClassesEntity> findByStudents_Id(int idUser);
+
+    Optional<ClassesEntity> findByIdAndTimetable_TeacherSubject_Teacher_Id(int classId, int teacherId);
 }
