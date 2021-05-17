@@ -20,7 +20,7 @@ public class StudentEntity extends UsersBaseEntity {
     private ClassesEntity studentClass;
 
     @JsonIgnoreProperties("children")
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "parent_child",
             joinColumns = {@JoinColumn(name = "id_child")},
@@ -50,11 +50,13 @@ public class StudentEntity extends UsersBaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentEntity that = (StudentEntity) o;
-        return getIdUser() == that.getIdUser();
+        return getId() == that.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdUser());
+        return Objects.hash(getId());
     }
+
+
 }

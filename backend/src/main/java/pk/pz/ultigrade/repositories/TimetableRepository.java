@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TimetableRepository extends JpaRepository<TimetableEntity, Integer> {
     List<TimetableEntity> findByClasses_Id(int classId);
-    List<TimetableEntity> findByTeacherSubject_Teacher_IdUser(int teacherId);
+    List<TimetableEntity> findByTeacherSubject_Teacher_Id(int teacherId);
 }

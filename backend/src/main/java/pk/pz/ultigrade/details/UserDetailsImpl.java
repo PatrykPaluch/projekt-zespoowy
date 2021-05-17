@@ -1,5 +1,6 @@
 package pk.pz.ultigrade.details;
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +8,7 @@ import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.responses.PublicUserResponse;
 import pk.pz.ultigrade.util.Roles;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private final UsersBaseEntity user;
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UsersBaseEntity user){
+    public UserDetailsImpl(@NotNull UsersBaseEntity user){
         this.user = user;
 
         authorities = List.of(
@@ -73,7 +75,7 @@ public class UserDetailsImpl implements UserDetails {
         return user.getPhone();
     }
 
-    public RoleEntity getRole() {
+    public @NotNull RoleEntity getRole() {
         return user.getRole();
     }
 
@@ -82,7 +84,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public Integer getIdUser() {
-        return user.getIdUser();
+        return user.getId();
     }
 
     public String getName() {
@@ -123,5 +125,25 @@ public class UserDetailsImpl implements UserDetails {
 
     public boolean isAdmin(){
         return getRoleEnum() == Roles.ADMIN;
+    }
+
+    public @NotNull UsersBaseEntity getUser() {
+        return user;
+    }
+
+    public Date getBirthDate() {
+        return user.getBirthDate();
+    }
+
+    public boolean isTeacher(){
+        return getRoleEnum() == Roles.TEACHER;
+    }
+
+    public boolean isStudent(){
+        return getRoleEnum() == Roles.STUDENT;
+    }
+
+    public boolean isParent(){
+        return getRoleEnum() == Roles.PARENT;
     }
 }

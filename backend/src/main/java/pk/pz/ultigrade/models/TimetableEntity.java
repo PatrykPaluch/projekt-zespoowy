@@ -1,5 +1,6 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -69,6 +70,11 @@ public class TimetableEntity {
     @JsonIgnoreProperties("teachers")
     public SubjectsEntity getSubject() {
         return teacherSubject.getSubject();
+    }
+
+    @JsonIgnore
+    public TeacherSubjectEntity getTeacherSubject(){
+        return teacherSubject;
     }
 
 }
