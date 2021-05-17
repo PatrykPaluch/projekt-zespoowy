@@ -47,7 +47,7 @@ const CallendarForm = (props) => {
                 <Day name="Poniedziałek" subjectsTeachers={subjectsArray}/>
                 <Day name="Wtorek"  subjectsTeachers={subjectsArray}/>
                 <Day name="Środa"   subjectsTeachers={subjectsArray}/>
-                <Day name="Czwartek"subjectsTeachers={subjectsArray}/>
+                <Day name="Czwartek" subjectsTeachers={subjectsArray}/>
                 <Day name="Piątek"  subjectsTeachers={subjectsArray}/>
                 <div className="button-container">
                     <button>Dodaj plan zajęć</button>
