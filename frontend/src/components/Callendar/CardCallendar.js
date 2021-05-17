@@ -1,4 +1,5 @@
 import React from 'react'
+import swal from 'sweetalert';
 
 const CardCallendar = (props) => {
     
@@ -26,13 +27,24 @@ const CardCallendar = (props) => {
                 break;
         }
     };
+
+    let handleTimetablePreview = () =>{
+        swal( {
+            icon:'info',
+            text:"Przedmiot: "+props.subject+
+                "\n\nGodzina: "+props.time+" - "+props.time.split(':')[0]+":45"+
+                "\n\nNauczyciel: "+props.teacher+
+                "\n\n"+props.class,
+        })
+    }
     
 
     return (
-        <div className='card-callendar' style={{
+        <div className='card-callendar' onClick={handleTimetablePreview} style={{
             gridColumnStart:columnCheck(props.dayOfWeek), backgroundColor: props.color, gridRowStart: calcHour(props.time), gridRowEnd: calcHour(props.time)+3}}>
             <h5>{props.subject}</h5>
             <h6>{props.time} - {props.time.split(':')[0]}:45</h6>
+            {props.role == 1 ? <h6>{props.teacher}</h6> : <h6>{props.class}</h6>}
             
         </div>
     )
