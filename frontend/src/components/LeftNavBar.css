@@ -18,3 +18,14 @@ li{
     grid-template-rows: repeat(8, 8vh);
     margin-top: 6vh;
 }
+
+@media only screen and (max-width: 1200px){
+    .left-nav-container{
+        width: 25vw;
+    }
+
+    ul.left-nav-menu{
+        padding: 0;
+        font-size: small;
+    }
+}

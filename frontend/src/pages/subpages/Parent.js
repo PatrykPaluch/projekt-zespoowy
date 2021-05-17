@@ -1,10 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
 import photo from '../../image/avatar.png'; 
+import axios from "axios";
 
 function Parent() {
+    const [parent, setParent] = useState({
+        role: '',
+        name: '', 
+        surname: '',
+        pesel:  '',
+        address: '',
+        dateOfBirth: '',
+        phoneNumber: '',
+        photo: ''
+    });
+
+    function getParent() {
+        axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
+            setParent({
+                role:response.data.role,
+                name:response.data.name,
+                surname:response.data.surname,
+                pesel:  response.data.pesel,
+                address: response.data.address,
+                dateOfBirth: response.data.dateOfBirth,
+                phoneNumber: response.data.phoneNumber,
+                photo: response.data.photo
+            });
+            console.log(parent);
+        });
+    }
+
+    useEffect(() =>{
+        getParent();
+    }, []);
+
     return (
        <>
         <Navbar/>
@@ -13,32 +45,32 @@ function Parent() {
                 <div className="Data">
                     <div className="Data-item">
                         <h4>Imię</h4> 
-                        <h3>Jan </h3>
+                        <h3>{parent.name} </h3>
                     </div>
                     <div className="Data-item">
                         <h4>Nazwisko</h4> 
-                        <h3>Kowalski </h3>
+                        <h3>{parent.surname} </h3>
                     </div>
                     <div className="Data-item">
                         <h4>Pesel</h4> 
-                        <h3>89030267456 </h3>
+                        <h3>{parent.pesel} </h3>
                     </div>
                     <div className="Data-item">
                         <h4>Adres</h4> 
-                        <h3>Jerzmanowa 56 </h3>
+                        <h3>{parent.address} </h3>
                     </div>
                     <div className="Data-item">
                         <h4>Data urodzenia</h4> 
-                        <h3>04.06.2005</h3>
+                        <h3>{parent.dateOfBirth}</h3>
                     </div>
                     <div className="Data-item">
                         <h4>Numer telefonu</h4> 
-                        <h3>678456123</h3>
+                        <h3>{parent.phoneNumber}</h3>
                     </div>
                 </div>
                 <div className="Photo">
                     <div className="Data-item">
-                    <img className="Photo-avatar" src={photo} alt={"User avatar"}/>
+                    <img className="Photo-avatar" src={parent.photo} alt={"User avatar"}/>
                     </div>
                 </div>
             </div>

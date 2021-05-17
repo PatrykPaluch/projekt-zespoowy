@@ -4,7 +4,8 @@ import './callendar.css';
 const Day = (props) => {
     return (
         <div className='day' style={{gridColumnStart:props.column}}>
-            {props.dayName +' '+props.dayNum+' / '+props.monthNum}
+            {props.dayName}
+            {/* {props.dayName +' '+props.dayNum+' / '+props.monthNum} */}
         </div>
     )
 }

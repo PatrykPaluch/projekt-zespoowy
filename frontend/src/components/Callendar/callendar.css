@@ -73,7 +73,19 @@
     margin:0;
     padding:0;
 }
+.card-callendar>h6:last-child{
+    margin-top:0.4em;
+}
 .card-callendar>h5{
     margin:0;
     padding:0;
+    font-weight:900;
+}
+
+.swal-modal{
+    text-align: left;
+}
+.swal-text{
+    color:black;
+    font-weight: 900;
 }

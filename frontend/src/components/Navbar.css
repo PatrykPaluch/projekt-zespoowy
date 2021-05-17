@@ -6,6 +6,7 @@
     position: sticky;
     top: 0;
     box-shadow: 3px 5px 20px 6px rgb(8 8 10);
+    z-index: 2;
 }
 
 .navbar-container{
