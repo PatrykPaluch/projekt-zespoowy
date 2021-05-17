@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import photo from '../../image/avatar.png'; 
 import axios from "axios";
 
 function Parent() {
@@ -66,11 +65,6 @@ function Parent() {
                     <div className="Data-item">
                         <h4>Numer telefonu</h4> 
                         <h3>{parent.phoneNumber}</h3>
-                    </div>
-                </div>
-                <div className="Photo">
-                    <div className="Data-item">
-                    <img className="Photo-avatar" src={parent.photo} alt={"User avatar"}/>
                     </div>
                 </div>
             </div>

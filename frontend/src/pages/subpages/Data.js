@@ -73,11 +73,6 @@ function Data() {
                         <h3>{user.class}</h3>
                     </div>
                 </div>
-                <div className="Photo">
-                    <div className="Data-item">
-                    <img className="Photo-avatar" src={user.photo} alt={"User avatar"}/>
-                    </div>
-                </div>
             </div>
        </>
     )

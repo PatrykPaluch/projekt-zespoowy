@@ -50,11 +50,6 @@ function Children() {
                             <h3>{child.class}</h3>
                         </div>
                     </div>
-                    <div className="Photo">
-                        <div className="Data-item">
-                        <img className="Photo-avatar" src={photo} alt={"User avatar"}/>
-                        </div>
-                    </div>  
                 </div>
             ))}
         </div>

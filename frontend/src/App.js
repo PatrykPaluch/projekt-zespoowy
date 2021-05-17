@@ -14,7 +14,6 @@ import Subjects from './pages/subpages/Subjects';
 import NewMessage from './pages/subpages/NewMessage';
 import ReceiverMessage from './pages/subpages/ReceiverMessage';
 import SendMessage from './pages/subpages/SendMessage';
-import Trash from './pages/subpages/Trash';
 import ClassRegisterStudent from "./pages/ClassRegisterStudent";
 import ClassRegisterTeacher from "./pages/ClassRegisterTeacher";
 import GradesStudent from "./pages/subpages/GradesStudent";
@@ -39,7 +38,6 @@ function App() {
             <Route path="/messages/newmessage" component={NewMessage}/> 
             <Route path="/messages/receivermessage" component={ReceiverMessage}/> 
             <Route path="/messages/sendmessage" component={SendMessage}/> 
-            <Route path="/messages/trash" component={Trash}/>
             <Route path="/classregisterstudent" component={ClassRegisterStudent}/>
             <Route path="/classregisterteacher" component={ClassRegisterTeacher}/>
             <Route path="/gradesstudent" component={GradesStudent}/>
