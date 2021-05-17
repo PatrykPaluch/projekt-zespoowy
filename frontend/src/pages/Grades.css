@@ -4,7 +4,6 @@
     display: flex;
 }
 
-/*todo scrollbar*/
 .grades-content {
     background-color: white;
     height: 78vh;
@@ -16,6 +15,19 @@
     display: flex;
     flex-direction: column;
 }
+
+.grades-content-student {
+    background-color: white;
+    height: 78vh;
+    width: 75%;
+    margin: 5vh auto auto auto;
+    border: 0.1em solid grey;
+    border-radius: 1em;
+    transition: all .4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .grades-content:hover {
     box-shadow: 5px 5px rgba(0, 0, 0, .1);
@@ -40,20 +52,8 @@
     padding: 0.5em;
     width: 5vw;
     justify-content: space-around;
-    /*background-color: #272d31;*/
-    /*color: #85E18B;*/
-}
+    background-color: hsla(120, 60%, 70%, 0.3);
 
-.period2 {
-    margin: 0 0 1em 2em;
-    display: flex;
-    border: 0.1em solid grey;
-    border-radius: 1em;
-    padding: 0.5em;
-    width: 5vw;
-    justify-content: space-around;
-    /*background-color: #272d31;*/
-    /*color: #85E18B;*/
 }
 
 .period1 > button {
@@ -68,17 +68,6 @@
 }
 
 
-.period2 > button {
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-}
-
-.period2 > button:focus {
-    background-color: #85E18B;
-    outline: none
-
-}
 
 
 .grades {
@@ -95,7 +84,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #FFFFFF;
+    box-shadow: inset 0 0 0px rgb(0 0 0 / 0%);
 }
 
 /* Handle */
@@ -109,3 +98,53 @@
     background: #63C069;
     border-radius: 1em;
 }
+
+.choose-subject {
+    display: flex;
+}
+
+.text-choose {
+    margin: 1.2vh 1vw 0 3vw;
+}
+select{
+    width:20vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    background: #2c3e50 none;
+    flex: 1;
+    /*padding: 0 .5em;*/
+    color: #fff;
+    cursor: pointer;
+    height:4vh;
+    border-radius:1em;
+    text-align:center;
+    text-align-last:center;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+}
+
+select:hover::after {
+    color: #f39c12;
+}
+
+

@@ -17,8 +17,6 @@ import SendMessage from './pages/subpages/SendMessage';
 import Trash from './pages/subpages/Trash';
 import ClassRegisterStudent from "./pages/ClassRegisterStudent";
 import ClassRegisterTeacher from "./pages/ClassRegisterTeacher";
-import GradesStudent from "./pages/subpages/GradesStudent";
-import GradesTeacher from "./pages/subpages/GradesTeacher";
 
 
 function App() {
@@ -40,11 +38,11 @@ function App() {
             <Route path="/messages/receivermessage" component={ReceiverMessage}/> 
             <Route path="/messages/sendmessage" component={SendMessage}/> 
             <Route path="/messages/trash" component={Trash}/>
-            <Route path="/classregisterstudent" component={ClassRegisterStudent}/>
-            <Route path="/classregisterteacher" component={ClassRegisterTeacher}/>
-            <Route path="/gradesstudent" component={GradesStudent}/>
             <Route path="/callendarform" component={CallendarFormPage}/>
-            <Route path="/gradesteacher" component={GradesTeacher}/>
+
+            <Route path="/gradesteacher" component={ClassRegisterTeacher}/>
+            <Route path="/gradesstudent" component={ClassRegisterStudent}/>
+
         </Switch>
     </Router>
   );

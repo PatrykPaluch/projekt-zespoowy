@@ -1,16 +1,27 @@
 import {NavLink} from "react-router-dom";
 import "./ClassRegisterNav.css"
+import TeacherRow from "./TeacherRow";
+import React, {useState} from 'react'
+import {u} from "react-select/dist/index-4bd03571.esm";
 
-const ClassRegisterTeacherNav = () => {
+const ClassRegisterTeacherNav = (props) => {
+
+    function handleChooseClass(pressed) {
+        props.callback(pressed);
+    }
+
     return (
         <div className='nav-register'>
             <ul className='nav-menu-register'>
-                <li className='oceny'>
-                    <NavLink to="/gradesteacher" className='nav-register-links'>Oceny</NavLink>
-                </li>
-                <li className='nav-item'>
-                    <NavLink to="/classregisterstudent/gradesstudent" className='nav-register-links'>Frekwencja</NavLink>
-                </li>
+
+                {Object.keys(props.classes).map((key) => {
+                    return (<>
+                            <li className='nav-item'>
+                                <div onClick={() => handleChooseClass(key)} className='nav-register-links'>{key}</div>
+                            </li>
+                        </>
+                    )
+                })}
             </ul>
         </div>
     );
