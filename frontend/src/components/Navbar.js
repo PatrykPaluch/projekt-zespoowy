@@ -4,13 +4,17 @@ import './Navbar.css';
 import {ImCross, ImMenu} from 'react-icons/im';
 import logo from '../image/LogoGreen.png';
 
+import { Api } from "../apiHandler/apiHandler"
+
 function Navbar() {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
     const logout = () => {
         console.log('wyloguj');
-        localStorage.clear();
+        localStorage.removeItem('user');
+        Api.logout()
     }
 
     return (

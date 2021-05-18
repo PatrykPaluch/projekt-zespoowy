@@ -4,7 +4,7 @@ import logo from '../image/LogoGreen.png';
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
-import { me } from "../apiHandler/apiHandler"
+import { Api } from "../apiHandler/apiHandler"
 
 function LoginForm() {
     const {register, handleSubmit} = useForm();
@@ -26,7 +26,7 @@ function LoginForm() {
         })
             .then(function (response) {
                 if (response.status === 200) {
-                    me()
+                    Api.me()
                         .then(response=> {
                             localStorage.setItem('user', response.data)
                         })
