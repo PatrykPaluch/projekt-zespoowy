@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pk.pz.ultigrade.entrypoints.AuthAccessDeniedEntryPoint;
 import pk.pz.ultigrade.services.AuthUserDetailsService;
 
@@ -43,6 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String[] NO_AUTH_PERMIT_PAGES = {
              "/public/**", SIGNUP_PATH, SIGNIN_PATH, SIGNIN_FAILED_PATH, SIGNOUT_DONE_PATH, "/api/teapot"
     };
+
+    @Bean
+    public OriginFilter originFilter(){
+        return new OriginFilter();
+    }
 
     @Bean
     public PasswordEncoder encoder() {
@@ -103,5 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .exceptionHandling()
                     .authenticationEntryPoint(authenticationEntryPoint())
                 ;
+
+        http.addFilterBefore(originFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
