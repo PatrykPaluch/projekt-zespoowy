@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink} from 'react-router-dom';
 import './LeftNavBar.css';
 
+const user = localStorage.getItem('user');
+
 function ProfileNav() {
     return (
         <div className='left-nav-container'>
