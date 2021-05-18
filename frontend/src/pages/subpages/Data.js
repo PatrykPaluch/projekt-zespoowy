@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import axios from 'axios';
+import { Api } from '../../apiHandler/apiHandler'
 
 function Data() {
     const [user,setUser] = useState({
@@ -18,20 +18,21 @@ function Data() {
     });
 
     function getUser () {
-        axios.get(`http://localhost:8000/curentUser`).then(response =>{
-               setUser({
-                    role:response.data.role,
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
                     name:response.data.name,
                     surname:response.data.surname,
                     pesel:  response.data.pesel,
                     address: response.data.address,
-                    dateOfBirth: response.data.dateOfBirth,
-                    phoneNumber: response.data.phoneNumber,
-                    class: response.data.class,
-                    photo: response.data.photo
-            });
-            console.log(user);
-        });
+                    dateOfBirth: response.data.birthDate,
+                    phoneNumber: response.data.phone
+
+                })
+
+            }
+        })
+        
     }
 
     useEffect(() =>{

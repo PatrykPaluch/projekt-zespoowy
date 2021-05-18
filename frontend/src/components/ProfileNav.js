@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink} from 'react-router-dom';
 import './LeftNavBar.css';
 
-const user = localStorage.getItem('user');
+
 
 function ProfileNav() {
     return (
@@ -10,6 +10,7 @@ function ProfileNav() {
             <ul className='left-nav-menu'>
               <li className='nav-item'>
                 <NavLink to="/profile/data" className='left-nav-links'>Dane</NavLink>
+
               </li>
               <li className='nav-item'>
                 <NavLink to="/profile/subjects" className='left-nav-links'>Przedmioty</NavLink>
