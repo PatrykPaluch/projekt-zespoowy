@@ -8,7 +8,6 @@ import { me } from "../apiHandler/apiHandler"
 
 function LoginForm() {
     const {register, handleSubmit} = useForm();
-
     const onSubmit = formData => {
         console.log(formData);
 
@@ -38,10 +37,6 @@ function LoginForm() {
                 console.log(response)
             })
     };
-
-
-
-
 
     return (
         <div className="App-log">

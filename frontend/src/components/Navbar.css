@@ -23,7 +23,7 @@
 
 .nav-menu{
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(6, auto);
     list-style: none;
     text-align: center;
     width: 65vw;
@@ -38,8 +38,14 @@
     padding: 0.5rem 1rem;
 }
 
+button.nav-links{
+    background-color: #272d31;
+    border: none;
+    font-size: inherit;
+}
+
 .nav-links:hover{
-    background-color: #151b1f48;;
+    background-color: #151b1f48;
     color: white;}
 
 .nav-links-mobile{
