@@ -8,7 +8,7 @@ function Data() {
     const [user,setUser] = useState({
         id: '',
         role: '',
-        name: '', 
+        name: '',
         surname: '',
         pesel:  '',
         address: '',
@@ -35,17 +35,16 @@ function Data() {
                     dateOfBirth: response.data.birthDate,
                     phoneNumber: response.data.phone
                 })
-
             }
         })
         
     }
 
-    function getStudent () {
-        Api.getStudent(user.id).then(response => {
+    function getStudent (id) {
+        Api.getStudent(id).then(response => {
             if(response.status === 200){
-                setUser({
-                    class: response.data.id
+                setStudent({
+                    class: response.data.studentClass.name
                 })
             }
         })
@@ -53,10 +52,10 @@ function Data() {
 
     useEffect(() =>{
         getUser();
-        if(user.role===2){
-            getStudent ();
+        if(user.role===1){
+            getStudent (user.id);
         }
-    }, []);
+    }, [user.id, user.role]);
     
     return (
        <>
@@ -96,7 +95,7 @@ function Data() {
                         user.role===1 ?
                             <div className="Data-item">
                                 <h4>Klasa</h4>
-                                <h3>{user.class}</h3>
+                                <h3>{student.class}</h3>
                             </div>
                             :null
                     }
