@@ -73,6 +73,10 @@ export class Api {
         return this.get(`/api/students/${id}/teachers`);
     }
 
+    static getTeacherSubject(idTeacher){
+        return this.get(`/api/teachers/${idTeacher}/teacherSubject`);
+    }
+
 
 }
 

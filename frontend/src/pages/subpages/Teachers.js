@@ -6,7 +6,8 @@ import {Api} from "../../apiHandler/apiHandler";
 
 function Teachers() {
     const [user,setUser] = useState({
-        id: ''
+        id: '',
+        role: ''
     });
     const [teacher,setTeacher] = useState({
         teachers: [],
@@ -23,7 +24,8 @@ function Teachers() {
         Api.me().then(response => {
             if(response.status === 200){
                 setUser({
-                    id: response.data.id
+                    id: response.data.id,
+                    role: response.data.role.id
                 })
             }
         })
@@ -39,11 +41,11 @@ function Teachers() {
 
     useEffect(() =>{
         getUser();
-        if(user.id!==''){
+        if(user.id!=='' && user.role ===1){
             getTeachers(user.id);
         }
         //getTeachers(user.id);
-    }, [user.id]);
+    }, [user.role, user.id]);
 
     return (
        <>
@@ -55,7 +57,7 @@ function Teachers() {
                 <div className="Data">
                     <div className="Data-item">
                         <h4>Przedmiot</h4> 
-                        <h3>{teacher.id}</h3>
+                        <h3>{teacher.subject}</h3>
                     </div>
                     <div className="Data-item">
                         <h4>Imię</h4> 
