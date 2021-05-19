@@ -2,10 +2,11 @@ import React, {useState, useEffect } from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import axios from 'axios';
+import { Api } from '../../apiHandler/apiHandler';
 
 function Data() {
     const [user,setUser] = useState({
+        id: '',
         role: '',
         name: '', 
         surname: '',
@@ -13,29 +14,48 @@ function Data() {
         address: '',
         dateOfBirth: '',
         phoneNumber: '',
-        class: '',
-        photo: ''
+        photo: '',
+        class: ''
+    });
+
+    const [student, setStudent] = useState({
+        class: ''
     });
 
     function getUser () {
-        axios.get(`http://localhost:8000/curentUser`).then(response =>{
-               setUser({
-                    role:response.data.role,
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
+                    id: response.data.id,
+                    role: response.data.role.id,
                     name:response.data.name,
                     surname:response.data.surname,
                     pesel:  response.data.pesel,
                     address: response.data.address,
-                    dateOfBirth: response.data.dateOfBirth,
-                    phoneNumber: response.data.phoneNumber,
-                    class: response.data.class,
-                    photo: response.data.photo
-            });
-            console.log(user);
-        });
+                    dateOfBirth: response.data.birthDate,
+                    phoneNumber: response.data.phone
+                })
+
+            }
+        })
+        
+    }
+
+    function getStudent () {
+        Api.getStudent(user.id).then(response => {
+            if(response.status === 200){
+                setUser({
+                    class: response.data.id
+                })
+            }
+        })
     }
 
     useEffect(() =>{
         getUser();
+        if(user.role===2){
+            getStudent ();
+        }
     }, []);
     
     return (
@@ -64,19 +84,23 @@ function Data() {
                         <h4>Data urodzenia</h4> 
                         <h3>{user.dateOfBirth}</h3>
                     </div>
-                    <div className="Data-item">
-                        <h4>Numer telefonu</h4> 
-                        <h3>{user.phoneNumber}</h3>
-                    </div>
-                    <div className="Data-item">
-                        <h4>Klasa</h4> 
-                        <h3>{user.class}</h3>
-                    </div>
-                </div>
-                <div className="Photo">
-                    <div className="Data-item">
-                    <img className="Photo-avatar" src={user.photo} alt={"User avatar"}/>
-                    </div>
+                    {
+                        (user.role===2 || user.role===3) ?
+                            <div className="Data-item">
+                                <h4>Numer telefonu</h4>
+                                <h3>{user.phoneNumber}</h3>
+                            </div>
+                            : null
+                    }
+                    {
+                        user.role===1 ?
+                            <div className="Data-item">
+                                <h4>Klasa</h4>
+                                <h3>{user.class}</h3>
+                            </div>
+                            :null
+                    }
+
                 </div>
             </div>
        </>

@@ -4,10 +4,10 @@ import logo from '../image/LogoGreen.png';
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
+import { Api } from "../apiHandler/apiHandler"
+
 function LoginForm() {
     const {register, handleSubmit} = useForm();
-
-
 
     const onSubmit = formData => {
         console.log(formData);
@@ -23,19 +23,22 @@ function LoginForm() {
             headers: {
                 "Content-Type": "multipart/form-data"
             },
-
+            withCredentials: true
         })
             .then(function (response) {
-                console.log(response.headers)
-                //axios.get('http://localhost:8080/api/users', {withCredentials: true}).then(console.log).catch(console.log)
+                if (response.status === 200) {
+                    Api.me()
+                        .then(response=> {
+                            localStorage.setItem('user', response.data)
+
+                        })
+                }
                 console.log(response)
             })
             .catch(function (response) {
                 console.log(response)
             })
     };
-
-
 
     return (
         <div className="App-log">

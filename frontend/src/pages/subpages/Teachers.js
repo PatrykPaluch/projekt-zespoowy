@@ -2,22 +2,49 @@ import React, {useState, useEffect} from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import axios from "axios";
+import {Api} from "../../apiHandler/apiHandler";
 
 function Teachers() {
-    const [teachers,setTeachers] = useState({
-        teachers: []
+    const [user,setUser] = useState({
+        id: ''
+    });
+    const [teacher,setTeacher] = useState({
+        teachers: [],
     });
 
-    function getTeachers() {
+    /*function getTeachers() {
         axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
             setTeachers({teachers:response.data});
             console.log(teachers);
         });
+    }*/
+
+    function getUser () {
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
+                    id: response.data.id
+                })
+            }
+        })
+    }
+
+    function getTeachers(id) {
+        Api.getStudentTeachers(id).then(response => {
+            if (response.status === 200) {
+                setTeacher({teachers: response.data.class});
+            }
+        });
     }
 
     useEffect(() =>{
-        getTeachers();
+        getUser();
+        console.log(user);
+        console.log(user.id);
+        if(user.id!==''){
+            getTeachers(user.id);
+        }
+        //getTeachers(user.id);
     }, []);
 
     return (
@@ -25,7 +52,7 @@ function Teachers() {
         <Navbar/>
         <ProfileNav/>
         <div className="Teachers">
-        {teachers.teachers.map(teacher=> (
+        {teacher.teachers.map(teacher=> (
             <div className="User-data">
                 <div className="Data">
                     <div className="Data-item">

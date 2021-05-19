@@ -31,19 +31,6 @@ function ReceiverMessage() {
     console.log(click);
   }
 
-  const deleteMessageClicked = (e) =>{
-    setClick({
-      id: e,
-    });
-    axios.delete(`http://localhost:8000/api/users/${click.id}`
-        ).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
-    console.log(click);
-  }
-
     return (
       <>
         <Navbar/>
@@ -58,12 +45,11 @@ function ReceiverMessage() {
                     <li >
                       <h4 onClick={()=>setMessageClicked(receivedMessage.username, receivedMessage.topic, receivedMessage.contents)}>{receivedMessage.username}</h4>
                       <p>{receivedMessage.topic}</p>
-                      <p onClick={()=>deleteMessageClicked(receivedMessage.id)}>Usuń</p>
                     </li>
                     )
                   :
                   <li>
-                    <h4>Brak wysłanych wiadomości</h4>
+                    <h4>Brak odebranych wiadomości</h4>
                   </li>
                 }
               </ul>

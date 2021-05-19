@@ -23,7 +23,7 @@
 
 .nav-menu{
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(6, auto);
     list-style: none;
     text-align: center;
     width: 65vw;
@@ -38,8 +38,14 @@
     padding: 0.5rem 1rem;
 }
 
+button.nav-links{
+    background-color: #272d31;
+    border: none;
+    font-size: inherit;
+}
+
 .nav-links:hover{
-    background-color: #151b1f48;;
+    background-color: #151b1f48;
     color: white;}
 
 .nav-links-mobile{
@@ -69,7 +75,7 @@ svg{
     .nav-menu{
         display: flex;
         flex-direction: column;
-        width: 94vw;
+        width: 100vw;
         height: 87vh;
         position: absolute;
         top: 11vh;
@@ -80,6 +86,7 @@ svg{
     .nav-menu.active{
         background: #171a1d;
         left: 0;
+        padding-left: 0;
     }
 
     .nav-links{

@@ -517,9 +517,9 @@ let getColorForSubject=(subject)=>{
 
 }
 
-useEffect(()=>{
-
-})
+// useEffect(()=>{
+//
+// })
 
 let getTimetable = ()=>{
 
