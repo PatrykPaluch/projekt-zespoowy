@@ -75,7 +75,7 @@ svg{
     .nav-menu{
         display: flex;
         flex-direction: column;
-        width: 94vw;
+        width: 100vw;
         height: 87vh;
         position: absolute;
         top: 11vh;
@@ -86,6 +86,7 @@ svg{
     .nav-menu.active{
         background: #171a1d;
         left: 0;
+        padding-left: 0;
     }
 
     .nav-links{
