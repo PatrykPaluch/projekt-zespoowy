@@ -66,7 +66,6 @@ const Routes = () => {
             <ProtectedRoute path="/messages/newmessage" auth={Auth.auth} component={NewMessage}/>
             <ProtectedRoute path="/messages/receivermessage" auth={Auth.auth} component={ReceiverMessage}/>
             <ProtectedRoute path="/messages/sendmessage" auth={Auth.auth} component={SendMessage}/>
-            <ProtectedRoute path="/messages/trash" auth={Auth.auth} component={Trash}/>
             <ProtectedRoute path="/callendarform" auth={Auth.auth} component={CallendarFormPage}/>
 
             <ProtectedRoute path="/gradesteacher" auth={Auth.auth} component={ClassRegisterTeacher}/>
