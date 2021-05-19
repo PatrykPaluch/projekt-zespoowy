@@ -96,9 +96,6 @@ public class UserController {
 
     @GetMapping("/api/parents/{id}/children")
     public Object getParentChildren(@PathVariable int id, Authentication auth){
-        if(!AccessCheck.getStudent(auth, id))
-            return JsonResponse.unauthorized("no permissions!");
-
         List<StudentEntity> children = studentRepo.findByParents_Id(id);
         if(children.isEmpty())
             return JsonResponse.notFound("this parent has no children");
