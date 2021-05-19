@@ -38,6 +38,14 @@ export class Api {
         return this.get("/api/@me");
     }
 
+    static parents() {
+        return this.get("/api/parents");
+    }
+
+    static children() {
+        return this.get("/api/parents");
+    }
+
     /*
     //kolejne funkcje w stylu
     static nazwaFunkcji() {
@@ -60,6 +68,12 @@ export class Api {
     static getStudent(id){
         return this.get(`/api/students/${id}`);
     }
+
+    static getStudentTeachers(id){
+        return this.get(`/api/students/${id}/teachers`);
+    }
+
+
 }
 
 /*

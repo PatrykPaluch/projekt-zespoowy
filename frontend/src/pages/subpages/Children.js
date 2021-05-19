@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import photo from '../../image/avatar.png'; 
 import axios from "axios";
+import { Api } from '../../apiHandler/apiHandler';
 
 function Children() {
     const [children,setChildren] = useState({
@@ -11,6 +11,11 @@ function Children() {
     });
 
     function getChildren() {
+        /*Api.children().then(response => {
+            if(response.status === 200){
+                setChildren({kids:response.data});
+            }
+        })*/
         axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
             setChildren({kids:response.data});
             console.log(children);
@@ -50,11 +55,6 @@ function Children() {
                             <h3>{child.class}</h3>
                         </div>
                     </div>
-                    <div className="Photo">
-                        <div className="Data-item">
-                        <img className="Photo-avatar" src={photo} alt={"User avatar"}/>
-                        </div>
-                    </div>  
                 </div>
             ))}
         </div>
