@@ -88,3 +88,26 @@
     font-size: 4em;
     opacity: 70%;
 }
+
+@media only screen and (max-width: 1200px){
+    .content{
+        flex-direction: column;
+    }
+
+    .announcements, .timetables{
+        width: 90vw;
+    }
+
+    .squares{
+        width: 100vw;
+    }
+
+    .square{
+        width: 10em;
+        height: 10em;
+    }
+
+    .timetable{
+        min-width: 11em;
+    }
+}

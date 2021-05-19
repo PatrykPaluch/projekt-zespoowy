@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
-import { Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import './Navbar.css';
 import {ImCross, ImMenu} from 'react-icons/im';
-import logo from '../image/LogoGreen.png'; 
+import logo from '../image/LogoGreen.png';
+
+import { Api } from "../apiHandler/apiHandler"
+
 function Navbar() {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    const logout = () => {
+        console.log('wyloguj');
+        localStorage.removeItem('user');
+        Api.logout()
+    }
 
     return (
         <>
@@ -33,6 +42,9 @@ function Navbar() {
                         </li>
                         <li className='nav-item'>
                             <Link to="/profile" onClick={closeMobileMenu} className='nav-links'>Profil</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <button className='nav-links' onClick={logout} >Wyloguj się</button>
                         </li>
                     </ul>
                 </div>

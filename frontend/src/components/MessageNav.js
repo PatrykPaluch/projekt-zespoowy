@@ -15,9 +15,6 @@ function MessageNav() {
               <li className='nav-item'>
                 <NavLink to="/messages/sendmessage" className='left-nav-links'>Wiadomości wysłane</NavLink>
               </li>
-              <li className='nav-item'>
-                <NavLink to="/messages/trash" className='left-nav-links'>Kosz</NavLink>
-              </li>
             </ul>
         </div>
     )
