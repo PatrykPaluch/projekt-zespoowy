@@ -16,7 +16,6 @@ import Subjects from './pages/subpages/Subjects';
 import NewMessage from './pages/subpages/NewMessage';
 import ReceiverMessage from './pages/subpages/ReceiverMessage';
 import SendMessage from './pages/subpages/SendMessage';
-import Trash from './pages/subpages/Trash';
 import ClassRegisterStudent from "./pages/ClassRegisterStudent";
 import ClassRegisterTeacher from "./pages/ClassRegisterTeacher";
 
@@ -67,11 +66,11 @@ const Routes = () => {
             <ProtectedRoute path="/messages/newmessage" auth={Auth.auth} component={NewMessage}/>
             <ProtectedRoute path="/messages/receivermessage" auth={Auth.auth} component={ReceiverMessage}/>
             <ProtectedRoute path="/messages/sendmessage" auth={Auth.auth} component={SendMessage}/>
-            <ProtectedRoute path="/messages/trash" auth={Auth.auth} component={Trash}/>
             <ProtectedRoute path="/callendarform" auth={Auth.auth} component={CallendarFormPage}/>
 
             <ProtectedRoute path="/gradesteacher" auth={Auth.auth} component={ClassRegisterTeacher}/>
             <ProtectedRoute path="/gradesstudent" auth={Auth.auth} component={ClassRegisterStudent}/>
+
 
         </Switch>
     );

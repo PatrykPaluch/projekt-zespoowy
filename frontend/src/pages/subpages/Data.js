@@ -101,11 +101,6 @@ function Data() {
                     }
 
                 </div>
-                <div className="Photo">
-                    <div className="Data-item">
-                    <img className="Photo-avatar" src={user.photo} alt={"User avatar"}/>
-                    </div>
-                </div>
             </div>
        </>
     )

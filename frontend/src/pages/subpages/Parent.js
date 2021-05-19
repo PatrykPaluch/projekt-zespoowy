@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import './Profile.css';
 import { Api } from '../../apiHandler/apiHandler';
 
+
 function Parent() {
     const [parent,setParent] = useState({
         parents: []
@@ -57,6 +58,7 @@ function Parent() {
                </div>
            ))}
            </div>
+
        </>
     )
 }
