@@ -52,9 +52,6 @@ public class UserController {
     // get all users
     @GetMapping("/api/users")
     public Object getUsers(Authentication auth){
-        if(!AccessCheck.isAdmin(auth))
-            return JsonResponse.unauthorized("you are not admin!");
-
         return JsonResponse.listObject(userRepo.findAll());
     }
 

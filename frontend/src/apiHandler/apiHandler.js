@@ -14,8 +14,8 @@ export class Api {
     }
 
     static checkStatus(response){
-        if(response.status === 403)
-            this.invalidateSession();
+        //if(response.status === 403)
+        //    this.invalidateSession();
     }
 
     static get(url) {
@@ -36,6 +36,10 @@ export class Api {
 
     static me() {
         return this.get("/api/@me");
+    }
+
+    static users() {
+        return this.get("/api/users");
     }
 
     static parents() {
@@ -63,6 +67,10 @@ export class Api {
             title: messageTitle,
             contents: messageContent
         });
+    }
+
+    static messages() {
+        return this.get("/api/messages");
     }
 
     static getStudent(id){
