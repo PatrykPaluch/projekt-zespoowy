@@ -22,7 +22,7 @@ function Teachers() {
     function getUser () {
         Api.me().then(response => {
             if(response.status === 200){
-                setUser(user => {
+                setUser({
                     id: response.data.id
                 })
             }
@@ -40,6 +40,7 @@ function Teachers() {
     useEffect(() =>{
         getUser();
         console.log(user);
+        console.log(user.id);
         if(user.id!==''){
             getTeachers(user.id);
         }
