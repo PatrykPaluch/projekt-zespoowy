@@ -1,6 +1,7 @@
 package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +9,8 @@ import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
 import pk.pz.ultigrade.requests.InsertGradeRequest;
-import pk.pz.ultigrade.responses.ClassResponse;
-import pk.pz.ultigrade.responses.PublicUserResponse;
-import pk.pz.ultigrade.responses.StudentGradesResponse;
-import pk.pz.ultigrade.responses.TeacherOfClassResponse;
+import pk.pz.ultigrade.requests.InsertParentToStudentRequest;
+import pk.pz.ultigrade.responses.*;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
 import pk.pz.ultigrade.util.Roles;
@@ -49,6 +48,9 @@ public class UserController {
     @Autowired
     InsertGradesEntityRepository insertGradesRepo;
 
+    @Autowired
+    InsertParentToStudentRepository insertParentRepo;
+
     // get all users
     @GetMapping("/api/users")
     public Object getUsers(Authentication auth){
@@ -72,7 +74,15 @@ public class UserController {
         return student;
     }
 
+    @GetMapping("/api/children")
+    public Object getParentChildren(Authentication auth){
+        UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
 
+        if(userDetails.isParent()){
+            return JsonResponse.badRequest("you are not a parent!");
+        }
+        return JsonResponse.listObject(userDetails.parentGetChildren());
+    }
 
     @GetMapping("/api/parents")
     public Object getStudentParents(Authentication auth){
@@ -83,6 +93,37 @@ public class UserController {
         }
         return JsonResponse.listObject(userDetails.studentGetParents());
     }
+
+    @GetMapping("/api/parents/{id}/children")
+    public Object getParentChildren(@PathVariable int id, Authentication auth){
+        if(!AccessCheck.getStudent(auth, id))
+            return JsonResponse.unauthorized("no permissions!");
+
+        List<StudentEntity> children = studentRepo.findByParents_Id(id);
+        if(children.isEmpty())
+            return JsonResponse.notFound("this parent has no children");
+
+
+        return JsonResponse.listObject(children.stream().map(PublicUserResponse::new).collect(Collectors.toList()));
+    }
+
+    @PostMapping({"/api/students/{id}/parents"})
+    public Object addParentToStudent(@PathVariable int id, @RequestBody InsertParentToStudentRequest request, Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("no permission");
+
+        return addStudentToParentInternal(id, request.getUserId());
+    }
+
+    @PostMapping({"/api/parents/{id}/children"})
+    public Object addStudentToParent(@PathVariable int id, @RequestBody InsertParentToStudentRequest request, Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("no permission");
+
+
+        return addStudentToParentInternal(request.getUserId(), id);
+    }
+
 
     @GetMapping("/api/students/{id}/grades")
     public Object getStudentGrades(@PathVariable int id, Authentication auth){
@@ -175,6 +216,25 @@ public class UserController {
     @GetMapping("/api/teapot")
     public ResponseEntity<?> iAmTeapot(){
         return JsonResponse.imATeapot();
+    }
+
+    // ===============================================
+    private Object addStudentToParentInternal(int studentId, int parentId) {
+
+        InsertParentToStudentEntity entity = new InsertParentToStudentEntity(studentId, parentId);
+
+        Optional<StudentEntity> student = studentRepo.findById(studentId);
+        Optional<ParentEntity> parent = parentRepo.findById(parentId);
+
+        if (student.isEmpty() || parent.isEmpty())
+            return JsonResponse.badRequest("this student or parent do not exists");
+
+        try {
+            insertParentRepo.save(entity);
+            return new InsertParentToStudentResponse(student.get(), parent.get());
+        } catch (DataAccessException er) {
+            return JsonResponse.badRequest("cannot insert data");
+        }
     }
 
 }
