@@ -43,7 +43,7 @@ export class Api {
     }
 
     static children() {
-        return this.get("/api/parents");
+        return this.get("/api/children");
     }
 
     /*
@@ -66,6 +66,10 @@ export class Api {
     }
 
     static getStudent(id){
+        return this.get(`/api/students/${id}`);
+    }
+
+    static getStudentClass(id){
         return this.get(`/api/students/${id}`);
     }
 

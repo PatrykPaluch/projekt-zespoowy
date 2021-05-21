@@ -1,5 +1,5 @@
 {
-  "url" : "jdbc:postgresql://ec2-52-50-171-4.eu-west-1.compute.amazonaws.com:5432/d5qp4l763upedh",
-  "user" : "qplmwxcwauvgri",
-  "password" : "98d40cd9142e559c70eca17d278244461df1bab91e2a69ff0a92f4ed140ae431"
+  "url" : "jdbc:postgresql://ec2-54-229-68-88.eu-west-1.compute.amazonaws.com:5432/d60n663n0vo9d",
+  "user" : "kfugezptcyfcav",
+  "password" : "d84a8227188818ede77baad34484c6dde018503e046c803c872041edc1a09c9d"
 }
