@@ -82,6 +82,14 @@ export class Api {
     }
 
 
+    static getAnnoucements(){
+        return this.get(`/api/announcements`);
+    }
+
+    static getClassAnnoucements(){
+        return this.get(`/api/announcements/class`);
+    }
+
 }
 
 /*
