@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
+import pk.pz.ultigrade.requests.InsertClassRequest;
 import pk.pz.ultigrade.requests.InsertGradeRequest;
 import pk.pz.ultigrade.requests.InsertParentToStudentRequest;
+import pk.pz.ultigrade.requests.InsertUsersRequest;
 import pk.pz.ultigrade.responses.*;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
@@ -17,6 +19,7 @@ import pk.pz.ultigrade.util.Roles;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -50,6 +53,9 @@ public class UserController {
 
     @Autowired
     InsertParentToStudentRepository insertParentRepo;
+
+    @Autowired
+    InsertClassEntityRepository insertClassRepo;
 
     // get all users
     @GetMapping("/api/users")
@@ -191,6 +197,64 @@ public class UserController {
             return JsonResponse.notFound("no classes for this user!");
 
         return new ClassResponse(classesEntity.get());
+    }
+
+    @PostMapping("/api/classes")
+    public Object createClass(@RequestBody InsertClassRequest classRequest, Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("You are not an admin");
+
+        Optional<TeacherEntity> teacherEntity = teacherRepo.findById(classRequest.getIdTutor());
+        if(teacherEntity.isEmpty())
+            return JsonResponse.notFound("Teacher not found");
+
+        InsertClassEntity classEntity = new InsertClassEntity(
+                classRequest.getName(),
+                classRequest.getSchoolYear(),
+                teacherEntity.get()
+        );
+
+
+        try {
+            insertClassRepo.save(classEntity);
+            return classEntity;
+        }
+        catch (DataAccessException er) {
+            return JsonResponse.badRequest("cannot insert data");
+        }
+    }
+
+
+    @PostMapping("/api/classes/{classId}/students")
+    public Object addUsersToClass(@PathVariable int classId, @RequestBody InsertUsersRequest usersRequest, Authentication auth){
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("You are not an admin");
+
+        Optional<ClassesEntity> opClassEntity = classesRepo.findById(classId);
+        if(opClassEntity.isEmpty())
+            return JsonResponse.notFound("no class with this id");
+
+        ClassesEntity classEntity = opClassEntity.get();
+
+        List<StudentEntity> students = studentRepo.findAllById( usersRequest.getUserIds() );
+
+        students = students
+                .stream()
+                .filter(st -> !classEntity.getStudents().contains(st))
+                .collect(Collectors.toList());
+
+        if(students.size() == 0)
+            return JsonResponse.notFound("no new students found");
+
+        classEntity.getStudents().addAll(students);
+
+        try {
+            classesRepo.save(classEntity);
+            return JsonResponse.listObject(students.stream().map(PublicUserResponse::new).collect(Collectors.toList()));
+        }
+        catch (DataAccessException er){
+            return JsonResponse.badRequest("cannot insert data");
+        }
     }
 
     @GetMapping("/api/students/{id}/parents")

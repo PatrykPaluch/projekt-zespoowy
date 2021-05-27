@@ -1,14 +1,17 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import pk.pz.ultigrade.responses.PublicUserResponse;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "classes")
-public class ClassesEntity {
+public class InsertClassEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_class")
@@ -19,25 +22,19 @@ public class ClassesEntity {
     @Column
     private String schoolYear;
 
-
-    @JsonIgnoreProperties("studentClass")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "class_student",
-            joinColumns = {@JoinColumn(name = "id_class")},
-            inverseJoinColumns = {@JoinColumn(name = "id_student")})
-    private Set<StudentEntity> students;
-
-
     @JsonIgnoreProperties("subjects")
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tutor")
     private TeacherEntity principal;
 
-    @JsonIgnoreProperties("classes")
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn( name = "id_class" )
-    private Set<TimetableEntity> timetable;
+    public InsertClassEntity() {
+    }
+
+    public InsertClassEntity(String name, String schoolYear, TeacherEntity principal) {
+        this.name = name;
+        this.schoolYear = schoolYear;
+        this.principal = principal;
+    }
 
     public int getId() {
         return id;
@@ -63,14 +60,7 @@ public class ClassesEntity {
         this.schoolYear = schoolYear;
     }
 
-    public Set<StudentEntity> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<StudentEntity> students) {
-        this.students = students;
-    }
-
+    @JsonIgnore
     public TeacherEntity getPrincipal() {
         return principal;
     }
@@ -79,19 +69,16 @@ public class ClassesEntity {
         this.principal = principal;
     }
 
-    public Set<TimetableEntity> getTimetable() {
-        return timetable;
-    }
-
-    public void setTimetable(Set<TimetableEntity> timetable) {
-        this.timetable = timetable;
+    @JsonProperty("principal")
+    public PublicUserResponse getPrincipalUser(){
+        return new PublicUserResponse(principal);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClassesEntity that = (ClassesEntity) o;
+        InsertClassEntity that = (InsertClassEntity) o;
         return id == that.id;
     }
 
