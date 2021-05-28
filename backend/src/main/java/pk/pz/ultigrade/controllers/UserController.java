@@ -216,8 +216,7 @@ public class UserController {
 
 
         try {
-            insertClassRepo.save(classEntity);
-            return classEntity;
+            return insertClassRepo.save(classEntity);
         }
         catch (DataAccessException er) {
             return JsonResponse.badRequest("cannot insert data");
