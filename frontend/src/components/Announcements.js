@@ -1,21 +1,62 @@
 import Annoucement from './Annoucement';
-import React from 'react'
+import React, {useEffect, useState} from 'react';
+import {Api} from "../apiHandler/apiHandler";
 
+function Announcements (){
+    const [classAnnoucement,setClassAnnoucement] = useState({
+        annoucements: []
+    });
 
-const Announcements = () => {
+    function getClassAnnoucements() {
+        Api.getClassAnnoucements().then(response => {
+            if(response.status === 200){
+                setClassAnnoucement({annoucements:response.data.list});
+            }
+        })
+    }
+
+    const [annoucement,setAnnoucement] = useState({
+        annoucements: []
+    });
+
+    function getAnnoucements() {
+        Api.getAnnoucements().then(response => {
+            if(response.status === 200){
+                setAnnoucement({annoucements:response.data.list});
+            }
+        })
+    }
+
+    useEffect(() =>{
+        getClassAnnoucements();
+        getAnnoucements();
+    }, []);
+
     return (
         <div className='announcements'>
             <div className='title'>
                 Ogloszenia
             </div>
-            <Annoucement/>            
-            <Annoucement/>            
-            <Annoucement/>            
-            <Annoucement/>            
-            <Annoucement/>            
-            
+            {annoucement.annoucements.map((annoucement) =>{
+                console.log(annoucement)
+                return (<Annoucement
+                    key={annoucement.id}
+                    title={annoucement.title}
+                    contents={annoucement.contents}
+                    date={annoucement.addDate}
+                />)
+            })}
+            {classAnnoucement.annoucements.map((annoucement) =>{
+                console.log(annoucement)
+                return (<Annoucement
+                    key={annoucement.id}
+                    title={annoucement.title}
+                    contents={annoucement.contents}
+                    date={annoucement.addDate}
+                />)
+            })}
         </div>
     )
 }
 
-export default Announcements
+export default Announcements;

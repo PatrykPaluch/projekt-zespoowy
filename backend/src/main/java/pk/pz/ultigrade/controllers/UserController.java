@@ -72,7 +72,15 @@ public class UserController {
         return student;
     }
 
+    @GetMapping("/api/children")
+    public Object getParentChildren(Authentication auth){
+        UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
 
+        if(userDetails.getRole().getId() != Roles.PARENT.getNumVal()){
+            return JsonResponse.badRequest("you are not a parent!");
+        }
+        return JsonResponse.listObject(userDetails.parentGetChildren());
+    }
 
     @GetMapping("/api/parents")
     public Object getStudentParents(Authentication auth){
