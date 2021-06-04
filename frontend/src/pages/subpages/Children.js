@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
-import axios from "axios";
 import { Api } from '../../apiHandler/apiHandler';
 
 function Children() {
@@ -11,15 +10,21 @@ function Children() {
     });
 
     function getChildren() {
-        /*Api.children().then(response => {
+        Api.children().then(response => {
             if(response.status === 200){
-                setChildren({kids:response.data});
+                setChildren({kids:response.data.list});
             }
-        })*/
-        axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
-            setChildren({kids:response.data});
-            console.log(children);
+        })
+    }
+
+    function getStudent (id) {
+        let childClass;
+        Api.getStudent(id.key).then(response => {
+            if(response.status === 200){
+                childClass = response.data.studentClass.name
+            }
         });
+        return(<h3>dupa{childClass}</h3>);
     }
 
     useEffect(() =>{
@@ -31,7 +36,7 @@ function Children() {
         <Navbar/>
         <ProfileNav/>
         <div className="Children">
-            {children.kids.map(child=> (
+            {children.kids.map(child=>(
                 <div className="User-data">
                     <div className="Data">
                         <div className="Data-item">
@@ -48,11 +53,11 @@ function Children() {
                         </div>
                         <div className="Data-item">
                             <h4>Data urodzenia</h4> 
-                            <h3>{child.dateOfBirth}</h3>
+                            <h3>{child.birthDate}</h3>
                         </div>
                         <div className="Data-item">
-                            <h4>Klasa</h4> 
-                            <h3>{child.class}</h3>
+                            <h4>Klasa</h4>
+                            {(getStudent({key:child.id}))}
                         </div>
                     </div>
                 </div>

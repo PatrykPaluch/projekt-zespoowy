@@ -53,6 +53,7 @@ function LoginForm() {
                     />
                     <text>Hasło</text>
                     <input
+                        type="password"
                         {...register("password")}
 
                     />

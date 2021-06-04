@@ -60,9 +60,6 @@ public class UserController {
     // get all users
     @GetMapping("/api/users")
     public Object getUsers(Authentication auth){
-        if(!AccessCheck.isAdmin(auth))
-            return JsonResponse.unauthorized("you are not admin!");
-
         return JsonResponse.listObject(userRepo.findAll());
     }
 
@@ -85,6 +82,7 @@ public class UserController {
         UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
 
         if(userDetails.isParent()){
+
             return JsonResponse.badRequest("you are not a parent!");
         }
         return JsonResponse.listObject(userDetails.parentGetChildren());

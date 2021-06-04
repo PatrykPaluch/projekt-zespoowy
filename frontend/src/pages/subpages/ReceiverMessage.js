@@ -2,29 +2,53 @@ import React, {useState, useEffect} from 'react';
 import MessageNav from '../../components/MessageNav';
 import './ReceiverMessage.css';
 import Navbar from "../../components/Navbar";
-import axios from "axios";
+import {Api} from "../../apiHandler/apiHandler";
 
 function ReceiverMessage() {
   const [message, setMessage] = useState({
-    receivedMessages : []
+    receivedMessages: []
   });
+
+    const [hasMessage, setHasMessage] = useState(false);
+
+    const [user,setUser] = useState({
+        id: ''
+    });
+
+    function getUser () {
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
+                    id: response.data.id,
+                })
+            }
+        })
+    }
+
+    function getMessages() {
+        Api.messages().then(response => {
+            if (response.status === 200) {
+                setMessage({receivedMessages: response.data.list});
+            }
+        });
+    }
 
   const [click, setClick] = useState({
-    id: '',
-    senderUserNameSurname : '',
-    topic: '',
-    contents: '',
+      senderName : '',
+      senderSurname : '',
+      topic: '',
+      contents: '',
   });
 
-  useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users').then(response => {
-      setMessage({ receivedMessages: response.data});
-    })            
-  }, []);
+    useEffect(() => {
+        getUser();
+        getMessages();
+    }, []);
 
-  const setMessageClicked = (u, t, c) =>{
+  const setMessageClicked = (n, m, t, c) =>{
     setClick({
-      senderUserNameSurname: u,
+      senderName: n,
+      senderSurname: m,
       topic: t,
       contents: c
     });
@@ -40,23 +64,23 @@ function ReceiverMessage() {
               <h1>Odebrane</h1>
               <ul className="rec-messages-list">
               {
-                  message.receivedMessages!=null ? 
-                  message.receivedMessages.map(receivedMessage =>
-                    <li >
-                      <h4 onClick={()=>setMessageClicked(receivedMessage.username, receivedMessage.topic, receivedMessage.contents)}>{receivedMessage.username}</h4>
-                      <p>{receivedMessage.topic}</p>
-                    </li>
-                    )
-                  :
-                  <li>
-                    <h4>Brak odebranych wiadomości</h4>
-                  </li>
+                  message.receivedMessages.map(receivedMessage =>{
+                  if(receivedMessage.receiver.id===user.id){
+                      //setHasMessage(true);
+                      return <li key={receivedMessage.id} onClick={()=>setMessageClicked(receivedMessage.sender.name,receivedMessage.sender.surname, receivedMessage.title, receivedMessage.contents)}>
+                          <h4>{receivedMessage.sender.name} {receivedMessage.sender.surname}</h4>
+                          <p>{receivedMessage.title}</p>
+                      </li>
+                  }})
                 }
               </ul>
+              {
+                  hasMessage===false ? <h4>Brak odebranych wiadomości</h4> : null
+              }
           </div>
           <div className='receiver-message'>
               <h2>{click.topic}</h2>
-              <h4>0d:{click.senderUserNameSurname}</h4>
+              <h4>0d: {click.senderName} {click.senderSurname}</h4>
               <p>{click.contents}</p>
           </div>
         </div>

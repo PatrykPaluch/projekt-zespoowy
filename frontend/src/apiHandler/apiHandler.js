@@ -14,8 +14,8 @@ export class Api {
     }
 
     static checkStatus(response){
-        if(response.status === 403)
-            this.invalidateSession();
+        //if(response.status === 403)
+        //    this.invalidateSession();
     }
 
     static get(url) {
@@ -38,12 +38,16 @@ export class Api {
         return this.get("/api/@me");
     }
 
+    static users() {
+        return this.get("/api/users");
+    }
+
     static parents() {
         return this.get("/api/parents");
     }
 
     static children() {
-        return this.get("/api/parents");
+        return this.get("/api/children");
     }
 
     /*
@@ -65,7 +69,15 @@ export class Api {
         });
     }
 
+    static messages() {
+        return this.get("/api/messages");
+    }
+
     static getStudent(id){
+        return this.get(`/api/students/${id}`);
+    }
+
+    static getStudentClass(id){
         return this.get(`/api/students/${id}`);
     }
 
@@ -73,6 +85,18 @@ export class Api {
         return this.get(`/api/students/${id}/teachers`);
     }
 
+    static getTeacherSubject(idTeacher){
+        return this.get(`/api/teachers/${idTeacher}/teacherSubject`);
+    }
+
+
+    static getAnnoucements(){
+        return this.get(`/api/announcements`);
+    }
+
+    static getClassAnnoucements(){
+        return this.get(`/api/announcements/class`);
+    }
 
 }
 

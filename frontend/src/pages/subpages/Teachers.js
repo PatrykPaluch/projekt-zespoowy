@@ -6,24 +6,19 @@ import {Api} from "../../apiHandler/apiHandler";
 
 function Teachers() {
     const [user,setUser] = useState({
-        id: ''
+        id: '',
+        role: ''
     });
     const [teacher,setTeacher] = useState({
         teachers: [],
     });
 
-    /*function getTeachers() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
-            setTeachers({teachers:response.data});
-            console.log(teachers);
-        });
-    }*/
-
     function getUser () {
         Api.me().then(response => {
             if(response.status === 200){
                 setUser({
-                    id: response.data.id
+                    id: response.data.id,
+                    role: response.data.role.id
                 })
             }
         })
@@ -32,20 +27,18 @@ function Teachers() {
     function getTeachers(id) {
         Api.getStudentTeachers(id).then(response => {
             if (response.status === 200) {
-                setTeacher({teachers: response.data.class});
+                setTeacher({teachers: response.data.teachers});
             }
         });
     }
 
     useEffect(() =>{
         getUser();
-        console.log(user);
-        console.log(user.id);
-        if(user.id!==''){
+        if(user.id!=='' && user.role ===1){
             getTeachers(user.id);
         }
         //getTeachers(user.id);
-    }, []);
+    }, [user.role, user.id]);
 
     return (
        <>
@@ -57,7 +50,7 @@ function Teachers() {
                 <div className="Data">
                     <div className="Data-item">
                         <h4>Przedmiot</h4> 
-                        <h3>{teacher.subjectName}</h3>
+                        <h3>{teacher.subject}</h3>
                     </div>
                     <div className="Data-item">
                         <h4>Imię</h4> 
