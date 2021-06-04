@@ -1,16 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MessageNav from '../../components/MessageNav';
 import './NewMessage.css';
 import Navbar from "../../components/Navbar";
 import axios from "axios";
 import {useForm} from "react-hook-form";
+import {Api} from "../../apiHandler/apiHandler";
 
 function NewMessage() {
     const {register, handleSubmit} = useForm();
 
-    const [user, setUser] = useState({
-        currentUserId: 1
+    const [users, setUsers] = useState({
+        users: []
     });
+
+
+    function getUsers() {
+        Api.users().then(response => {
+            if (response.status === 200) {
+                setUsers({users:response.data.list});
+            }
+        });
+    }
 
     // useEffect(() => {
     //     axios.get('http://localhost:8000/currentUser').then(response => {
@@ -33,10 +43,26 @@ function NewMessage() {
     //     setReceivers(tmpReceivers);
     // })
 
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     const onSubmit = formData => {
+        Api.sendMessage(
+            parseInt(formData.receiverUserNameSurname),
+            formData.topic,
+            formData.contents
+        ).then(r => {
+            console.log(r)
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+
+    /*const onSubmit = formData => {
         console.log(formData);
         axios.post(`http://localhost:8000/sendMessage`, {
-            currentUserId: user.currentUserId,
+
             receiverUserNameSurname: onSubmit.receiverUserNameSurname,
             topic: onSubmit.topic,
             contents: onSubmit.contents
@@ -45,7 +71,7 @@ function NewMessage() {
         }).catch(function (error) {
             console.log(error);
         });
-    };
+    };*/
 
     return (
        <>
@@ -53,11 +79,12 @@ function NewMessage() {
         <MessageNav/>
             <form className="message-form" onSubmit={handleSubmit(onSubmit)}>
                 <select 
-                    className="receiver" 
-                    {...register("receiverUserNameSurname")}>
+                    className="receiver"
+                    {...register("receiverUserNameSurname")
+                    }>
                         {/*todo instead of tmp receivers*/}
-                    {tmp.map((receiverUserNameSurname, key) => {
-                        return <option value={receiverUserNameSurname} key={key}>{receiverUserNameSurname}</option>
+                    {users.users.map((receiverUserNameSurname, key) => {
+                        return <option value={receiverUserNameSurname.id} key={receiverUserNameSurname.id}>{receiverUserNameSurname.name} {receiverUserNameSurname.surname}</option>
                     })}
                 </select>
                 <input 

@@ -13,13 +13,6 @@ function Teachers() {
         teachers: [],
     });
 
-    /*function getTeachers() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`).then(response =>{
-            setTeachers({teachers:response.data});
-            console.log(teachers);
-        });
-    }*/
-
     function getUser () {
         Api.me().then(response => {
             if(response.status === 200){
