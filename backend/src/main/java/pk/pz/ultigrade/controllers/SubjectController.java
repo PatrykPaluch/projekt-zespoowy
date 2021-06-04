@@ -4,17 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pk.pz.ultigrade.models.GradesEntity;
-import pk.pz.ultigrade.models.InsertSubjectEntity;
-import pk.pz.ultigrade.models.SubjectsEntity;
-import pk.pz.ultigrade.models.TeacherSubjectEntity;
-import pk.pz.ultigrade.repositories.GradesEntityRepository;
-import pk.pz.ultigrade.repositories.InsertSubjectEntityRepository;
-import pk.pz.ultigrade.repositories.SpecificSubjectEntityRepository;
-import pk.pz.ultigrade.repositories.SubjectEntityRepository;
+import pk.pz.ultigrade.models.*;
+import pk.pz.ultigrade.repositories.*;
 import pk.pz.ultigrade.requests.InsertSubjectRequest;
+import pk.pz.ultigrade.requests.InsertTeacherSubjectRequest;
 import pk.pz.ultigrade.responses.SubjectGradesResponse;
 import pk.pz.ultigrade.responses.TeacherSubjectListResponse;
+import pk.pz.ultigrade.responses.TeacherSubjectResponse;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
 import pk.pz.ultigrade.util.OptionalEntityResponse;
@@ -37,6 +33,13 @@ public class SubjectController {
 
     @Autowired
     InsertSubjectEntityRepository insertSubjectRepo;
+
+    @Autowired
+    InsertTeacherSubjectEntityRepository insertTeacherSubjectEntityRepo;
+
+    @Autowired
+    TeacherEntityRepository teacherRepo;
+
 
     @GetMapping("/api/subjects")
     public JsonResponse.Wrapper<SubjectsEntity> getSubjects(){
@@ -110,6 +113,48 @@ public class SubjectController {
         catch (DataAccessException er){
             er.printStackTrace();
             return JsonResponse.badRequest("Data integrity error");
+        }
+
+    }
+
+    @PostMapping("/api/teachersubject")
+    public Object addTeacherSubject(@RequestBody InsertTeacherSubjectRequest request, Authentication auth) {
+        if(!AccessCheck.isAdmin(auth))
+            return JsonResponse.unauthorized("you are not an admin!");
+
+        Optional<TeacherSubjectEntity> tse = specSubjectRepo.findByTeacher_IdAndSubject_Id(
+                request.getTeacherId(),
+                request.getSubjectId());
+
+        if(tse.isPresent())
+            return JsonResponse.badRequest("This teacher-subject already exists");
+
+        Optional<TeacherEntity> teacher = teacherRepo.findById(request.getTeacherId());
+
+        if(teacher.isEmpty())
+            return JsonResponse.notFound("There is no teacher with this id");
+
+        Optional<SubjectsEntity> subject = subjectRepo.findById(request.getSubjectId());
+
+        if(subject.isEmpty())
+            return JsonResponse.notFound("There is no subject with this id");
+
+
+        InsertTeacherSubjectEntity insertTeacherSubjectEntity = new InsertTeacherSubjectEntity();
+        insertTeacherSubjectEntity.setIdSubject(request.getSubjectId());
+        insertTeacherSubjectEntity.setIdTeacher(request.getTeacherId());
+
+        try {
+            insertTeacherSubjectEntity = insertTeacherSubjectEntityRepo.save(insertTeacherSubjectEntity);
+            Optional<TeacherSubjectEntity> effect = specSubjectRepo.findById(insertTeacherSubjectEntity.getId());
+            if(effect.isPresent())
+                return new TeacherSubjectResponse(effect.get());
+
+            // this should not happen
+            return insertTeacherSubjectEntity;
+        }
+        catch (DataAccessException er){
+            return JsonResponse.badRequest("cannot insert data");
         }
 
     }

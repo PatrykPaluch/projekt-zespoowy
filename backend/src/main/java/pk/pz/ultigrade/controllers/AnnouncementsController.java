@@ -41,6 +41,9 @@ public class AnnouncementsController {
     @Autowired
     private AdditionalEntityRepository additionalRepo;
 
+    @Autowired
+    private StudentEntityRepository studentsRepo;
+
     @GetMapping("/api/announcements")
     public Object getAnnouncements(){
         List<AnnouncementsEntity> list = annoRepo.findByAdditionalIsNull();
@@ -67,12 +70,19 @@ public class AnnouncementsController {
             ids = new ArrayList<>();
             ids.add(userDetails.studentGetClass().getId());
         }
+        else if(userDetails.isParent()){
+            List<StudentEntity> studentEntities = studentsRepo.findByParents_Id(userDetails.getIdUser());
+            ids = studentEntities
+                    .stream()
+                    .map(st -> st.getStudentClass().getId())
+                    .collect(Collectors.toList());
+        }
         else if(userDetails.isAdmin()){
             // for "public" (non class) announcements use getAnnouncements()
             return JsonResponse.listObject(annoRepo.findByAdditionalIsNotNull());
         }
         else {
-            // empty list for everyone else
+            // empty list for everyone else (it means for no one)
             return JsonResponse.listObject(new ArrayList<>(0));
         }
 

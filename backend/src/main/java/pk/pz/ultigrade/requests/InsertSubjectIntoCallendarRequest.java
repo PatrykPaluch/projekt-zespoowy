@@ -5,6 +5,8 @@ public class InsertSubjectIntoCallendarRequest {
     private String day;
     private String time;
 
+    public InsertSubjectIntoCallendarRequest() {
+    }
 
     public InsertSubjectIntoCallendarRequest(int idTeacherSubject, String day, String time) {
         this.idTeacherSubject = idTeacherSubject;
