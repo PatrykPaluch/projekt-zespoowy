@@ -1,12 +1,12 @@
 import React from 'react'
 import './styles.css';
 
-const Annoucement = () => {
+const Annoucement = (props) => {
     return (
-<div className='announcement'>
-                <h3>Announcement</h3>
-                <p>some description. some description. some description.some description.some description.some description</p>
-                <p>some description</p>
+    <div className='announcement'>
+                <h3>{props.title}</h3>
+                <p>{props.date}</p>
+                <p>{props.contents}</p>
             </div>
     )
 }
