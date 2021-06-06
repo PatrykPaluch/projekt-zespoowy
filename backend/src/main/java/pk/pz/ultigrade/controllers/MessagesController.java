@@ -57,7 +57,7 @@ public class MessagesController {
         MessageEntity messageEntity = message.get();
         if(messageEntity.getReceiver().getId() != leggedInId
         && messageEntity.getSender().getId() != leggedInId )
-            return JsonResponse.forbidden("access denied");
+            return JsonResponse.unauthorized("access denied");
 
         return messageEntity;
     }
