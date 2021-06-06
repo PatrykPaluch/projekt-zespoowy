@@ -95,7 +95,7 @@ public class AnnouncementsController {
     @PostMapping("/api/announcements")
     public Object postAnnouncements(@RequestBody AnnouncementsRequest annoRequest, Authentication auth){
         if(!AccessCheck.postAnnouncements(auth))
-            return JsonResponse.forbidden("You cant post announcements");
+            return JsonResponse.unauthorized("You cant post announcements");
 
         Optional<UsersEntity> thisUserOpt = userRepo.findById(AccessCheck.userDetails(auth).getIdUser());
         if(thisUserOpt.isEmpty())
