@@ -8,18 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import pk.pz.ultigrade.details.UserDetailsImpl;
 import pk.pz.ultigrade.models.*;
 import pk.pz.ultigrade.repositories.*;
-import pk.pz.ultigrade.requests.InsertClassRequest;
-import pk.pz.ultigrade.requests.InsertGradeRequest;
-import pk.pz.ultigrade.requests.InsertParentToStudentRequest;
-import pk.pz.ultigrade.requests.InsertUsersRequest;
+import pk.pz.ultigrade.requests.*;
 import pk.pz.ultigrade.responses.*;
 import pk.pz.ultigrade.security.AccessCheck;
 import pk.pz.ultigrade.util.JsonResponse;
+import pk.pz.ultigrade.util.OptionalEntityResponse;
 import pk.pz.ultigrade.util.Roles;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,13 +56,16 @@ public class UserController {
 
     // get all users
     @GetMapping("/api/users")
-    public Object getUsers(Authentication auth){
+    public Object getUsers(@RequestParam(name = "pesel", required = false) String pesel){
+        if(pesel != null && pesel.length() > 0)
+            return OptionalEntityResponse.get(userRepo.findByPesel(pesel), "No user with this pesel");
+
         return JsonResponse.listObject(userRepo.findAll());
     }
 
     @GetMapping("/api/students/{id}")
     public Object getStudent(@PathVariable int id, Authentication auth){
-        if(!AccessCheck.getStudent(auth,id)){
+        if(!AccessCheck.isTeacher(auth) && !AccessCheck.getStudent(auth,id)){
             return JsonResponse.unauthorized("no permissions!");
         }
 
@@ -128,7 +128,7 @@ public class UserController {
 
     @GetMapping("/api/students/{id}/grades")
     public Object getStudentGrades(@PathVariable int id, Authentication auth){
-        if(!AccessCheck.getStudentGrades(auth,id)){
+        if(!AccessCheck.isTeacher(auth) && !AccessCheck.getStudentGrades(auth,id)){
             return JsonResponse.unauthorized("no permissions!");
         }
 
@@ -172,8 +172,8 @@ public class UserController {
 
     @GetMapping("/api/students/{id}/teachers")
     public Object getStudentTeachers(@PathVariable int id, Authentication auth){
-        if(!AccessCheck.getStudent(auth,id))
-            return JsonResponse.unauthorized("you are not a student!");
+        if(!AccessCheck.isTeacher(auth) && !AccessCheck.getStudent(auth,id))
+            return JsonResponse.unauthorized("no permissions!");
 
         Optional<ClassesEntity> classesEntity = classesRepo.findByStudents_Id(id);
         if(classesEntity.isEmpty())
@@ -183,6 +183,23 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/api/classes")
+    public Object getClasses(@RequestParam(name = "className", required = false) String className){
+        if(className != null && className.length() > 0) {
+            Optional<ClassesEntity> classesEntityOptional = classesRepo.findByName(className);
+            if(classesEntityOptional.isEmpty())
+                return JsonResponse.notFound("no class with this name");
+            return new ClassResponse(classesEntityOptional.get());
+        }
+
+        return JsonResponse.listObject(
+                classesRepo.findAll()
+                        .stream()
+                        .map(ClassResponseNoStudents::new)
+                        .collect(Collectors.toList())
+        );
+    }
 
     @GetMapping("/api/classes/{id}")
     public Object getClass(@PathVariable int id, Authentication auth){
@@ -286,6 +303,9 @@ public class UserController {
 
         if (student.isEmpty() || parent.isEmpty())
             return JsonResponse.badRequest("this student or parent do not exists");
+
+        if(student.get().getParents().contains(parent.get()))
+            return JsonResponse.badRequest("This student already has this parent");
 
         try {
             insertParentRepo.save(entity);

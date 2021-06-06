@@ -1,11 +1,14 @@
 package pk.pz.ultigrade.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class InsertUserEntity {
 
+    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", unique = true, nullable = false)

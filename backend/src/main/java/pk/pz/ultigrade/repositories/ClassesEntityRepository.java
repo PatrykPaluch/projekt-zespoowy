@@ -12,4 +12,6 @@ public interface ClassesEntityRepository extends JpaRepository<ClassesEntity, In
     Optional<ClassesEntity> findByStudents_Id(int idUser);
 
     Optional<ClassesEntity> findByIdAndTimetable_TeacherSubject_Teacher_Id(int classId, int teacherId);
+
+    Optional<ClassesEntity> findByName(String name);
 }
