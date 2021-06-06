@@ -31,19 +31,29 @@ const RegisterForm = () => {
             // subjects: onSubmit.subjects
         }).then(function (response) {
             console.log(response);
-            setTimeout(() => {
-                if (user.role === 1) {
-                    Api.addToClass(formData.class, response.data.id)
+
+            if (user.role === 1) {
+                Api.addToClass(formData.class, response.data.id)
+                    .then(console.log)
+                    .catch(Api.printErrResponse)
+            } else if (user.role === 2) {
+                for (let subId of formData.subjects) {
+                    Api.addTeacherSubject(subId, response.data.id)
                         .then(console.log)
                         .catch(Api.printErrResponse)
-                } else if (user.role === 2) {
-                    
-                } else if (user.role === 3) {
-
-                } else {
-                    console.log("ERROR")
                 }
-            }, 1000)
+            } else if (user.role === 3) {
+                Api.getUserByPesel(formData.childrenPesel)
+                    .then(childResponse => {
+                        Api.addChildToParent(response.data.id, childResponse.data.id)
+                            .then(console.log)
+                            .catch(Api.printErrResponse)
+                    })
+                    .catch(Api.printErrResponse)
+            } else {
+                console.log("ERROR")
+            }
+
 
         }).catch(Api.printErrResponse);
 
@@ -163,7 +173,6 @@ const RegisterForm = () => {
                                 />
                                 <text>Pesel dziecka</text>
                                 <input
-                                    type="number"
                                     {...register("childrenPesel")}>
                                 </input>
                             </> : null

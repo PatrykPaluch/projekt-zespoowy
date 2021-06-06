@@ -133,6 +133,25 @@ export class Api {
         }
     }
 
+    static addTeacherSubject(subId, teachId){
+        return this.post(`/api/teachersubject`, {
+            subjectId: subId,
+            teacherId: teachId
+        })
+    }
+
+    static addChildToParent(parId, childId) {
+        return this.post(`/api/parents/${parId}/children`, {
+            userId: childId
+        })
+    }
+
+    static getUserByPesel(pesel) {
+        let urlParams = new URLSearchParams();
+        urlParams.append("pesel", pesel);
+
+        return this.get(`/api/users?` + urlParams.toString())
+    }
 }
 
 /*
