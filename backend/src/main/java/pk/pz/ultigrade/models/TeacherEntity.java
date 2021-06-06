@@ -3,6 +3,7 @@ package pk.pz.ultigrade.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -23,5 +24,19 @@ public class TeacherEntity extends UsersBaseEntity {
 
     public void setSubjects(Set<TeacherSubjectEntity> subjects) {
         this.subjects = subjects;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TeacherEntity that = (TeacherEntity) o;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
