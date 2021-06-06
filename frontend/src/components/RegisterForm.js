@@ -23,27 +23,29 @@ const RegisterForm = () => {
             password: formData.password,
             pesel: formData.pesel,
             address: formData.address,
-            //phone: formData.phone,
 
+            //phone: formData.phone,
             // dateOfBirth: onSubmit.dateOfBirth,
             // class: onSubmit.class,
             // childrenPesel: onSubmit.childrenPesel,
             // subjects: onSubmit.subjects
         }).then(function (response) {
             console.log(response);
+            setTimeout(() => {
+                if (user.role === 1) {
+                    Api.addToClass(formData.class, response.data.id)
+                        .then(console.log)
+                        .catch(Api.printErrResponse)
+                } else if (user.role === 2) {
+                    
+                } else if (user.role === 3) {
 
-            if (user.role === 1) {
-                Api.addToClass(formData.class, response.data.id)
-                    .then(console.log)
-                    .catch(console.error)
-            } else if (user.role === 2) {
+                } else {
+                    console.log("ERROR")
+                }
+            }, 1000)
 
-            } else if (user.role === 3) {
-
-            } else {
-                console.log("ERROR")
-            }
-        }).catch(console.error);
+        }).catch(Api.printErrResponse);
 
 
     };

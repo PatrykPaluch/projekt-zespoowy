@@ -1,4 +1,15 @@
 import axios from "axios";
+// axios.interceptors.response.use(function (response) {
+//     // Any status code that lie within the range of 2xx cause this function to trigger
+//     // Do something with response data
+//     return response;
+// }, function (error) {
+//     if(error.response && error.response.status) {
+//         return error.response;
+//     }
+//     // Do something with response error
+//     return Promise.reject(error);
+// });
 
 const apiUrl = "http://localhost:8080"
 
@@ -27,7 +38,7 @@ export class Api {
     }
 
     static post(url, body) {
-        return axios.post(apiUrl + url, {withCredentials: true, body: body})
+        return axios.post(apiUrl + url, body, {withCredentials: true})
             .then( response  => {
                 this.checkStatus(response);
                 return response;
@@ -108,11 +119,19 @@ export class Api {
 
     static addToClass(id, who){
         return this.post(`/api/classes/${id}/students`, {
-            userIDs: [who]
+            userIds: [who]
         });
     }
 
-    static add
+    static printErrResponse(err){
+        if (err.response){
+            console.error(`response status ${err.response.status}`)
+            console.error(err.response.data.message)
+            console.error(err.response.data)
+        } else {
+            console.error(err)
+        }
+    }
 
 }
 
