@@ -98,6 +98,22 @@ export class Api {
         return this.get(`/api/announcements/class`);
     }
 
+    static getClasses(){
+        return this.get('/api/classes');
+    }
+
+    static getSubjects(){
+        return this.get('/api/subjects');
+    }
+
+    static addToClass(id, who){
+        return this.post(`/api/classes/${id}/students`, {
+            userIDs: [who]
+        });
+    }
+
+    static add
+
 }
 
 /*

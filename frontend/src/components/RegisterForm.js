@@ -4,9 +4,9 @@ import {useForm} from "react-hook-form";
 import './RegisterForm.css';
 import logo from '../image/LogoGreen.png';
 import axios from "axios";
+import { Api } from '../apiHandler/apiHandler'
 
 const RegisterForm = () => {
-
     const {register, handleSubmit} = useForm();
     const [subjects, setSubjects] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -31,11 +31,37 @@ const RegisterForm = () => {
             // subjects: onSubmit.subjects
         }).then(function (response) {
             console.log(response);
-        });
+
+            if (user.role === 1) {
+                Api.addToClass(formData.class, response.data.id)
+                    .then(console.log)
+                    .catch(console.error)
+            } else if (user.role === 2) {
+
+            } else if (user.role === 3) {
+
+            } else {
+                console.log("ERROR")
+            }
+        }).catch(console.error);
+
+
     };
 
-    let tmp = ['biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński', 'biologia', 'chemia', 'fizyka', 'geografia', 'matemaytka', 'angielski', 'japoński'];
-    let tmp2 = ['pierwsza', 'druga', 'trzecia', 'czwarta', 'piąta', 'szósta', 'siódma', 'ósma'];
+
+
+    useEffect(() => {
+        console.log()
+        Api.getSubjects()
+            .then(result => result.data)
+            .then(data => setSubjects(data.list))
+            .catch(console.error);
+
+        Api.getClasses()
+            .then(result => result.data)
+            .then(data => setClasses(data.list))
+            .catch(console.error);
+    }, [])
 
     const handleSelectPupil = (e) => {
         e.preventDefault();
@@ -103,8 +129,9 @@ const RegisterForm = () => {
                                 <text>Klasa</text>
                                 <select
                                     {...register("class")}>
-                                    {tmp2.map((c, key) => {
-                                        return <option value={c} key={key}>{c}</option>
+                                    {
+                                        classes.map((c) => {
+                                        return <option value={c.id} key={c.id} title={c.principal.name + ' ' + c.principal.surname}>{c.name}</option>
                                     })}
                                 </select>
                             </> : null
@@ -119,8 +146,8 @@ const RegisterForm = () => {
                                 <text type>Przedmioty - By wybrac wiecej niz jeden przedmiot wcisnij Ctrl</text>
                                 <select className="subjects" multiple
                                         {...register("subjects")}>
-                                    {tmp.map((subject, key) => {
-                                        return <option value={subject} key={key}>{subject}</option>
+                                    {subjects.map((subject) => {
+                                        return <option value={subject.id} key={subject.id}>{subject.name}</option>
                                     })}
                                 </select>
                             </> : null
