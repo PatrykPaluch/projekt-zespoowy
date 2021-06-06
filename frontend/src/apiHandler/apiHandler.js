@@ -98,6 +98,12 @@ export class Api {
         return this.get(`/api/announcements/class`);
     }
 
+    //Callendar
+
+    static getTimetableForClass(id){
+        return this.get(`/api/classes/{id}/timetable`);
+    }
+
 }
 
 /*

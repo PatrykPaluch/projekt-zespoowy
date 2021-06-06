@@ -1,12 +1,46 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import CardCallendar from './CardCallendar';
 import HeaderDays from './HeaderDays'
 import Hours from './Hours'
 import './callendar.css';
+import {Api} from "../../apiHandler/apiHandler";
 
 // TODO add useState and prepare useEffect
 
 const Callendar = () => {
+
+    const [currentUser,setCurrentUser] = useState({});
+    const [timetable1,setTimetable] = useState({
+        timetable:[]
+    });
+
+    useEffect(()=>{
+        Api.me().then(response => {
+            if(response.status === 200){
+                if(response.data.role.id===1){
+                    Api.getStudent(response.data.id).then(res =>{
+                        if(res.status === 200){
+                            setCurrentUser(res.data);
+                            // setTimetable({...timetable1,timetable:res.data.studentClass.timetable})
+                        }
+                    })
+                }
+                else if(response.data.role.id===2){
+                    Api.getTeacher(response.data.id).then(res =>{
+                        if(res.status === 200){
+                            setCurrentUser(res.data);
+                            // setTimetable({...timetable1,timetable:res.data.studentClass.timetable})
+                        }
+                    })
+                }
+            }
+        })
+        .catch(error =>
+            alert(error)
+        );
+
+    },[]);
+
     let colorPool=[];
     let user = {
         Role:{
@@ -517,9 +551,7 @@ let getColorForSubject=(subject)=>{
 
 }
 
-// useEffect(()=>{
-//
-// })
+
 
 let getTimetable = ()=>{
 
@@ -527,6 +559,7 @@ let getTimetable = ()=>{
 
     return (
     <div className='callendar'>
+        {console.log(timetable1?.timetable)}
             <HeaderDays/>
             <div className='callendar-inner'>
                 <Hours/>
