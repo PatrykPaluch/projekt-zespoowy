@@ -34,7 +34,7 @@ const CardCallendar = (props) => {
             text:"Przedmiot: "+props.subject+
                 "\n\nGodzina: "+props.time+" - "+props.time.split(':')[0]+":45"+
                 "\n\nNauczyciel: "+props.teacher+
-                "\n\n"+props.class,
+                "\n\nKlasa: "+props.class,
         })
     }
     
