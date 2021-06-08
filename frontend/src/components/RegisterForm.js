@@ -22,7 +22,7 @@ const RegisterForm = () => {
             surname: formData.surname,
             password: formData.password,
             pesel: formData.pesel,
-            address: formData.address,
+            adress: formData.address,
 
             //phone: formData.phone,
             // dateOfBirth: onSubmit.dateOfBirth,
