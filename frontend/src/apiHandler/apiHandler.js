@@ -101,8 +101,9 @@ export class Api {
     //Callendar
 
     static getTimetableForClass(id){
-        return this.get(`/api/classes/{id}/timetable`);
+        return this.get('/api/classes/'+id+'/timetable');
     }
+
 
 }
 
