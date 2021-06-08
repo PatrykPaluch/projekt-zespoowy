@@ -74,7 +74,7 @@ public class UserController {
             return JsonResponse.notFound("user with {" + id + "} not found");
         }
 
-        return student;
+        return new StudentResponse(student.get());
     }
 
     @GetMapping("/api/children")
