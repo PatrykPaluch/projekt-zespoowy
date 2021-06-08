@@ -1,4 +1,15 @@
 import axios from "axios";
+// axios.interceptors.response.use(function (response) {
+//     // Any status code that lie within the range of 2xx cause this function to trigger
+//     // Do something with response data
+//     return response;
+// }, function (error) {
+//     if(error.response && error.response.status) {
+//         return error.response;
+//     }
+//     // Do something with response error
+//     return Promise.reject(error);
+// });
 
 const apiUrl = "http://localhost:8080"
 
@@ -27,7 +38,7 @@ export class Api {
     }
 
     static post(url, body) {
-        return axios.post(apiUrl + url, {withCredentials: true, body: body})
+        return axios.post(apiUrl + url, body, {withCredentials: true})
             .then( response  => {
                 this.checkStatus(response);
                 return response;
@@ -104,6 +115,50 @@ export class Api {
         return this.get('/api/classes/'+id+'/timetable');
     }
 
+
+    static getClasses(){
+        return this.get('/api/classes');
+    }
+
+    static getSubjects(){
+        return this.get('/api/subjects');
+    }
+
+    static addToClass(id, who){
+        return this.post(`/api/classes/${id}/students`, {
+            userIds: [who]
+        });
+    }
+
+    static printErrResponse(err){
+        if (err.response){
+            console.error(`response status ${err.response.status}`)
+            console.error(err.response.data.message)
+            console.error(err.response.data)
+        } else {
+            console.error(err)
+        }
+    }
+
+    static addTeacherSubject(subId, teachId){
+        return this.post(`/api/teachersubject`, {
+            subjectId: subId,
+            teacherId: teachId
+        })
+    }
+
+    static addChildToParent(parId, childId) {
+        return this.post(`/api/parents/${parId}/children`, {
+            userId: childId
+        })
+    }
+
+    static getUserByPesel(pesel) {
+        let urlParams = new URLSearchParams();
+        urlParams.append("pesel", pesel);
+
+        return this.get(`/api/users?` + urlParams.toString())
+    }
 
 }
 

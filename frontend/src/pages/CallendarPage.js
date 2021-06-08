@@ -7,27 +7,22 @@ import {Api} from "../apiHandler/apiHandler";
 
 const CallendarPage = () => {
 
-    const [currentUser,setCurrentUser] = useState({});
 
-    const [classs,setClass] = useState({});
-    const [timetable1,setTimetable] = useState({
-        timetable:[]
-    });
 
-    useEffect(()=>{
-        // Api.me().then(response => {
-        //     if(response.status === 200){
-                // {console.log(response.data)}
-                Api.getStudent(33).then(res => {
-                    if(res.status===200){
-                        setCurrentUser(res.data);
-                        console.log(res.data.role.name)
-                    }
-                })
-                // setCurrentUser(response?.data);
-        //     }
-        // })
-    },[]);
+    // useEffect(()=>{
+    //     Api.me().then(response => {
+    //         if(response.status === 200){
+    //             {console.log(response.data)}
+    //             Api.getStudent(response.data.id).then(res => {
+    //                 if(res.status===200){
+    //                     setCurrentUser(res.data);
+    //                     console.log(res.data.class.name)
+    //                 }
+    //             })
+    //             setCurrentUser(response?.data);
+    //         }
+    //     })
+    // },[]);
 
 
     return (
@@ -37,9 +32,9 @@ const CallendarPage = () => {
                 {/* {console.log(currentUser)} */}
                 <HeaderCal date='5-11 April'/>
                 <Callendar
-                    id={currentUser?.id}
-                    role={currentUser?.role?.id}
-                    class={currentUser?.studentClass?.id}
+                    // id={currentUser?.id}
+                    // role={currentUser?.role?.id}
+                    // class={currentUser?.class?.id}
                 />
             </div>
         </>

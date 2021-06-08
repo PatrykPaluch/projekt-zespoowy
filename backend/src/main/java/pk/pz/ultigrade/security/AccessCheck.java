@@ -271,6 +271,23 @@ public class AccessCheck {
         return userDetails!=null && userDetails.isAdmin();
     }
 
+    public static boolean isTeacher(Authentication auth) {
+        UserDetailsImpl userDetails = userDetails(auth);
+
+        return userDetails!=null && userDetails.isTeacher();
+    }
+
+    public static boolean isStudent(Authentication auth) {
+        UserDetailsImpl userDetails = userDetails(auth);
+
+        return userDetails!=null && userDetails.isStudent();
+    }
+
+    public static boolean isParent(Authentication auth) {
+        UserDetailsImpl userDetails = userDetails(auth);
+
+        return userDetails!=null && userDetails.isParent();
+    }
 
 
 }

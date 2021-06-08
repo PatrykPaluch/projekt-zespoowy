@@ -9,57 +9,89 @@ import {Api} from "../../apiHandler/apiHandler";
 
 const Callendar = (props) => {
 
-    const [currentUser,setCurrentUser] = useState({});  
-    const [classs,setClass] = useState({});
     const [timetable1,setTimetable] = useState({
         timetable:[]
     });
 
-    // useEffect(()=>{
-    //     Api.me().then(response => {
-    //         if(response.status === 200){
-    //             // setCurrentUser(response.data);  
-    //             if(props.role===1){
-    //                 Api.getStudent(props.id).then(response =>{
-    //                     if(response.status === 200){
-    //                         try{
-    //                             console.log(res.data.studentClass.timetable)
-    //                             setCurrentUser(res.data);
-    //                             setClass(res.data.studentClass);
-    //                         }
-    //                         catch(error ){
-    //                             alert(error)
-    //                         }
-    //                     }
-    //                 })
-    //             }
-    //             else if(response.data.role.id===2){
-    //                 Api.getTeacher(response.data.id).then(res =>{
-    //                     if(res.status === 200){
-    //                         setCurrentUser(res.data);
-    //                         // setTimetable({...timetable1,timetable:res.data.studentClass.timetable})
-    //                     }
-    //                 })
-    //             }
-    //         }                       
-    //     })
-    //     .catch(error =>
-    //         alert(error)
-    //     );
+    const [user,setUser] = useState({
+        id: '',
+        role: '',
+        name: '',
+        surname: '',
+        pesel:  '',
+        address: '',
+        dateOfBirth: '',
+        phoneNumber: '',
+        photo: '',
+        class: ''
+    });
 
-    // },[]);
+    const [classs, setClass] = useState({
+        className: '',
+        classId: ''
+    });
 
-    useEffect(()=>{
-        // if(props.role === 1){
-            Api.getTimetableForClass(3).then(res => {
-                if(res.status === 200){
-                    console.log(res.data.list);
-                    setTimetable({...timetable1,timetable:res.data.list})
-                }
+    function getUser () {
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
+                    id: response.data.id,
+                    role: response.data.role.id,
+                    name:response.data.name,
+                    surname:response.data.surname,
+                    pesel:  response.data.pesel,
+                    address: response.data.address,
+                    dateOfBirth: response.data.birthDate,
+                    phoneNumber: response.data.phone
+                })
+            }
+        })
+        
+    }
 
-            })
+    function getStudent (id) {
+        Api.getStudent(id).then(response => {
+            if(response.status === 200){
+                setClass({
+                    className: response.data.class.name,
+                    classId: response.data.class.id
+                })
+            }
+        })
+    }
+
+
+
+    function getTimetable (id) {
+        Api.getTimetableForClass(id).then(res => {
+            if(res.status === 200){
+                console.log(res.data.list);
+                setTimetable({...timetable1,timetable:res.data.list})
+            }
+
+        })
+    }
+
+    useEffect(() =>{
+        // getUser();
+        // if(user.role===1){
+            // getStudent (user.id);
+            getTimetable(3);
+
         // }
-    },[])
+    }, []);
+
+    // useEffect(()=>{
+    //     // if(props.role === 1){
+    //         Api.getTimetableForClass(props.class).then(res => {
+    //             if(res.status === 200){
+    //                 console.log(res.data.list);
+    //                 setTimetable({...timetable1,timetable:res.data.list})
+    //             }
+
+    //         })
+    //     // }
+    // },[])
 
     let colorPool=[];
 
@@ -84,11 +116,14 @@ let getColorForSubject=(subject)=>{
     return (
     <div className='callendar'>
             <HeaderDays/>
+            {/* <h1>{classs?.className}</h1> */}
+            <h1>{timetable1?.timetable[0]}</h1>
             <div className='callendar-inner'>
                 <Hours/>
                 {colorForSubject(timetable1?.timetable)}
                 {timetable1?.timetable.map(card => 
                     <CardCallendar 
+                        key={card.id}
                         dayOfWeek={card.dayOfWeek}
                         subject={card.teacherSubject.subject.name}
                         time={card.time}

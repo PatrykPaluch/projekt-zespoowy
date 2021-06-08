@@ -1,6 +1,7 @@
 package pk.pz.ultigrade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class AuthController {
 
 
     @PostMapping(SecurityConfig.SIGNUP_PAGE)
-    public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest){
+    public Object signup(@RequestBody RegisterRequest registerRequest){
         if(insertUserEntityRepository.existsByPesel(registerRequest.getPesel())){
             return JsonResponse.badRequest("user with this pesel already exists!");
         }
@@ -38,8 +39,11 @@ public class AuthController {
                 ""
         );
 
-        insertUserEntityRepository.save(usersEntity);
-        return JsonResponse.ok("User Registrated!");
+        try {
+            return insertUserEntityRepository.save(usersEntity);
+        }catch (DataAccessException er){
+            return JsonResponse.badRequest("cannot inset data");
+        }
     }
 
 

@@ -21,7 +21,7 @@ function Children() {
         let childClass;
         Api.getStudent(id.key).then(response => {
             if(response.status === 200){
-                childClass = response.data.studentClass.name
+                childClass = response.data.class.name
             }
         });
         return(<h3>dupa{childClass}</h3>);

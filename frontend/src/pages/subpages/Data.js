@@ -44,7 +44,7 @@ function Data() {
         Api.getStudent(id).then(response => {
             if(response.status === 200){
                 setStudent({
-                    class: response.data.studentClass.name
+                    class: response.data.class.name
                 })
             }
         })
