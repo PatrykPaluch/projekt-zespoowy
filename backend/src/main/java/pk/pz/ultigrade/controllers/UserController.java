@@ -81,7 +81,7 @@ public class UserController {
     public Object getParentChildren(Authentication auth){
         UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
 
-        if(userDetails.isParent()){
+        if(!userDetails.isParent()){
 
             return JsonResponse.badRequest("you are not a parent!");
         }
@@ -92,7 +92,7 @@ public class UserController {
     public Object getStudentParents(Authentication auth){
         UserDetailsImpl userDetails = AccessCheck.userDetails(auth);
 
-        if(userDetails.getRole().getId() != Roles.STUDENT.getNumVal()){
+        if(!userDetails.isStudent()){
             return JsonResponse.badRequest("you are not a student!");
         }
         return JsonResponse.listObject(userDetails.studentGetParents());
