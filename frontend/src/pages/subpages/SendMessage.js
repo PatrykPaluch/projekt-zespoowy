@@ -24,9 +24,13 @@ function SendMessage() {
         })
     }
 
-    function getMessages() {
+    function getMessages(id) {
         Api.messages().then(response => {
             if (response.status === 200) {
+                const found = response.data.list.find(element => element.sender.id === id);
+                if(found){
+                    setHasMessage(true);
+                }
                 setMessage({sentMessages: response.data.list});
             }
         });
@@ -41,8 +45,8 @@ function SendMessage() {
 
     useEffect(() => {
         getUser();
-        getMessages();
-  }, []);
+        getMessages(user.id);
+  }, [user.id]);
 
   const setMessageClicked = (n, m, t, c) =>{
     setClick({
@@ -61,20 +65,21 @@ function SendMessage() {
           <MessageNav/>
           <div className='receiver-messages'>
               <h1>Wysłane</h1>
-              <ul className="rec-messages-list">
-                {
-                  message.sentMessages.map(sentMessage =>{
-                  if(sentMessage.sender.id===user.id){
-                      //setHasMessage(true);
-                      return<li key={sentMessage.id} onClick={()=>setMessageClicked(sentMessage.receiver.name, sentMessage.receiver.surname, sentMessage.title, sentMessage.contents)}>
-                          <h4>{sentMessage.receiver.name} {sentMessage.receiver.surname}</h4>
-                          <p>{sentMessage.title}</p>
-                      </li>
-                  }})
-                }
-              </ul>
               {
-                  hasMessage===false ? <h4>Brak wysłanych wiadomości</h4> : null
+                  hasMessage===true ?
+                      <ul className="rec-messages-list">
+                          {
+                              message.sentMessages.map(sentMessage =>{
+                                  if(sentMessage.sender.id===user.id){
+                                      return<li key={sentMessage.id} onClick={()=>setMessageClicked(sentMessage.receiver.name, sentMessage.receiver.surname, sentMessage.title, sentMessage.contents)}>
+                                          <h4>{sentMessage.receiver.name} {sentMessage.receiver.surname}</h4>
+                                          <p>{sentMessage.title}</p>
+                                      </li>
+                                  }})
+                          }
+                      </ul>
+                      :
+                      <h4>Brak wysłanych wiadomości</h4>
               }
           </div>
           <div className='receiver-message'>

@@ -92,7 +92,7 @@ function NewMessage() {
                     placeholder="Temat"
                     {...register("topic")}
                 />
-                <input 
+                <textarea
                     className="message-input" 
                     placeholder="Wiadomość"
                     name="contents"

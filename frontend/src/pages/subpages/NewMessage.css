@@ -12,7 +12,6 @@
     border-top: 0.4em;
     border-left: none;
     border-right: none;
-
 }
 
 .message-input{
@@ -26,6 +25,7 @@
     border: none;
     height: 4vh;
     margin: 1em;
+    border-radius:2em;
 }
 
 
