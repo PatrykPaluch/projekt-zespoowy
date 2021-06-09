@@ -61,7 +61,7 @@ function Subjects() {
                             <h3>{subject.subject.name}</h3>
                         </div>
                         <div className="Data-item">
-                            <h4>Klasy</h4> 
+                            <h4>Nauczyciel</h4> 
                             <h3>{subject.teacher.name} {subject.teacher.surname}</h3>
                         </div>
                     </div>

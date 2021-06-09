@@ -55,8 +55,10 @@ const RegisterForm = () => {
             }
 
 
+            if (response.status === 200) {
+                window.location.href = '/login';
+            }
         }).catch(Api.printErrResponse);
-
 
     };
 
@@ -139,7 +141,7 @@ const RegisterForm = () => {
                         (user.role === 1) ?
                             <>
                                 <text>Klasa</text>
-                                <select
+                                <select className="class"
                                     {...register("class")}>
                                     {
                                         classes.map((c) => {

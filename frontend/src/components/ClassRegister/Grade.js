@@ -8,11 +8,11 @@ const Grade = (props) => {
         e.preventDefault();
         if (props.grade.length === 5) {
             swal({
-                text: `ocena wystawiona: ${props.grade[1]}\n nauczyciel wystawiający: ${props.grade[2]}\nprzedmiot: ${props.grade[4]}\nza co: ${props.grade[3]}\nocena: ${props.grade[0]}`
+                text: `ocena wystawiona: ${props.date}\n nauczyciel wystawiający: ${props.teacher}\nprzedmiot: ${props.subject}\nza co: ${props.description}\nocena: ${props.grade}`
             });
         } else {
             swal({
-                text: `ocena wystawiona: ${props.grade[1]}\n nauczyciel wystawiający: ${props.grade[2]}\nprzedmiot: ${props.subject}\nza co: ${props.grade[3]}\nocena: ${props.grade[0]}`
+                text: `ocena wystawiona: ${props.date}\n nauczyciel wystawiający: ${props.teacher}\nprzedmiot: ${props.subject}\nza co: ${props.description}\nocena: ${props.grade}`
             });
         }
 

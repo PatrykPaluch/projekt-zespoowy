@@ -25,9 +25,13 @@ function ReceiverMessage() {
         })
     }
 
-    function getMessages() {
+    function getMessages(id) {
         Api.messages().then(response => {
             if (response.status === 200) {
+                const found = response.data.list.find(element => element.receiver.id === id);
+                if(found){
+                    setHasMessage(true);
+                }
                 setMessage({receivedMessages: response.data.list});
             }
         });
@@ -42,8 +46,8 @@ function ReceiverMessage() {
 
     useEffect(() => {
         getUser();
-        getMessages();
-    }, []);
+        getMessages(user.id);
+    }, [user.id]);
 
   const setMessageClicked = (n, m, t, c) =>{
     setClick({
@@ -62,20 +66,21 @@ function ReceiverMessage() {
           <MessageNav/>
           <div className='receiver-messages'>
               <h1>Odebrane</h1>
-              <ul className="rec-messages-list">
               {
-                  message.receivedMessages.map(receivedMessage =>{
-                  if(receivedMessage.receiver.id===user.id){
-                      //setHasMessage(true);
-                      return <li key={receivedMessage.id} onClick={()=>setMessageClicked(receivedMessage.sender.name,receivedMessage.sender.surname, receivedMessage.title, receivedMessage.contents)}>
-                          <h4>{receivedMessage.sender.name} {receivedMessage.sender.surname}</h4>
-                          <p>{receivedMessage.title}</p>
-                      </li>
-                  }})
-                }
-              </ul>
-              {
-                  hasMessage===false ? <h4>Brak odebranych wiadomości</h4> : null
+                  hasMessage===true ?
+                      <ul className="rec-messages-list">
+                          {
+                              message.receivedMessages.map(receivedMessage =>{
+                                  if(receivedMessage.receiver.id===user.id){
+                                      return <li key={receivedMessage.id} onClick={()=>setMessageClicked(receivedMessage.sender.name,receivedMessage.sender.surname, receivedMessage.title, receivedMessage.contents)}>
+                                          <h4>{receivedMessage.sender.name} {receivedMessage.sender.surname}</h4>
+                                          <p>{receivedMessage.title}</p>
+                                      </li>
+                                  }})
+                          }
+                      </ul>
+                      :
+                      <h4>Brak odebranych wiadomości</h4>
               }
           </div>
           <div className='receiver-message'>

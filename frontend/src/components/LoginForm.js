@@ -34,6 +34,10 @@ function LoginForm() {
                         })
                 }
                 console.log(response)
+
+                if (response.status === 200) {
+                    window.location.href = '/';
+                }
             })
             .catch(function (response) {
                 console.log(response)
