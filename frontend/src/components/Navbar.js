@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import './Navbar.css';
 import {ImCross, ImMenu} from 'react-icons/im';
@@ -10,6 +10,18 @@ function Navbar() {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+    const [user,setUser] = useState({
+        id: '',
+        role: '',
+        name: '',
+        surname: '',
+        pesel:  '',
+        address: '',
+        dateOfBirth: '',
+        phoneNumber: '',
+        photo: '',
+        class: ''
+    });
 
     const logout = () => {
         console.log('wyloguj');
@@ -20,6 +32,27 @@ function Navbar() {
             }
         })
     }
+    function getUser () {
+        Api.me().then(response => {
+            if(response.status === 200){
+                setUser({
+                    id: response.data.id,
+                    role: response.data.role.id,
+                    name:response.data.name,
+                    surname:response.data.surname,
+                    pesel:  response.data.pesel,
+                    address: response.data.address,
+                    dateOfBirth: response.data.birthDate,
+                    phoneNumber: response.data.phone
+                })
+            }
+        })
+        
+    }
+
+    useEffect(() =>{
+        getUser();
+    },[])
 
     return (
         <>
@@ -42,7 +75,13 @@ function Navbar() {
                             <Link to="/Messages" onClick={closeMobileMenu} className='nav-links'>Wiadomości</Link>
                         </li>
                         <li className='nav-item'>
+                            {
+                            user?.role===2 ?
+                            <Link to="/gradesteacher" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
+                            :
                             <Link to="/gradesstudent" onClick={closeMobileMenu} className='nav-links'>Dziennik</Link>
+                            }
+                            
                         </li>
                         <li className='nav-item'>
                             <Link to="/profile" onClick={closeMobileMenu} className='nav-links'>Profil</Link>
