@@ -55,8 +55,10 @@ const RegisterForm = () => {
             }
 
 
+            if (response.status === 200) {
+                window.location.href = '/login';
+            }
         }).catch(Api.printErrResponse);
-
 
     };
 
