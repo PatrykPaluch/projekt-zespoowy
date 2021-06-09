@@ -118,6 +118,10 @@ export class Api {
         return this.get('/api/teachers/'+id+'/timetable');
     }
 
+    static getGradesForStudent(id){
+        return this.get('/api/students/'+id+'/grades');
+    }
+
 
     static getClasses(){
         return this.get('/api/classes');
