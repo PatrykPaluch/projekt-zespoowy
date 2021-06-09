@@ -12,6 +12,9 @@ const Callendar = (props) => {
     const [timetable1,setTimetable] = useState({
         timetable:[]
     });
+    const [children,setChildren] = useState({
+            kids: []
+        });
 
     const [user,setUser] = useState({
         id: '',
@@ -61,6 +64,20 @@ const Callendar = (props) => {
     }
 
 
+    
+        function getChildren() {
+            Api.children().then(response => {
+                if(response.status === 200){
+                    setChildren({kids:response.data.list});
+                    setClass({
+                        className: response.data.list[0].class.name,
+                        classId: response.data.list[0].class.id
+                    })
+                }
+            })
+        }
+
+
 
     function getTimetable (id) {
         Api.getTimetableForClass(id).then(res => {
@@ -75,24 +92,20 @@ const Callendar = (props) => {
     useEffect(() =>{
 
         getUser();
-        if(user.role===1){
-            getStudent (user.id);
-            getTimetable(3);
-
+        switch(user.role){
+            case 1:
+                getStudent (user.id);
+                getTimetable(classs.classId);
+                break;
+            case 2:
+                getChildren (user.id);
+                getTimetable(classs.classId);
+                break;
+            default:
+                console.log(`Wrong role id ${user.role}`)
         }
-    }, [user.role,user.id]);
 
-    // useEffect(()=>{
-    //     // if(props.role === 1){
-    //         Api.getTimetableForClass(props.class).then(res => {
-    //             if(res.status === 200){
-    //                 console.log(res.data.list);
-    //                 setTimetable({...timetable1,timetable:res.data.list})
-    //             }
-
-    //         })
-    //     // }
-    // },[])
+    }, [user.role,user.id,classs.classId]);
 
     let colorPool=[];
 
@@ -117,7 +130,6 @@ let getColorForSubject=(subject)=>{
     return (
     <div className='callendar'>
             <HeaderDays/>
-            {/* <h1>{classs?.className}</h1> */}
 
             <div className='callendar-inner'>
                 <Hours/>
@@ -129,9 +141,9 @@ let getColorForSubject=(subject)=>{
                         subject={card.teacherSubject.subject.name}
                         time={card.time}
                         teacher={card.teacherSubject.teacher.name+" "+card.teacherSubject.teacher.surname}
-                        class={classs?.name}
+                        class={classs?.className}
                         color= {getColorForSubject(card.teacherSubject.subject.name)}
-                        // role={props.role.id}
+
                         />
                 )}
             </div> 
