@@ -81,10 +81,10 @@ text {
     color: #85E18B;
 }
 
-select.subjects{
+select.subjects, select.class{
     height: 8em;
+    width:auto;
 }
-
 @media only screen and (max-width: 1200px){
     .Register-button{
         width: inherit;
@@ -94,4 +94,6 @@ select.subjects{
     form.Register-form {
         width: 70vw;
     }
+
+
 }

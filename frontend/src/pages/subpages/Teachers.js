@@ -3,6 +3,7 @@ import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
 import {Api} from "../../apiHandler/apiHandler";
+import Teacher from "./Teacher";
 
 function Teachers() {
     const [user,setUser] = useState({
@@ -29,7 +30,19 @@ function Teachers() {
             if (response.status === 200) {
                 setTeacher({teachers: response.data.teachers});
             }
+            console.log(teacher.teachers);
         });
+    }
+
+    function getTeacherSubject(id) {
+        let teacherSubject;
+        Api.getTeacherSubject(id.key).then(response => {
+            if (response.status === 200) {
+                teacherSubject = response.data.teacherSubjects[0].subject.name;
+                console.log(teacherSubject);
+            }
+        });
+        return(<h3>dupa{teacherSubject}</h3>);
     }
 
     useEffect(() =>{
@@ -45,23 +58,12 @@ function Teachers() {
         <Navbar/>
         <ProfileNav/>
         <div className="Teachers">
-        {teacher.teachers.map(teacher=> (
-            <div className="User-data">
-                <div className="Data">
-                    <div className="Data-item">
-                        <h4>Przedmiot</h4> 
-                        <h3>{teacher.subject}</h3>
-                    </div>
-                    <div className="Data-item">
-                        <h4>Imię</h4> 
-                        <h3>{teacher.name} </h3>
-                    </div>
-                    <div className="Data-item">
-                        <h4>Nazwisko</h4> 
-                        <h3>{teacher.surname} </h3>
-                    </div>
-                </div>
-            </div>
+        {teacher.teachers.map((teacher)=> (
+            <Teacher
+                id={teacher.id}
+                name={teacher.name}
+                surname={teacher.surname}
+            />
         ))}
         </div>
        </>

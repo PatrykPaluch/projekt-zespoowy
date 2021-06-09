@@ -3,6 +3,7 @@ import ProfileNav from '../../components/ProfileNav';
 import Navbar from "../../components/Navbar";
 import './Profile.css';
 import { Api } from '../../apiHandler/apiHandler';
+import Child from "./Child";
 
 function Children() {
     const [children,setChildren] = useState({
@@ -17,16 +18,6 @@ function Children() {
         })
     }
 
-    function getStudent (id) {
-        let childClass;
-        Api.getStudent(id.key).then(response => {
-            if(response.status === 200){
-                childClass = response.data.studentClass.name
-            }
-        });
-        return(<h3>dupa{childClass}</h3>);
-    }
-
     useEffect(() =>{
         getChildren();
     }, []);
@@ -36,31 +27,14 @@ function Children() {
         <Navbar/>
         <ProfileNav/>
         <div className="Children">
-            {children.kids.map(child=>(
-                <div className="User-data">
-                    <div className="Data">
-                        <div className="Data-item">
-                            <h4>Imię</h4> 
-                            <h3>{child.name} </h3>
-                        </div>
-                        <div className="Data-item">
-                            <h4>Nazwisko</h4> 
-                            <h3>{child.surname}</h3>
-                        </div>
-                        <div className="Data-item">
-                            <h4>Pesel</h4> 
-                            <h3>{child.pesel}</h3>
-                        </div>
-                        <div className="Data-item">
-                            <h4>Data urodzenia</h4> 
-                            <h3>{child.birthDate}</h3>
-                        </div>
-                        <div className="Data-item">
-                            <h4>Klasa</h4>
-                            {(getStudent({key:child.id}))}
-                        </div>
-                    </div>
-                </div>
+            {children.kids.map((child)=>(
+                <Child
+                    id={child.id}
+                    name={child.name}
+                    surname={child.surname}
+                    pesel={child.pesel}
+                    birthDate={child.birthDate}
+                />
             ))}
         </div>
        </>
