@@ -14,7 +14,11 @@ function Navbar() {
     const logout = () => {
         console.log('wyloguj');
         localStorage.removeItem('user');
-        Api.logout()
+        Api.logout().then(r => {
+            if (r.status === 200) {
+                window.location.href = '/login';
+            }
+        })
     }
 
     return (
