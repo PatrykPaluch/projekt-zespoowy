@@ -44,7 +44,7 @@ const CardCallendar = (props) => {
             gridColumnStart:columnCheck(props.dayOfWeek), backgroundColor: props.color, gridRowStart: calcHour(props.time), gridRowEnd: calcHour(props.time)+3}}>
             <h5>{props.subject}</h5>
             <h6>{props.time} - {props.time.split(':')[0]}:45</h6>
-            {props.role == 1 ? <h6>{props.teacher}</h6> : <h6>{props.class}</h6>}
+            {props.role === 1 || props.role ===3 ? <h6>{props.teacher}</h6> : <h6>{props.class}</h6>}
             
         </div>
     )

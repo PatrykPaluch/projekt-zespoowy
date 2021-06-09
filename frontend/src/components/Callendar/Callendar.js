@@ -12,9 +12,7 @@ const Callendar = (props) => {
     const [timetable1,setTimetable] = useState({
         timetable:[]
     });
-    const [children,setChildren] = useState({
-            kids: []
-        });
+    const [child,setChild] = useState({});
 
     const [user,setUser] = useState({
         id: '',
@@ -65,14 +63,11 @@ const Callendar = (props) => {
 
 
     
-        function getChildren() {
+        function getChild() {
             Api.children().then(response => {
                 if(response.status === 200){
-                    setChildren({kids:response.data.list});
-                    setClass({
-                        className: response.data.list[0].class.name,
-                        classId: response.data.list[0].class.id
-                    })
+                    setChild(response.data.list[0]);
+                    console.log(response.data.list[0].id)
                 }
             })
         }
@@ -89,23 +84,40 @@ const Callendar = (props) => {
         })
     }
 
-    useEffect(() =>{
+    function getTimetableTeacher (id) {
+        Api.getTimetableForTeacher(id).then(res => {
+            if(res.status === 200){
+                console.log(res.data.list);
+                setTimetable({...timetable1,timetable:res.data.list})
+            }
 
+        })
+    }
+
+
+    useEffect(() =>{
+        console.log(user.role);
         getUser();
         switch(user.role){
+            
             case 1:
                 getStudent (user.id);
                 getTimetable(classs.classId);
                 break;
             case 2:
-                getChildren (user.id);
+                getTimetableTeacher(user.id);
+                break;
+            case 3:
+                console.log(child.id)
+                getChild (user.id);
+                getStudent (child.id);
                 getTimetable(classs.classId);
                 break;
             default:
                 console.log(`Wrong role id ${user.role}`)
         }
 
-    }, [user.role,user.id,classs.classId]);
+    }, [user?.role,user?.id,child?.id,classs?.classId]);
 
     let colorPool=[];
 
@@ -129,6 +141,8 @@ let getColorForSubject=(subject)=>{
 
     return (
     <div className='callendar'>
+    <h4> {child.name !== undefined && "Plan zajęć dla:" +child.name+" "+child.surname }</h4>
+       
             <HeaderDays/>
 
             <div className='callendar-inner'>
@@ -141,9 +155,9 @@ let getColorForSubject=(subject)=>{
                         subject={card.teacherSubject.subject.name}
                         time={card.time}
                         teacher={card.teacherSubject.teacher.name+" "+card.teacherSubject.teacher.surname}
-                        class={classs?.className}
+                        class={card.classes.name}
                         color= {getColorForSubject(card.teacherSubject.subject.name)}
-
+                        role={user?.role}
                         />
                 )}
             </div> 

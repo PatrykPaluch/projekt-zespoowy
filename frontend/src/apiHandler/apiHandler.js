@@ -114,6 +114,9 @@ export class Api {
     static getTimetableForClass(id){
         return this.get('/api/classes/'+id+'/timetable');
     }
+    static getTimetableForTeacher(id){
+        return this.get('/api/teachers/'+id+'/timetable');
+    }
 
 
     static getClasses(){
