@@ -73,13 +73,14 @@ const Callendar = (props) => {
     }
 
     useEffect(() =>{
-        // getUser();
-        // if(user.role===1){
-            // getStudent (user.id);
+
+        getUser();
+        if(user.role===1){
+            getStudent (user.id);
             getTimetable(3);
 
-        // }
-    }, []);
+        }
+    }, [user.role,user.id]);
 
     // useEffect(()=>{
     //     // if(props.role === 1){
@@ -117,7 +118,7 @@ let getColorForSubject=(subject)=>{
     <div className='callendar'>
             <HeaderDays/>
             {/* <h1>{classs?.className}</h1> */}
-            <h1>{timetable1?.timetable[0]}</h1>
+
             <div className='callendar-inner'>
                 <Hours/>
                 {colorForSubject(timetable1?.timetable)}
@@ -128,7 +129,7 @@ let getColorForSubject=(subject)=>{
                         subject={card.teacherSubject.subject.name}
                         time={card.time}
                         teacher={card.teacherSubject.teacher.name+" "+card.teacherSubject.teacher.surname}
-                        class={"pierwsza"}
+                        class={classs?.name}
                         color= {getColorForSubject(card.teacherSubject.subject.name)}
                         // role={props.role.id}
                         />
