@@ -5,10 +5,8 @@ import "./Grades.css";
 import {Api} from "../apiHandler/apiHandler";
 
 const ClassRegisterStudent = () => {
-
-    const oceny = [["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Polski", [[1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]], ["Chemia", [[3, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [2, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian'], [1, '1:12:2020', 'Mariusz Walczyk', 'sprawdzian']]]];
-    
-    const [timetable1,setTimetable] = useState({
+   
+const [timetable1,setTimetable] = useState({
         timetable:[]
     });
 
@@ -116,9 +114,7 @@ const ClassRegisterStudent = () => {
 
                     <div className="grades">
                         {studentGrades?.grades.map((e,i) => {
-                            console.log("Entered");
-                            // Return the element. Also pass key
-                            // console.log(e.grades);
+
                             return (<GradesRow 
                                 subject={e.subject.name} 
                                 grades={e?.grades} 
